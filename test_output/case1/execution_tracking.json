@@ -1,0 +1,103 @@
+{
+  "workflow_id": "20250819_070937",
+  "start_time": "2025-08-19T07:09:37.600698",
+  "end_time": "2025-08-19T07:15:24.616936",
+  "total_duration_seconds": 347.016238,
+  "total_input_tokens": 35710,
+  "total_output_tokens": 42379,
+  "total_tokens": 78089,
+  "total_cost_usd": 0.0,
+  "agent_executions": [
+    {
+      "agent_name": "extract",
+      "start_time": "2025-08-19T07:09:37.913608",
+      "end_time": "2025-08-19T07:09:52.343986",
+      "duration_seconds": 14.43038010597229,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "token_cost_usd": 0.0,
+      "success": true,
+      "error_message": null,
+      "additional_info": null
+    },
+    {
+      "agent_name": "extract_sections",
+      "start_time": "2025-08-19T07:09:52.363652",
+      "end_time": "2025-08-19T07:09:52.591661",
+      "duration_seconds": 0.22800803184509277,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "token_cost_usd": 0.0,
+      "success": true,
+      "error_message": null,
+      "additional_info": null
+    },
+    {
+      "agent_name": "summarize_sections",
+      "start_time": "2025-08-19T07:09:52.592866",
+      "end_time": "2025-08-19T07:13:17.203937",
+      "duration_seconds": 204.61106896400452,
+      "input_tokens": 23243,
+      "output_tokens": 40653,
+      "total_tokens": 63896,
+      "token_cost_usd": 0.0,
+      "success": true,
+      "error_message": null,
+      "additional_info": null
+    },
+    {
+      "agent_name": "create_final_summary",
+      "start_time": "2025-08-19T07:13:17.219606",
+      "end_time": "2025-08-19T07:14:10.046675",
+      "duration_seconds": 52.827062129974365,
+      "input_tokens": 12467,
+      "output_tokens": 1726,
+      "total_tokens": 14193,
+      "token_cost_usd": 0.0,
+      "success": true,
+      "error_message": null,
+      "additional_info": null
+    },
+    {
+      "agent_name": "domain_agent",
+      "start_time": "2025-08-19T07:14:10.065173",
+      "end_time": "2025-08-19T07:14:16.293573",
+      "duration_seconds": 6.228400230407715,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "token_cost_usd": 0.0,
+      "success": true,
+      "error_message": null,
+      "additional_info": null
+    },
+    {
+      "agent_name": "analysis_planner",
+      "start_time": "2025-08-19T07:14:16.298688",
+      "end_time": "2025-08-19T07:14:19.824004",
+      "duration_seconds": 3.5253171920776367,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "token_cost_usd": 0.0,
+      "success": true,
+      "error_message": null,
+      "additional_info": null
+    },
+    {
+      "agent_name": "write_agent",
+      "start_time": "2025-08-19T07:14:19.833717",
+      "end_time": "2025-08-19T07:15:24.612273",
+      "duration_seconds": 64.77855610847473,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "token_cost_usd": 0.0,
+      "success": true,
+      "error_message": null,
+      "additional_info": null
+    }
+  ]
+}

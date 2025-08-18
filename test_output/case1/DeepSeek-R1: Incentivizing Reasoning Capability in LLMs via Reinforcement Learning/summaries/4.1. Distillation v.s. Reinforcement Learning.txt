@@ -1,0 +1,27 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 4.1.. Distillation v.s. Reinforcement Learning
+==================================================
+
+Summary of Section 4.1: Distillation vs. Reinforcement Learning
+
+- Purpose and question: Building on Section 3.2’s finding that distillation can transfer DeepSeek-R1’s reasoning into smaller models, Section 4.1 asks whether a large-scale RL training regime, operating without distillation, can reach comparable performance.
+
+- Experimental setup: The authors perform large-scale RL on Qwen-32B-Base using math, code, and STEM data, training for over 10K steps to produce DeepSeek-R1-Zero-Qwen-32B. Results are contrasted with distilled variants (notably DeepSeek-R1-Distill-Qwen-32B) and a reference large model (QwQ-32B-Preview) in Table 6.
+
+- Key findings:
+  - The RL-trained DeepSeek-R1-Zero-Qwen-32B achieves performance on par with QwQ-32B-Preview, indicating that RL alone can close the gap to a strong baseline at that scale.
+  - In contrast, the distilled model DeepSeek-R1-Distill-Qwen-32B substantially outperforms DeepSeek-R1-Zero-Qwen-32B across all benchmarking tasks, highlighting the advantage of distillation from a capable base.
+
+- Conclusions:
+  - Distilling more powerful base models into smaller ones yields excellent results and often surpasses what a purely RL-trained smaller model can achieve.
+  - However, relying on large-scale RL for small models demands enormous computational resources and may still fall short of distillation’s performance, given the current setup.
+
+- Implications and broader context:
+  - The findings reinforce the paper’s central theme: RL incentives can improve reasoning and generalize across model scales, and distillation provides an economical, effective path to deploy reasoning-enabled models at smaller sizes.
+  - While distillation remains the more practical route, advancing beyond current limits may ultimately require both more powerful base models and larger-scale RL, suggesting a promising direction of future work that combines distillation with RL fine-tuning.
+
+- Continuity with prior sections:
+  - This section directly responds to the distillation-focused results of Section 3.2, illustrating how RL-only approaches compare and reinforcing the narrative that distillation is a scalable mechanism for preserving and propagating reasoning across model sizes, with RL offering complementary gains when computationally feasible.
+
+==================================================
+생성 시간: 2025-08-19 07:12:56

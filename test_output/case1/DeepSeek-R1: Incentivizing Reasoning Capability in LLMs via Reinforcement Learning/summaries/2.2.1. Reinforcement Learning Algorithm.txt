@@ -1,0 +1,20 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.2.1.. Reinforcement Learning Algorithm
+==================================================
+
+Summary of Section 2.2.1: Reinforcement Learning Algorithm (GRPO)
+
+- Core idea: Introduce Group Relative Policy Optimization (GRPO) as a cost-efficient RL algorithm to train the base model's reasoning capabilities without a separate critic. GRPO estimates the baseline from group scores rather than a large critic network, aligning training with efficient, scalable policy optimization.
+
+- How GRPO works: For each question, GRPO samples a group of candidate outputs from the old policy. It then updates the policy model to maximize an objective that combines two hyperparameters with the advantage signal computed from the rewards of outputs within that group. Specifically, the improvement is driven by the relative performance of outputs in the group, using the old policy as a reference.
+
+- Baseline and stability: The baseline is derived from group scores rather than a learned critic, which reduces training cost and can stabilize learning by leveraging the distribution of outputs within each group.
+
+- Relationship to the paper’s broader theme: This section operationalizes the zero-shot reinforcement learning premise from the preceding section (DeepSeek-R1-Zero) by providing a concrete, scalable RL algorithm designed to incentivize reasoning without supervised data or fine-tuning. It demonstrates how reasoning quality can be guided purely through RL signals.
+
+- How it connects to the paper’s two-stage narrative: GRPO serves as the practical RL mechanism in the first stage (pure RL on the base model) and lays the groundwork for subsequent stages that introduce CoT seeds and distillation. It aligns with the paper’s aim to show open-source, transfer-friendly progress by enabling effective RL-driven reasoning without heavy SFT or external supervision.
+
+- Takeaway: Section 2.2.1 presents GRPO as the main methodological contribution for cost-effective, zero-shot RL training of reasoning capabilities, detailing how group-based baselines and advantages drive policy updates to improve reasoning performance in the base model.
+
+==================================================
+생성 시간: 2025-08-19 07:10:47

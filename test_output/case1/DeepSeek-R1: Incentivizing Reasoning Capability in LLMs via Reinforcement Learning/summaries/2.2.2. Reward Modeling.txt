@@ -1,0 +1,28 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.2.2.. Reward Modeling
+==================================================
+
+Summary of Section 2.2.2: Reward Modeling
+
+- Core idea: The reward signals drive the RL optimization direction for training DeepSeek-R1-Zero. This section specifies a rule-based reward system used to guide learning in a zero-shot setting.
+
+- Two main reward types:
+  - Accuracy rewards: Assess whether the model’s response is correct. For math with deterministic results, the answer must be provided in a predefined format (e.g., boxed) to enable reliable, rule-based verification. For LeetCode-style problems, a compiler or predefined test cases provide feedback on correctness.
+  - Format rewards: Enforce that the model’s reasoning is explicitly present between <think> and </think> tags, promoting a structured account of thought processes.
+
+- Rationale for rule-based over neural rewards:
+  - Avoids reward hacking that can occur with neural reward models in large-scale RL.
+  - Eliminates additional training resource demands and reduces pipeline complexity, making the training process more scalable and efficient.
+
+- Relationship to the paper’s broader aims:
+  - Aligns with the zero-shot RL premise established in DeepSeek-R1-Zero by providing a concrete, scalable reward signal without supervised data or fine-tuning.
+  - Supports the paper’s two-stage narrative: reward signals fuel the initial RL-based improvement of reasoning (Stage 1) via GRPO, setting the stage for subsequent stages that introduce CoT seeds and distillation.
+
+- Practical impact on learning:
+  - Encourages correct, verifiable answers and explicit reasoning structure, which helps ensure the base model learns to reason in a traceable, rule-conformant manner.
+  - Keeps the training pipeline lean and less prone to data or model-specific reward vulnerabilities.
+
+Overall, Section 2.2.2 establishes a pragmatic, rule-based reward framework that provides reliable, scalable signals to reinforce reasoning capabilities in the base model, complementing the GRPO-driven RL outlined in the preceding section and supporting the paper’s emphasis on zero-shot, open, and transfer-friendly progression.
+
+==================================================
+생성 시간: 2025-08-19 07:10:53

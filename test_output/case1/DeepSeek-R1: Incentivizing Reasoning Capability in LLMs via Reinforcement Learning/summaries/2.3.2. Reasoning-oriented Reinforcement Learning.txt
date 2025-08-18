@@ -1,0 +1,21 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.3.2.. Reasoning-oriented Reinforcement Learning
+==================================================
+
+Building on the cold-start fine-tuning of DeepSeek-V3-Base (Section 2.3.1), this section extends the training with the same large-scale reinforcement learning (RL) process used in DeepSeek-R1-Zero to further enhance reasoning capabilities, particularly for tasks with well-defined solutions (coding, mathematics, science, logic).
+
+Key points and methodology:
+- Objective: further improve reasoning performance through RL while maintaining alignment with human preferences for readability.
+- Language-mixing issue: CoT outputs often mix languages when RL prompts span multiple languages.
+- Language consistency reward: introduced to mitigate mixing, defined as the proportion of target-language words in the CoT.
+- Ablation findings: enforcing language alignment yields a slight degradation in pure performance but improves readability and aligns with human preferences.
+- Reward design: final reward = (reasoning task accuracy) + (language consistency reward), and RL training proceeds until convergence on reasoning tasks.
+- Training outcome: the model converges on reasoning tasks under this dual-objective RL setup.
+
+Connection to the overall theme:
+- This phase directly advances the paper’s aim of incentivizing robust reasoning in LLMs while preserving interpretability and readability, addressing a key limitation (language mixing) observed in prior zero-shot variants.
+- It builds on the cold-start data strategy from 2.3.1 by using a refined RL objective that blends reasoning accuracy with language consistency, thereby maintaining a balance between performance and human-preferred readability.
+- By integrating both reasoning quality and readability into the final reward, this section tightens the four-stage training pipeline’s emphasis on scalable, coherent, and usable reasoning, and it sets the stage for subsequent stages that leverage these seeds for broader applicability.
+
+==================================================
+생성 시간: 2025-08-19 07:11:34

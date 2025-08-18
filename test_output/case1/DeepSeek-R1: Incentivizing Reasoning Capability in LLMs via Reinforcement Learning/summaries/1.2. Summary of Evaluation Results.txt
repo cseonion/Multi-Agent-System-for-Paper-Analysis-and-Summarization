@@ -1,0 +1,36 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 1.2.. Summary of Evaluation Results
+==================================================
+
+Section 1.2 presents the comprehensive evaluation results, providing empirical support for the paper’s central claim that a pure-RL pathway can incentivize robust reasoning and broad capabilities, which can later be stabilized, expanded with SFT, and distilled into smaller models. The results align with and extend the narrative from the introduction about the effectiveness of the two-stage RL + two-stage SFT pipeline, and they benchmark DeepSeek-R1 against both open and closed models across diverse tasks.
+
+- Reasoning tasks
+  - AIME 2024: DeepSeek-R1 achieves Pass@1 of 79.8%, slightly surpassing OpenAI-o1-1217.
+  - MATH-500: 97.3%, on par with OpenAI-o1-1217 and substantially outperforming other models.
+
+- Coding-related tasks
+  - Codeforces: DeepSeek-R1 attains an Elo of 2,029, reflecting expert-level performance and beating 96.3% of human competitors.
+  - Engineering tasks: performance is marginally better than DeepSeek-V3, indicating practical advantages for real-world developer tasks.
+
+- Knowledge benchmarks
+  - MMLU: 90.8%
+  - MMLU-Pro: 84.0%
+  - GPQA Diamond: 71.5%
+  - Relative to OpenAI-o1-1217: DeepSeek-R1 remains competitive but is slightly below the o1-level on these benchmarks, while still outperforming other closed-source models, underscoring a strong educational-task edge.
+  - SimpleQA: DeepSeek-R1 outperforms DeepSeek-V3, while OpenAI-o1 tends to lead on this factual benchmark.
+
+- Other tasks and capabilities
+  - Broad task coverage: strong performance in creative writing, general QA, editing, summarization, and related areas.
+  - Non-exam-oriented queries: length-controlled win-rate of 87.6% on AlpacaEval 2.0 and 92.3% on Are-naHard, highlighting adeptness at handling long prompts and nuanced instructions.
+  - Long-context understanding: substantial improvements over DeepSeek-V3, demonstrating robust handling of extended context.
+
+- Overall interpretation
+  - The results demonstrate state-of-the-art or competitive performance for open-source dense models across reasoning, knowledge, coding, and general tasks, with several metrics approaching or matching top open/closed models.
+  - They corroborate the paper’s core thesis: pure-RL discovery of reasoning patterns, when coupled with staged SFT and distillation, yields transferable improvements and broad applicability.
+
+- Connection to the paper’s broader narrative
+  - These evaluation outcomes reinforce the introduction’s claims about the efficacy of the two-RL, two-SFT pipeline and the feasibility of distilling enhanced reasoning patterns into smaller models.
+  - The findings support the paper’s emphasis on open-source progress and practical deployment potential, while maintaining alignment with the demonstrated readability and long-context strengths established earlier.
+
+==================================================
+생성 시간: 2025-08-19 07:10:17

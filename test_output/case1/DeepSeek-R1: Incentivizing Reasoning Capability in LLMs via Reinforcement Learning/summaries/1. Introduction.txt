@@ -1,0 +1,45 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 1.. Introduction
+==================================================
+
+Summary of the Introduction (section 1) of DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+
+- Research motivation and context:
+  - LLMs have been rapidly advancing toward AGI-like capabilities, with post-training and inference-time scaling (e.g., longer Chain-of-Thought) improving reasoning but leaving gaps compared to top-tier models (e.g., OpenAI o1 series).
+  - Prior approaches to boost reasoning at test-time include process-based rewards, RL, and search algorithms, but none have matched the best o1-level reasoning on general tasks.
+
+- Core objective and novelty:
+  - The paper pioneers a pure reinforcement learning (RL) pathway to enhance reasoning without any supervised data, using a large base model (DeepSeek-V3-Base) and the GRPO RL framework.
+  - Key claim: this work is the first open demonstration that LLM reasoning capabilities can be incentivized purely through RL, without SFT, enabling self-evolution of reasoning patterns.
+
+- Model iterations and pipeline overview:
+  - DeepSeek-R1-Zero: results from thousands of RL steps starting from DeepSeek-V3-Base; exhibits strong reasoning behaviors (e.g., long CoTs, self-verification, reflection) and achieves substantial performance gains (e.g., AIME 2024 pass@1 from 15.6% to 71.0%; majority voting to 86.7%, matching OpenAI o1-0912).
+  - Shortcomings of DeepSeek-R1-Zero (readability and language mixing) motivate the next stage: DeepSeek-R1.
+
+- DeepSeek-R1 and the two-stage RL + two-stage SFT pipeline:
+  - DeepSeek-R1 introduces a multi-stage training workflow to improve reasoning quality and readability:
+    - Stage 1: Collect thousands of cold-start data to fine-tune DeepSeek-V3-Base.
+    - Stage 2: Run reasoning-oriented RL (similar to R1-Zero) to near convergence.
+    - Stage 3: Generate new SFT data via rejection sampling on the RL checkpoint and fuse with supervised data from DeepSeek-V3 in domains like writing, factual QA, and self-cognition; retrain the base model.
+    - Stage 4: A final RL phase that incorporates prompts from multiple scenarios.
+  - The resulting checkpoint, DeepSeek-R1, achieves performance on par with OpenAI-o1-1217, illustrating that the multi-stage approach can realize strong reasoning while addressing earlier readability issues.
+
+- Distillation to smaller dense models:
+  - The authors distill DeepSeek-R1’s reasoning into smaller models, using Qwen2.5-32B as the base:
+    - Direct distillation from DeepSeek-R1 outperforms applying RL on the same small base model.
+    - Open-sourcing the distilled Qwen and Llama series; the distilled 14B model surpasses QwQ-32B-Preview, and the 32B and 70B distilled models set new benchmarks for dense open-source models.
+  - These results support the claim that larger-model reasoning patterns can be effectively transferred to smaller models, enabling broader accessibility and deployment.
+
+- Evaluation and benchmarks:
+  - The paper reports strong performance across standard reasoning benchmarks, including AIME 2024, MATH-500, and LiveCodeBench, demonstrating that DeepSeek-R1-derived models achieve state-of-the-art results among open-source dense models in several tasks.
+
+- Contributions and implications:
+  - Methodological contribution: a two-RL, two-SFT pipeline to discover and align improved reasoning patterns without supervised data, plus a distillation pathway to smaller models.
+  - Practical contribution: open-source release of DeepSeek-R1 and its distilled variants, along with an API, to accelerate research and practical distillation of reasoning capabilities.
+  - The broader claim: reasoning patterns discovered by larger base models can be distilled into smaller models to achieve superior reasoning performance, suggesting a scalable path for improving reasoning in the broader model ecosystem.
+
+- Connects to the paper’s overarching theme:
+  - The Introduction frames the study as a foundational step toward incentivizing reasoning in LLMs via RL, showing that pure-RL discovery can yield powerful reasoning behaviors, which can then be stabilized, expanded via SFT support, and finally distilled into smaller, more deployable models. This sets up the subsequent sections to detail the methodology, experimental results, ablations, and practical releases that substantiate these claims.
+
+==================================================
+생성 시간: 2025-08-19 07:10:04

@@ -1,0 +1,46 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 3.. Experiment
+==================================================
+
+Section 3 — Experiments
+
+Summary:
+This section presents the experimental evaluation of DeepSeek-R1 across a broad and diverse set of benchmarks and tasks to quantify the gains from reinforcement-learning–driven reasoning. Building on the distillation and RL-signal work described earlier, DeepSeek-R1 is tested not only on standard knowledge and problem-solving benchmarks but also on long-context reasoning and open-ended generation tasks judged by LLMs. The evaluation framework emphasizes robust, fair measurement of reasoning ability across model scales, data types, and task formats, and it also reports results for distilled, smaller-model variants on selected tasks.
+
+Key benchmarks and tasks:
+- Broad knowledge and reasoning suites: MMLU, MMLU-Redux, MMLU-Pro, C-Eval, CMMLU, IFEval, FRAMES, GPQA Diamond, SimpleQA, C-SimpleQA, SWE-Bench Verified, CNMO 2024, and AIME 2024. These cover a mix of multiple-choice, structured reasoning, and long-form QA.
+- Open-ended generation with human-like judgment: LLM-as-judge setups using AlpacaEval 2.0 and Arena-Hard configurations (GPT-4-Turbo-1106 as the judging model). Evaluation here focuses on final summaries to avoid length bias; pass@ metrics are used to quantify reliability over multiple samples.
+- Coding and math benchmarks: HumanEval-Mul across eight programming languages; LiveCodeBench (CoT style), Codeforces problems (10 Div.2 rounds with expert test cases); and GPQA Diamond for structured reasoning in math/computation tasks.
+- Safety and domain-specific considerations: Chinese SimpleQA performance is noted with and without safety RL, highlighting how content-safety constraints can affect willingness to answer certain queries.
+- Distilled small-model evaluations: For compact models, representative results are reported on AIME 2024, MATH-500, GPQA Diamond, Codeforces, and LiveCodeBench to illustrate how distilled reasoning signals transfer to smaller architectures.
+
+Evaluation prompts and protocol:
+- Prompts follow the DeepSeek-V3 setup for standard benchmarks (MMLU, DROP, GPQA Diamond, SimpleQA). For MMLU-Redux, a Zero-Eval prompt format is used in zero-shot. For MMLU-Pro, C-Eval, and CLUE-WSC, the few-shot prompts from the original prompts are adapted to zero-shot, since Chain-of-Thought (CoT) in few-shot can degrade performance for DeepSeek-R1.
+- Other datasets adhere to their creators’ recommended prompts. For code and math tasks, HumanEval-Mul covers eight languages; LiveCodeBench uses CoT. Codeforces uses problems from 10 Div.2 rounds with expert test cases.
+- Evaluation details: outputs are capped at 32,768 tokens. A wide pool of baselines is used (DeepSeek-V3, Claude-Sonnet-3.5-1022, GPT-4o-0513, OpenAI-o1-mini, OpenAI-o1-1217; OpenAI-o1-1217 performance is reported from official sources in mainland China constraints). Distilled models include QwQ-32B-Preview (Qwen, 2024) for comparison. Maximum generation length is fixed to ensure comparability.
+- Decoding strategy and reliability: Greedy decoding causes high repetition and considerable checkpoint variability on long-output reasoning tasks. Therefore, evaluation relies on pass@k style metrics with non-zero temperature sampling (temperature 0.6, top-p 0.95) to generate multiple responses per question (typically 4–64). Pass@1 is reported, and cons@64 (consensus majority vote over 64 samples) is also reported for AIME 2024.
+
+Main findings and their relation to the paper’s theme:
+- Strengthened education/STEM reasoning: DeepSeek-R1 shows superior performance on education-oriented benchmarks (MMLU, MMLU-Pro, GPQA Diamond) compared with DeepSeek-V3, driven primarily by improved accuracy on STEM questions. This reinforces the core thesis that reinforcement learning enhances structured reasoning capabilities in LLMs, especially in technical domains.
+- Long-context and document-analysis capability: DeepSeek-R1 excels on FRAMES, a long-context–dependent QA task, indicating improved document analysis and reasoning over extended contexts.
+- Fact-based and generic QA improvements: On SimpleQA, DeepSeek-R1 outperforms DeepSeek-V3, signaling better handling of fact-oriented queries; however, on Chinese SimpleQA it underperforms relative to DeepSeek-V3 due to safety RL causes (the model declines to answer certain queries). This highlights a trade-off between safety constraints and coverage/accuracy in domain-specific QA. Notably, removing safety RL could push accuracy above ~70% on these tasks.
+- Open-ended evaluation and robustness: Across the suite of open-ended tasks judged by LLMs, DeepSeek-R1 demonstrates more reliable reasoning signals when compared to baselines, aided by the new evaluation protocol that mitigates length bias and emphasizes robust pass@1 metrics.
+- Consensus and sampling considerations: For AIME 2024, consensus results (cons@64) are reported, underscoring the importance of aggregation over multiple samples for difficult math problems.
+- Distilled models as a baseline: For smaller architectures, distilled results show that SFT on a large DeepSeek-R1-derived corpus can endow smaller models with meaningful reasoning capabilities, supporting the paper’s broader claim that strong reasoning signals can be propagated across model scales without immediate RL. The results imply that distillation provides a practical pathway to extend reasoning capabilities to resource-constrained settings, setting a baseline for subsequent RL or mixed-signal enhancements.
+
+Connections to the paper’s broader theme and prior sections:
+- Section 2 already established that RL can incentivize reasoning and that a four-stage pipeline (including distillation) can seed smaller models. Section 3 extends this by empirically validating DeepSeek-R1’s RL-driven gains across a comprehensive, multi-domain benchmark suite, including long-context and open-ended tasks.
+- The evaluation design, including zero-shot prompts, reduced reliance on CoT, and careful sampling-based metrics, reinforces the paper’s emphasis on robust, scalable measurement of reasoning in LLMs.
+- The results strengthen the narrative that RL-based reasoning enhancements yield broad performance gains, particularly in STEM and long-context settings, while also clarifying trade-offs introduced by safety gating in certain languages or domains.
+
+Key contributions, methodology, and takeaways:
+- Methodology: Extensive, mixed-battery evaluation of DeepSeek-R1 using standardized prompts, zero-shot adaptations where appropriate, and a careful sampling-based decoding strategy to yield stable pass@1 and cons@64 metrics.
+- Model coverage and baselines: Evaluation against a wide spectrum of large and small models, including strong baselines and distilled variants, to position DeepSeek-R1 within the current ecosystem of reasoning-enabled models.
+- Performance improvements: Clear gains over DeepSeek-V3 on multiple knowledge and STEM benchmarks, plus enhanced FRAMES performance, demonstrating the practical impact of RL-driven reasoning.
+- Trade-offs: Safety RL can constrain Chinese-language responses, reducing some QA performance; removing safety constraints could unlock higher accuracy on such tasks, underscoring the need to balance safety with capability.
+- Practical takeaway: Distilled models can inherit meaningful reasoning from DeepSeek-R1 through supervised fine-tuning on curated data, offering a viable path to scale reasoning to smaller, resource-limited models while RL remains a complementary avenue for further gains.
+
+In short, Section 3 substantiates the central claim that reinforcement-learning–driven reasoning in DeepSeek-R1 yields broad, tangible advantages across diverse benchmarks, especially in STEM and long-context reasoning, while also delineating the practical and safety-related considerations that accompany such gains. This section builds on the distillation groundwork from Section 2 by demonstrating how RL and evaluation-scale testing push the model’s reasoning capabilities further, and it lays the empirical foundation for subsequent analyses and ablations.
+
+==================================================
+생성 시간: 2025-08-19 07:12:22

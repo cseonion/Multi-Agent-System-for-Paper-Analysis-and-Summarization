@@ -1,0 +1,34 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.3.4.. Reinforcement Learning for all Scenarios
+==================================================
+
+Summary of Section 2.3.4: Reinforcement Learning for all Scenarios
+
+- Objective and motivation: This section describes a secondary reinforcement learning stage designed to push the model to be more helpful and harmless while continuing to refine reasoning capabilities. The goal is to align the model with human preferences across both reasoning tasks and general-purpose tasks, ensuring robust reasoning does not come at the expense of usability or safety.
+
+- Data strategy and signals:
+  - Reasoning data: For reasoning tasks (math, code, logic), the authors follow the DeepSeek-R1-Zero approach, employing rule-based rewards to guide the learning process in these domains.
+  - General data: For non-reasoning scenarios, the model is guided by reward models that capture human preferences in more nuanced, complex situations.
+  - Data and prompts: The approach builds on the DeepSeek-V3 pipeline and uses a similar distribution of preference pairs and training prompts, enabling diverse and representative learning signals.
+
+- Focus areas within training signals:
+  - Helpfulness: The model is optimized with emphasis on the final user-relevant summary, ensuring the outcome is useful and directly addresses user needs while avoiding undue interference with the underlying reasoning process.
+  - Harmlessness: The evaluation encompasses the entire response—including both reasoning and the final summary—to identify and mitigate potential risks, biases, or harmful content that could arise during generation.
+
+- Training setup and integration:
+  - The stage combines rule-based rewards for structured reasoning with reward-model signals for general data, all guided by diverse prompt distributions.
+  - By integrating these reward signals with broad data distributions, the model is trained to excel in reasoning while maintaining a strong emphasis on helpfulness and safety.
+
+- Continuity with prior content:
+  - Builds on the RL-driven reasoning improvements described earlier (2.3.2–2.3.3) and the cold-start fine-tuning (2.3.1), converting RL-derived insights into a broad supervised fine-tuning (SFT) corpus.
+  - Maintains the paper’s overarching aim of strengthening reasoning while preserving readability, usability, and human-aligned behavior, now extended across both reasoning and general-purpose domains.
+  - Fits into the four-stage training pipeline by seeding the next stages with a data mix that respects both reasoning quality and language/readability considerations.
+
+- Key contributions:
+  - Leveraging a dual-signal design: rule-based rewards for reasoning domains and reward models for general data.
+  - Adopting DeepSeek-V3’s preference-pair and prompt-distribution framework to ensure diverse, human-aligned training signals.
+  - Explicitly separating helpfulness (final output usefulness) from harmlessness (safety and bias mitigation across the entire response), ensuring balanced optimization.
+  - Establishing a broad SFT dataset that fuses extensive reasoning data with non-reasoning tasks to support subsequent training stages and broaden model applicability.
+
+==================================================
+생성 시간: 2025-08-19 07:11:56

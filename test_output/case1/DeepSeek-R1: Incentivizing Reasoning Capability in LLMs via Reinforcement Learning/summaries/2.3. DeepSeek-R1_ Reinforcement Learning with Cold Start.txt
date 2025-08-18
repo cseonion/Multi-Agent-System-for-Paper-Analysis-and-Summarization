@@ -1,0 +1,18 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.3.. DeepSeek-R1: Reinforcement Learning with Cold Start
+==================================================
+
+Summary of Section 2.3: DeepSeek-R1: Reinforcement Learning with Cold Start
+
+- Core motivation and questions: Building on the promising zero-shot reinforcement learning results of DeepSeek-R1-Zero, this section asks two key questions: (1) can a small amount of high-quality, cold-start data further improve reasoning performance or accelerate convergence? (2) how can we train a user-friendly model that consistently produces clear and coherent Chains of Thought (CoT) while maintaining strong general capabilities?
+
+- Proposed approach: To address these questions, the authors design a four-stage training pipeline for DeepSeek-R1. The section signals that this staged pipeline is purpose-built to integrate limited high-quality seed data into the RL loop, guiding the model toward more interpretable reasoning traces without sacrificing the scalability benefits observed in zero-shot RL.
+
+- Connection to prior work and overall theme: This section directly follows the findings from DeepSeek-R1-Zero (Section 2.2.4), which demonstrated that RL can yield strong, general reasoning purely from reinforcement incentives, with additional gains from aggregation and self-evolution, yet suffered from readability and language-mixing issues in reasoning traces. By introducing a cold-start data strategy, the section aims to address interpretability and user-friendliness while preserving zero-shot scalability. This bridges the zero-shot RL paradigm with more human-friendly data, CoT seeds, and potential distillation approaches discussed later in the paper.
+
+- Anticipated contributions and role in the paper: The four-stage pipeline represents the methodological core for integrating high-quality seed data into the RL framework. It sets the stage for producing a model that not only reinforces robust reasoning through RL but also yields coherent, interpretable CoT and improved practicality for broader use, aligning with the paper’s overarching goal of incentivizing and sustaining robust reasoning in LLMs.
+
+In sum, Section 2.3 outlines a four-stage reinforcement learning pipeline designed to combine cold-start, high-quality data with RL incentives. This approach seeks to accelerate learning and enhance interpretability and general capability, serving as a concrete step to address readability limitations identified in the zero-shot variant and to extend the zero-shot gains into a more user-friendly, broadly applicable model. The section positions this cold-start strategy as a natural progression from the zero-shot results discussed in Section 2.2, maintaining consistency with the Training Template’s emphasis on explicit reasoning traces while expanding upon practical, human-friendly improvements.
+
+==================================================
+생성 시간: 2025-08-19 07:11:19

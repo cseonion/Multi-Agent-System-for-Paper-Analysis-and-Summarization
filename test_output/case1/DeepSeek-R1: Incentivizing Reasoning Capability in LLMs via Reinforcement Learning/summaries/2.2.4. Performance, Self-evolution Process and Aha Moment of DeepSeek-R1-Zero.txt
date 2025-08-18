@@ -1,0 +1,20 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.2.4.. Performance, Self-evolution Process and Aha Moment of DeepSeek-R1-Zero
+==================================================
+
+Section 2.2.4 analyzes how DeepSeek-R1-Zero performs and evolves during reinforcement learning (RL) on the AIME 2024 benchmark, continuing the zero-shot RL framework and reasoning traces introduced in the prior section (Training Template).
+
+Key points and connections to the paper theme:
+- Performance trajectory and efficacy of RL: DeepSeek-R1-Zero exhibits steady, substantial improvements as RL training advances. The average pass@1 on AIME 2024 grows from 15.6% to 71.0+, achieving parity with OpenAI-o1-0912, which demonstrates the RL objective’s effectiveness in honing reasoning without supervised fine-tuning data. This reinforces the paper’s core claim that RL incentives can unlock strong reasoning capabilities in a zero-shot setting.
+- Impact of majority voting: Employing majority voting further boosts performance (e.g., AIME pass@1 climbs from 71.0% to 86.7%), surpassing OpenAI-o1-0912. This highlights how aggregation strategies can amplify the base RL-driven reasoning proficiency.
+- Cross-benchmark robustness: Table 2 shows that DeepSeek-R1-Zero attains robust reasoning across diverse benchmarks (MATH-500, GPQA, LiveCode, CodeForces, Diamond) without supervised data, underscoring the generalization potential of the RL approach described in Section 2.2.2 and aligned with the template-driven, zero-shot paradigm from Section 2.2.3.
+- Self-evolution and internal growth: The self-evolution section demonstrates that starting from the base model, the RL process yields progressive improvements in thinking time and problem-solving depth. The model leverages extended test-time computation (hundreds to thousands of tokens) to refine its reasoning, rather than relying on external edits, showing intrinsic progression driven by the RL environment.
+- Emergent sophisticated behaviors: As test-time computation expands, the model spontaneously exhibits behaviors like reflection (revisiting previous steps) and exploring alternative strategies. These emergent capabilities are not hand-coded but arise from the RL setup, illustrating a key mechanism by which the model increases reasoning efficiency and accuracy on harder tasks.
+- Aha moment: An intermediate training version reveals an “aha moment” where the model reallocates more thinking time by reevaluating its initial approach. This serves as both a mechanistic example of RL-driven reasoning maturation and a narrative highlight for researchers observing autonomous strategy discovery.
+- Limitations and direction for readability: Despite strong capabilities, DeepSeek-R1-Zero faces readability and language-mixing challenges in its reasoning traces. To address this and promote broader accessibility and community sharing, the authors point to DeepSeek-R1, which introduces RL with human-friendly cold-start data to improve interpretability without sacrificing zero-shot, scalable properties.
+- Continuity with prior sections: The findings reinforce the Training Template’s design—producing explicit reasoning traces and a two-stage progression—while demonstrating how zero-shot RL can yield high-performance reasoning that motivates subsequent refinements (e.g., human-friendly data, CoT seeds, and distillation) discussed elsewhere in the paper.
+
+In sum, 2.2.4 confirms that DeepSeek-R1-Zero can attain strong, generalizable reasoning purely through RL, with further gains from majority voting and self-driven evolution, while acknowledging readability issues that motivate the transition to more interpretable, human-assisted variants in the next steps.
+
+==================================================
+생성 시간: 2025-08-19 07:11:09

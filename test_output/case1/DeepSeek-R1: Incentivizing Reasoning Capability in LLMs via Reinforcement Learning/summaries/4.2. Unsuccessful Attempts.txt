@@ -1,0 +1,42 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 4.2.. Unsuccessful Attempts
+==================================================
+
+Summary of Section 4.2: Unsuccessful Attempts
+
+- Purpose and context
+  - This section documents early failures and setbacks in pursuing alternative reasoning-enhancement strategies for DeepSeek-R1, clarifying that these challenges do not condemn the approaches but reveal practical limitations.
+
+- PRM (Policy/Reward Modeling) approach and its limitations
+  - Promise: PRM can guide models toward better reasoning strategies and help rerank top-N responses or assist in guided search.
+  - Core limitations:
+    - Defining a fine-grained, general reasoning step is notoriously difficult.
+    - Verifying the correctness of intermediate steps is hard; automated annotation by models is often inadequate, and manual annotation does not scale.
+    - Introducing a model-based PRM risks reward hacking, and retraining the reward model adds significant training resources and pipeline complexity.
+  - Overall takeaway: Although PRM offers some benefits (reranking, guided search), its advantages are limited relative to the computational overhead in large-scale RL, making it less favorable in the authors’ current setup.
+
+- Monte Carlo Tree Search (MCTS) approach and its rationale
+  - Inspiration: Draws on AlphaGo/AlphaZero to improve test-time compute scalability by decomposing answers into smaller parts and exploring the solution space more systematically.
+  - Methodology:
+    - Prompt the model to generate multiple reasoning-step tags.
+    - Use collected prompts to find answers via MCTS guided by a pre-trained value model.
+    - Train both the actor and value models on the resulting question–answer pairs in an iterative cycle.
+  - Aim: Enhance the search process and enable structured reasoning during inference.
+
+- Scaling challenges and technical obstacles
+  - Search space issue: Unlike chess, token generation yields an exponentially larger and less well-defined search space, complicating effective exploration.
+  - Practical fixes and their drawbacks:
+    - Imposing a maximum extension limit per node helps manage search depth but risks converging to local optima.
+  - Value model difficulties:
+    - The value model directly shapes generation quality, and training a sufficiently fine-grained value model to sustain iterative improvement is inherently hard.
+    - Replicating AlphaGo’s reliance on a progressively improving value model is not straightforward in the token-generation domain.
+
+- Conclusions and implications for the paper’s theme
+  - Inference-time gains are possible when MCTS is paired with a pre-trained value model, but achieving consistent, iterative performance gains through self-search remains a major challenge.
+  - These unsuccessful attempts provide a realistic boundary for alternative reasoning enhancements and reinforce the broader takeaway from Section 4.1: while incentive-based methods can help, distillation from strong base models remains a more practical and scalable path for deploying reasoning-enabled models at smaller sizes.
+
+- Connection to the broader narrative
+  - Section 4.2 clarifies why the authors focus more on distillation (Section 4.1) as a scalable route, while acknowledging potential in PRM and MCTS-inspired strategies. The section grounds the paper’s overarching theme: incentive-based reasoning can improve capability, but current scaling and training challenges motivate pursuing distillation and more scalable approaches, potentially in future work that blends these ideas with stronger base models and more resource-efficient training.
+
+==================================================
+생성 시간: 2025-08-19 07:13:05

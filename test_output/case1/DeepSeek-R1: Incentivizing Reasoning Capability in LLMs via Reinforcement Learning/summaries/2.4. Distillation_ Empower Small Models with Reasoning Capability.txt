@@ -1,0 +1,22 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.4.. Distillation: Empower Small Models with Reasoning Capability
+==================================================
+
+Section 2.4 — Distillation: Empower Small Models with Reasoning Capability
+
+Summary:
+This section evaluates a straightforward distillation approach to transfer reasoning capabilities into smaller, open-source models by directly fine-tuning them with DeepSeek-R1–curated data. Using 800k samples described in §2.3.3, the authors fine-tune a spectrum of open models (Qwen variants: 1.5B, 7B, 14B, 32B; Llama variants: 3.1-8B and 3.3-70B-Instruct). Llama-3.3 is preferred over Llama-3.1 due to its slightly stronger reasoning. Crucially, distilled models are trained with supervised fine-tuning only (SFT); no reinforcement learning (RL) stage is applied at this stage, as the authors aim to demonstrate the effectiveness of distillation itself and defer RL experimentation to the broader community. The overarching finding is that this direct distillation method significantly enhances the reasoning abilities of smaller models, providing a practical means to extend reasoning capabilities to more resource-efficient architectures.
+
+Connections to the paper’s broader theme and prior sections:
+- Builds on the RL-driven reasoning improvements and cold-start fine-tuning discussed earlier (2.3.1–2.3.3) by translating the rich reasoning signals into a broad supervised fine-tuning corpus for smaller models.
+- Fits the four-stage training pipeline by seeding small-model distillation with the DeepSeek-R1–derived data, establishing a baseline from which subsequent RL or mixed-signal stages can further improve performance.
+- Aligns with the paper’s goal of incentivizing reasoning in LLMs while balancing resource efficiency, readability, and usability across model scales.
+
+Key contributions, methodology, and takeaways:
+- Methodology: Direct SFT of various Qwen and Llama model sizes on an 800k-sample DeepSeek-R1–curated dataset (no RL stage).
+- Model coverage: Demonstrates reasoning transfer across a range of small to mid-size architectures, with Llama-3.3 favored for its stronger reasoning signal.
+- Insight: Distillation alone can substantially enhance reasoning in smaller models, validating distillation as an effective path to scale reasoning capabilities without immediate RL.
+- Limitation and direction: RL remains an optional, future enhancement to be explored by the broader research community, allowing researchers to build on this distilled SFT foundation.
+
+==================================================
+생성 시간: 2025-08-19 07:12:06

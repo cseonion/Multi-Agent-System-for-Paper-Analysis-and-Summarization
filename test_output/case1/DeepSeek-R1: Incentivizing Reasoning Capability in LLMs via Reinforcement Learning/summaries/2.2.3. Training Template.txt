@@ -1,0 +1,20 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.2.3.. Training Template
+==================================================
+
+Section 2.2.3: Training Template
+
+- Core idea: The authors introduce a simple, explicit training template to guide DeepSeek-R1-Zero in following instructed behavior, establishing a consistent structure for its outputs.
+
+- Template structure: As shown in Table 1, the base model is required to first generate a reasoning process, then provide the final answer. This two-step output format ensures a clear separation between thinking and conclusion.
+
+- Design choice and rationale: Constraints are limited to this structural format, deliberately avoiding content-specific biases (e.g., forcing particular reflective strategies). This helps preserve the model’s natural progression during RL and facilitates observation of how reasoning unfolds without preloaded biases.
+
+- Relationship to prior work in the paper: The template complements the reward-focused framework described in Section 2.2.2 by ensuring that reasoning traces are explicitly produced and observable, enabling alignment between the zero-shot RL objective and the evaluation of reasoning quality.
+
+- Role in the broader methodology: This template supports the paper’s two-stage narrative—Stage 1 uses RL to improve reasoning via the template-driven, zero-shot setup, laying the groundwork for subsequent stages that introduce CoT seeds and distillation.
+
+- Practical impact: By forcing a reasoning-first output, the template promotes traceable, verifiable reasoning behavior while keeping the training pipeline lean and less prone to content-specific biases, aligning with the paper’s emphasis on scalable, zero-shot, and transfer-friendly progression.
+
+==================================================
+생성 시간: 2025-08-19 07:11:00

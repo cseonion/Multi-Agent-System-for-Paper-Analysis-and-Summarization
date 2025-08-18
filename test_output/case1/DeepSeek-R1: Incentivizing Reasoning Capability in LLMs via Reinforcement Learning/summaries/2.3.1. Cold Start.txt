@@ -1,0 +1,27 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.3.1.. Cold Start
+==================================================
+
+Summary of Section 2.3.1: Cold Start
+
+- Objective and motivation: To mitigate the early unstable cold-start phase in RL training, DeepSeek-R1 introduces a curated cold-start data strategy that seeds the RL actor with long chain-of-thought (CoT) data, building on the zero-shot baseline from DeepSeek-R1-Zero.
+
+- Data collection approaches: The authors explore multiple methods to amass high-quality cold-start data, including:
+  - Few-shot prompting using a long CoT as an exemplar.
+  - Prompting models to generate detailed, reflective, and verifiable answers.
+  - Collecting readable outputs from DeepSeek-R1-Zero and refining them via post-processing.
+  - Human annotator post-processing to further refine results.
+
+- Data scale and usage: Thousands of cold-start data instances are collected and used to fine-tune the model (DeepSeek-V3-Base) as the initial RL actor, establishing a solid starting point for RL.
+
+- Readability and format improvements: A key advantage over DeepSeek-R1-Zero is readability. The section designs a readable response pattern and a clear output format to improve user experience:
+  - Output format: |special_token|<reasoning_process>|special_token|<summary>
+  - Reasoning process represents the CoT; the summary condenses the reasoning results.
+  - The design includes a summary at the end of each response and filters out unreadable outputs (e.g., multilingual mix, lack of formatting).
+
+- Potential and rationale: By carefully designing cold-start data with human priors, the approach is observed to yield better performance than DeepSeek-R1-Zero, supporting the authors’ view that iterative, seed-informed training is beneficial for reasoning models.
+
+- Connection to the overall approach: This section complements the broader four-stage training pipeline introduced earlier (Section 2.3), by providing high-quality seed data that guides the RL loop toward coherent, interpretable reasoning without sacrificing scalability. It directly addresses readability limitations identified in the zero-shot variant and sets the stage for subsequent stages that leverage these seeds for enhanced reasoning and practicality.
+
+==================================================
+생성 시간: 2025-08-19 07:11:26

@@ -1,0 +1,18 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.2.. DeepSeek-R1-Zero: Reinforcement Learning on the Base Model
+==================================================
+
+Section 2.2 DeepSeek-R1-Zero: Reinforcement Learning on the Base Model investigates pushing reasoning capability development entirely through reinforcement learning, without any supervised data or fine-tuning. Building on the paper’s claim that RL can foster robust reasoning with minimal or no SFT, this zero-shot pathway aims to let the base LLM self-evolve its reasoning through pure RL.
+
+Key points and connections to the broader work:
+- Objective and setup: Apply reinforcement learning directly to the base model (no SFT data) to study whether pure RL can cultivate reasoning capabilities from scratch.
+- RL methodology: The section provides a concise description of the RL algorithm used, framing how rewards are structured to incentivize reasoning quality on the base model.
+- Findings: The authors present initial results that demonstrate the potential of pure RL to elicit reasoning behavior, offering early insights into how a model can self-improve without supervised data.
+- Position within the two-stage narrative: DeepSeek-R1-Zero embodies the first stage—discovering and strengthening reasoning patterns via RL without heavy SFT reliance—before any CoT-based seeds or distillation are introduced in subsequent variants.
+- Relation to broader themes: This zero-shot exploration reinforces the paper’s goal of open-source, transfer-friendly progress by showing a viable pure-RL route, which can later be complemented by CoT seeds (DeepSeek-R1) and distilled into smaller models.
+- Continuity with prior sections: Extends the Section 2.1 emphasis that pure RL can yield strong reasoning, now concretized as a concrete zero-shot instantiation, and sets up the comparative framework for later sections that incorporate seeds and distillation.
+
+Overall, this section establishes a baseline where reasoning capabilities emerge from a base model through pure RL, providing a foundational benchmark for comparing the benefits of seeded (CoT) RL and subsequent distillation in the rest of the paper.
+
+==================================================
+생성 시간: 2025-08-19 07:10:35

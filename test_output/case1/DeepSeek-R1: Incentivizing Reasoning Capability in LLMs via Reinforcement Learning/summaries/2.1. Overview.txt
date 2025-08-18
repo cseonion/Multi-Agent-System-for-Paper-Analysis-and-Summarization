@@ -1,0 +1,20 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.1.. Overview
+==================================================
+
+Section 2.1 Overview continues the paper’s central thesis that robust reasoning can be cultivated through reinforcement learning (RL) with minimal or no supervised fine-tuning (SFT) startup, and that this can be further enhanced with a small amount of cold-start data. Building on the prior emphasis that RL can incentivize reasoning patterns, this section introduces the concrete instantiations and the broader pipeline that the rest of the paper investigates.
+
+Key contributions and components introduced in this section:
+- DeepSeek-R1-Zero: Apply RL directly to the base model without any SFT data, exploring a pure-RL pathway to acquire reasoning capabilities.
+- DeepSeek-R1: Apply RL starting from a checkpoint that has been fine-tuned with thousands of long Chain-of-Thought (CoT) examples, integrating a coarse SFT-like seed to potentially accelerate and stabilize learning.
+- Distillation objective: After RL-based reasoning is enhanced in DeepSeek-R1, distill these capabilities into smaller, dense models to enable practical deployment and broader accessibility.
+
+Relation to the paper’s broader theme:
+- These variants operationalize the two-stage RL and two-stage SFT narrative: first use RL to discover and strengthen reasoning patterns without heavy SFT reliance, then optionally incorporate CoT-based SFT to further boost performance, and finally distill the gains to compact models.
+- The overview frames a cohesive methodology aimed at open-source robustness and practical transferability, setting up the empirical evaluations that compare pure-RL, RL with CoT seeds, and distillation across diverse tasks.
+
+Continuity with prior sections:
+- Mirrors the Section 1.2 findings that pure-RL pathways can yield strong reasoning and that staged SFT and distillation can stabilize and broaden capabilities, while extending the discussion to the concrete configurations (Zero vs. CoT-seeded RL) and the downstream distillation objective.
+
+==================================================
+생성 시간: 2025-08-19 07:10:26

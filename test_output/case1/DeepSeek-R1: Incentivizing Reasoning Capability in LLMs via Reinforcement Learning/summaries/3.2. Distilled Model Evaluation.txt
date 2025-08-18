@@ -1,0 +1,34 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 3.2.. Distilled Model Evaluation
+==================================================
+
+Section 3.2: Distilled Model Evaluation
+
+- Core goal and setup
+  - This section assesses how well DeepSeek-R1’s reasoning abilities transfer to smaller models via distillation, and reports on the performance of simple SFT-distilled variants. It also notes that RL applied to distilled models yields additional gains, but those RL-distilled results are not the focus here and are reserved for future exploration.
+
+- Key distillation results (highlights)
+  - 7B distilled model (DeepSeek-R1-Distill-Qwen-7B) outperforms non-reasoning baselines like GPT-4o-0513 across the evaluated suite.
+  - 14B distilled model (DeepSeek-R1-Distill-Qwen-14B) surpasses QwQ-32B-Preview on all evaluated metrics.
+  - 32B and 70B distilled variants significantly exceed o1-mini on the majority of benchmarks.
+  - Overall, distillation demonstrates strong transfer of reasoning capabilities from the larger DeepSeek-R1 models to substantially smaller successors.
+
+- RL versus SFT-focused results
+  - The authors observe that applying reinforcement learning to the distilled models can yield meaningful further gains, consistent with the overarching thesis that RL incentives improve reasoning.
+  - However, this section reports only simple supervised fine-tuning (SFT) distilled results, with RL-based results acknowledged as promising but outside the current presentation scope.
+
+- Methodology and comparability
+  - Distilled models are evaluated on the same benchmark suite and metrics used for larger models (as in Section 3.1), enabling fair cross-model comparisons and demonstrating that reasoning benefits can be preserved at smaller scales.
+
+- Alignment with the paper’s broader theme
+  - These findings corroborate the central claim that RL-driven reasoning signals can generalize across model scales and be effectively propagated to smaller architectures via distillation.
+  - The results reinforce the paper’s narrative that strong reasoning capabilities are not confined to very large models; with distillation (and potentially subsequent RL fine-tuning), smaller models can retain and exhibit substantial reasoning performance.
+
+- Practical implications and takeaways
+  - Distillation offers a viable, scalable path to deploying reasoning-enabled models with limited compute, expanding practical reach without sacrificing core reasoning gains.
+  - The section sets the stage for future work combining distillation with RL (to push even further) and for broader exploration of how far distilled, reasoning-rich behavior can be preserved across sizes.
+
+In sum, Section 3.2 demonstrates that distilling DeepSeek-R1 yields smaller models with strong reasoning performance—often rivaling or beating larger, non-reasoning baselines—thereby reinforcing the paper’s theme that reinforcement-learning–driven reasoning can be effectively generalized and deployed at scale through distillation.
+
+==================================================
+생성 시간: 2025-08-19 07:12:45

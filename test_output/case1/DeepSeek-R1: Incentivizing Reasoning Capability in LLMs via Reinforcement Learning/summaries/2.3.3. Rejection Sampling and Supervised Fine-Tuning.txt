@@ -1,0 +1,36 @@
+논문 제목: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning
+섹션: 2.3.3.. Rejection Sampling and Supervised Fine-Tuning
+==================================================
+
+Summary of Section 2.3.3: Rejection Sampling and Supervised Fine-Tuning
+
+- Purpose and progression: After reasoning-focused RL converges, this stage uses the resulting checkpoint to assemble supervised fine-tuning (SFT) data for the next round. It broadens beyond pure reasoning to also enhance writing, role-playing, and other general-purpose tasks, continuing the paper’s aim of strengthening reasoning while maintaining usability and versatility.
+
+- Reasoning data collection and curation:
+  - Data source: Reasoning prompts and trajectories are gathered via rejection sampling from the RL-trained checkpoint.
+  - Dataset expansion: Beyond the initial rule-based rewards, the authors incorporate additional data, including samples evaluated by a generative reward model that leverages DeepSeek-V3 judgments using ground-truth and model predictions.
+  - Quality controls: To improve readability, outputs that are chaotic or hard to interpret—such as chain-of-thoughts with mixed languages, long paraphrases, or code blocks—are filtered out. For each prompt, multiple responses are generated and only the correct ones are retained.
+  - Scale: Approximately 600k reasoning-related training samples are collected.
+
+- Non-reasoning data collection:
+  - Data sources: Non-reasoning tasks (writing, factual QA, self-cognition, translation) reuse portions of the DeepSeek-V3 SFT dataset and pipeline.
+  - CoT prompts: For certain non-reasoning tasks, DeepSeek-V3 is prompted to generate a potential chain-of-thought before answering; simpler queries (e.g., “hello”) are answered without a CoT.
+  - Scale: About 200k non-reasoning samples are collected, representing tasks unrelated to reasoning.
+
+- Training setup:
+  - Dataset composition: ~800k total samples (600k reasoning + 200k non-reasoning).
+  - Model fine-tuning: DeepSeek-V3-Base is fine-tuned for two epochs on this curated dataset.
+
+- Continuity with prior sections:
+  - Builds on the cold-start fine-tuning strategy (2.3.1) and the RL-based reasoning enhancements (as discussed in the preceding sections) by converting RL-driven insights into a broad SFT corpus.
+  - Maintains the overarching objective of incentivizing robust reasoning while preserving readability and human-aligned behavior, now across both reasoning and general-purpose domains.
+  - Integrates both reasoning-quality signals and language/readability considerations (via filtering and a diverse non-reasoning set) to seed the next stage of the four-stage training pipeline.
+
+- Key contributions and methodological notes:
+  - The use of rejection sampling from the RL checkpoint to curate high-quality reasoning data.
+  - Incorporation of a generative reward model (DeepSeek-V3) to diversify reasoning trajectories.
+  - Explicit quality filters to ensure legible, coherent outputs.
+  - A balanced SFT dataset that combines extensive reasoning data with broad non-reasoning tasks, enabling broader applicability in subsequent stages.
+
+==================================================
+생성 시간: 2025-08-19 07:11:44
