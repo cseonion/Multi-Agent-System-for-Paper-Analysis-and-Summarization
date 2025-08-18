@@ -21,23 +21,23 @@ run.ipynb   				# run(recommend)
 		python_repl.py  			# pythonREPL tool
 		vectorstore.py  			# vectorstore retriever tool
 		web_search.py   			# web search tool
-📂[cache]   					# results after execution
+📂[cache]   				# results after execution
 	(...)
 📂[config]
-	agent_config.json   			# agents llm config
-	agent_llm.py 					# agents llm calling
-	logging_config.py   			# logger config
+	agent_config.json   		# agents llm config
+	agent_llm.py 				# agents llm calling
+	logging_config.py   		# logger config
 📂[src]
-	graph.py      					# graph(LangGraph)
-	state.py      					# state(LangGraph)
-	load_doc.py   					# document(pdf) loader
-	tracking.py   					# input/output token tracking
+	graph.py      				# graph(LangGraph)
+	state.py      				# state(LangGraph)
+	load_doc.py   				# document(pdf) loader
+	tracking.py   				# input/output token tracking
 📂[test]       	  
-	📂[case1]     					# paper for "single-paper analysis"
-	📂[case2]     					# papers for "multi-paper comparison"
-	📂[case3]     					# papers for "literature review synthesis"
-	📂[caseE]     					# paper for "cross-domain paper"
-📂[test_output] 				# example outputs
+	📂[case1]     				# paper for "single-paper analysis"
+	📂[case2]     				# papers for "multi-paper comparison"
+	📂[case3]     				# papers for "literature review synthesis"
+	📂[caseE]     				# paper for "cross-domain paper"
+📂[test_output] 			# example outputs
 	test_case1.md
 	test_case2.md
 	test_case3.md
@@ -63,7 +63,7 @@ run.ipynb   				# run(recommend)
 
 ## Agent descriptions
 
-자세한 내용은 agent_info.md를 참고하세요.
+자세한 내용은 `agents/Info.md`를 참고하세요.
 
 
 ---
