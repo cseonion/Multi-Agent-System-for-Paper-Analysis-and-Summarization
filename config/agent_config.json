@@ -14,16 +14,13 @@
       "model": "gpt-5-nano"
     },
     "comparison_agent": {
-      "model": "o4-mini",
-      "temperature": 0.1
+      "model": "o4-mini"
     },
     "cross_domain_agent": {
-      "model": "o4-mini",
-      "temperature": 0.1
+      "model": "o4-mini"
     },
     "lit_review_agent": {
-      "model": "o4-mini",
-      "temperature": 0.1
+      "model": "o4-mini"
     },
     "writer_agent": {
       "model": "gpt-5"
