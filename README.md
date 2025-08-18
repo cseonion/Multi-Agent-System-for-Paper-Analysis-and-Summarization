@@ -64,16 +64,20 @@ run.ipynb   				# run(recommend)
 
 ## Tools
 - Vectorstore Retriever
-	- 벡터스토어에 저장된 논문 원문에 접근하기 위함
 	- 분석 에이전트 모두에게 제공
+  	- 벡터스토어에 저장된 논문 원문에 접근하기 위함
 - Web Searching
 	- DuckDuckGo API
+   	- 분석 에이전트 모두에게 제공
 	- 부족한 정보 보충을 위함
-	- 분석 에이전트 모두에게 제공
 - ArXiv Searching
-	- LangChain 기본 제공
+	- LangChain 기본 제공 API
  	- 분석 에이전트 중 Literature Review Agent에 제공
  	- 분석 방향 제시에 활용됨
+- Python Coding
+	- LangChain 기본 제공 API(pythonREPL)
+ 	- Writing Agent에 제공
+  	- 파이썬으로 구현 가능한 요소가 있을 경우, 간단한 의사 코드 작성을 위함
 ---
 
 # Installation
