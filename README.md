@@ -180,16 +180,18 @@ docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.2
 
 # Results
 
-- 실행 및 분석이 완료되면 `cache` 폴더에 결과가 저장됩니다.
-	- 📁 {datetime}
- 		- 📁 {paper_1}
-   			- 📁 {vector store}
-      			- faiss
-         		- pkl
-      		- 📁 {summary results}
-        		- (...)
-	    - 📁 {paper_2}
-     		- (...)
-   		- log
-     	- traking
-      	- final_report.md 	
+실행 및 분석이 완료되면 `cache` 폴더에 결과가 저장됩니다.
+```
+📁[cache]
+	📁[(timestamp)]
+		📁[paper_1]
+			📁[vectorstore]		# raw text vector stored in local
+			📁[summaries]		# all summary included
+				(...)
+		📁[paper_2]
+			(...)
+		📁(...)
+		process.log				# log
+		execution_tracking.json # tracking results
+		(final report).md		# final output of system
+```
