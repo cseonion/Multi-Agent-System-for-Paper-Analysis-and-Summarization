@@ -1,0 +1,15 @@
+Section 6.2 Summary:
+
+- Purpose and setup: The authors examine how key components of the Transformer affect English-to-German translation by making targeted variations to the base model. They report results for Table 3, using beam search as in the previous section, but without checkpoint averaging, and with computation held constant where applicable (per Section 3.2.2).
+
+- A) Attention heads and key/value dimensions: Varying the number of attention heads and the attention key/value dimensions while keeping compute constant shows that:
+  - Single-head attention is about 0.9 BLEU worse than the best configuration.
+  - There is a non-monotonic effect with the number of heads; more heads can hurt quality if compute is fixed.
+
+- B) Attention key size (dk): Reducing dk degrades model quality, suggesting that the simple dot-product compatibility may be insufficient and that a more sophisticated compatibility function could help.
+
+- C) and D) Model size and dropout: Larger models perform better, and dropout substantially helps prevent overfitting.
+
+- E) Positional encoding: Replacing sinusoidal positional encodings with learned positional embeddings yields results nearly identical to the base model, indicating learned encodings can be a viable alternative.
+
+- Overall takeaway: The section highlights nuanced effects of architectural choices on performance, showing that neither the smallest nor the largest head configurations are universally best under a fixed compute budget, that the design of the compatibility function matters, that larger models and appropriate regularization (dropout) improve performance, and that learned positional embeddings can match sinusoidal encodings.

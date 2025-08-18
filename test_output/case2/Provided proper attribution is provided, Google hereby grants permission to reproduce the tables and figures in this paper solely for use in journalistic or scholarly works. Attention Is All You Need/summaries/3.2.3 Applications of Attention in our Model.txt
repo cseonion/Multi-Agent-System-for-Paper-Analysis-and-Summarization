@@ -1,0 +1,8 @@
+Summary of Section 3.2.3: Applications of Attention in our Model
+
+- The Transformer applies multi-head attention in three contexts:
+  1) Encoder-decoder attention: queries come from the previous decoder layer, while keys/values come from the encoder output. This lets every decoder position attend to all input positions, mirroring traditional encoder-decoder attention in seq2seq models.
+  2) Encoder self-attention: queries, keys, and values all come from the encoder (specifically the encoder’s previous layer), permitting each encoder position to attend to all positions in the encoder.
+  3) Decoder self-attention: queries, keys, and values come from the decoder, allowing each decoder position to attend to earlier positions in the decoder up to the current one.
+
+- To preserve the autoregressive property in the decoder, a masking step is applied within scaled dot-product attention: illegal (future) connections are masked by setting their logits to -∞ before the softmax (as illustrated in Figure 2).

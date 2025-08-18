@@ -1,0 +1,22 @@
+Summary of Section 5.2. Effect of Model Size
+
+- Objective: Assess how increasing model size affects fine-tuning task accuracy in downstream tasks.
+
+- Experimental setup: Trained a family of BERT models with varying sizes by changing the number of layers, hidden units, and attention heads. All other hyperparameters and training procedures were kept identical to those described earlier. Evaluation used Table 6 results.
+
+- Data and methodology: Results shown as average Dev Set accuracy across 5 random restarts of fine-tuning, on selected GLUE tasks.
+
+- Key findings:
+  - Larger models yield strict accuracy improvements across all four datasets (including MRPC, which has only about 3,600 labeled examples).
+  - The gains are substantial even relative to already large models in the literature; largest previously reported Transformer sizes were 100M parameters (Vaswani et al. 2017) and 235M in the literature; BERT BASE is 110M and BERT LARGE is 340M.
+  - Evidence of broader benefits: improvements align with the known benefits of larger models on large-scale tasks (as reflected in held-out LM perplexity in Table 6).
+
+- Interpretation and implication:
+  - This work provides the first convincingly large-scale demonstration that scaling to very large model sizes can yield substantial improvements on small-scale downstream tasks, provided the models are sufficiently pre-trained.
+  - Prior mixed results on pre-trained model size (Peters et al. 2018b; Melamud et al. 2016) likely reflect their feature-based approaches or limited downstream integration; by fine-tuning large pre-trained models with only a small number of task-specific parameters, the larger representations prove advantageous.
+
+- Practical takeaway:
+  - Increasing model size is beneficial for downstream accuracy in this evaluation, even when downstream data are scarce, as long as pretraining is substantial.
+
+- Notes:
+  - Additional ablation details are provided in Appendix C.

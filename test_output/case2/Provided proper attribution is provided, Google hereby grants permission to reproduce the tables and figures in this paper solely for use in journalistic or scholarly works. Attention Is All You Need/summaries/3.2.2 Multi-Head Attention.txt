@@ -1,0 +1,6 @@
+- Multi-head attention extends single-head attention by projecting Q, K, and V multiple times with different learned linear projections into h subspaces (dimensions d_k, d_k, and d_v, respectively).
+- For each head, attention is computed independently on its projected Q, K, V, producing d_v-dimensional outputs.
+- The outputs from all heads are concatenated and then passed through a final linear projection to form the overall output.
+- The approach allows the model to attend to information from different representation subspaces and at different positions, avoiding the averaging effect of a single head.
+- In this work, h = 8 heads are used.
+- Because each head operates in a reduced dimension, the total computational cost remains similar to that of a single head operating in full dimensionality.

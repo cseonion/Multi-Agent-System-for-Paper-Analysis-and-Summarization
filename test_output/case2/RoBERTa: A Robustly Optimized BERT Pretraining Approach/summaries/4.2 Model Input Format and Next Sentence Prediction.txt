@@ -1,0 +1,21 @@
+Summary of Section 4.2: Model Input Format and Next Sentence Prediction
+
+- Context of NSP in BERT
+  - The original BERT pretraining observes two concatenated segments, which are either from the same document (contiguously with probability p = 0.5) or from different documents. An auxiliary Next Sentence Prediction (NSP) loss trains the model to predict whether the two segments come from the same document or not. This NSP component has been debated in later work, with some studies questioning its necessity.
+
+- Four input formats analyzed
+  - SEGMENT-PAIR+NSP: The classic BERT input format with two segments (potentially multi-sentence each) and NSP loss; total length < 512 tokens.
+  - SENTENCE-PAIR+NSP: Inputs are pairs of natural sentences (shorter than 512 tokens), drawn from either the same or different documents; NSP loss retained; batch size increased to keep token count comparable to SEGMENT-PAIR+NSP.
+  - FULL-SENTENCES: Inputs packed with full sentences from one or more documents, up to 512 tokens; may cross document boundaries; NSP loss removed.
+  - DOC-SENTENCES: Similar to FULL-SENTENCES but cannot cross document boundaries; ends of documents may yield shorter sequences; batch size adjusted dynamically to match total tokens; NSP loss removed.
+
+- Key findings from comparisons (Table 2)
+  - Segment-pair vs sentence-pair with NSP: Using individual sentences (SENTENCE-PAIR+NSP) hurts downstream performance, likely due to poorer capture of long-range dependencies.
+  - NSP removal vs NSP present with doc-based blocks: Training without NSP and using DOC-SENTENCES (blocks from a single document) outperforms the original BERT BASE results; removing NSP matches or slightly improves downstream performance, challenging the notion that NSP is essential.
+  - DOC-SENTENCES vs FULL-SENTENCES: DOC-SENTENCES performs marginally better than FULL-SENTENCES, but DOC-SENTENCES yields variable batch sizes. For ease of fair comparison with related work, FULL-SENTENCES is used for the remainder of experiments.
+
+- Practical decision
+  - Due to simpler, more stable batching and comparable performance (and potential NSP redundancy), the authors adopt FULL-SENTENCES for the remainder of experiments to facilitate comparisons with related work.
+
+- Relationship to the baseline setup
+  - Throughout this analysis, the model is kept in the standard BERT-Base configuration (12 layers, hidden size 768, 12 attention heads) to isolate the effects of input format and NSP usage on pretraining efficiency and downstream performance.

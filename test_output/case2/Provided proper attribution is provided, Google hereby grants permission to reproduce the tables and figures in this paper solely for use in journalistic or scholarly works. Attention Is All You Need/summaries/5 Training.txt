@@ -1,0 +1,3 @@
+- Section 5: Training
+  - Key point: This section describes the training regime for the models.
+  - Note: The provided text only contains this high-level statement and does not include specifics (e.g., optimizers, learning rates, batch sizes, loss functions, data, or regularization). If you share the full section text, I can summarize the details in depth.

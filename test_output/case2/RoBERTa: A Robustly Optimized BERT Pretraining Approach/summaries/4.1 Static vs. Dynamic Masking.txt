@@ -1,0 +1,25 @@
+Summary of Section 4.1: Static vs. Dynamic Masking
+
+- Context and motivation:
+  - BERT trains by randomly masking tokens and predicting them. The original BERT used a single static mask created during preprocessing.
+  - To avoid reusing the same mask across epochs, the authors’ reproduction duplicated the training data 10 times so that each sequence would be masked in 10 different ways over 40 training epochs, resulting in each sequence seeing the same mask four times during training.
+
+- Static vs. dynamic masking:
+  - Static masking: the mask is fixed for a given sequence throughout training.
+  - Dynamic masking: the masking pattern is regenerated every time a sequence is fed to the model (i.e., masks can differ across epochs/steps for the same sequence).
+
+- Practical rationale:
+  - Dynamic masking is argued to be particularly beneficial when pretraining longer or on larger datasets, due to more varied masking patterns during learning.
+
+- Experimental comparison (Table 1):
+  - Datasets and metrics: SQuAD 2.0 (F1), MNLI-m (accuracy), SST-2 (accuracy). Medians over 5 random seeds. Reference results from Yang et al. (2019).
+  - Reimplementation results:
+    - Static masking: SQuAD F1 78.3 (vs. reference 76.3), MNLI-m 84.3 (vs. 84.3), SST-2 92.5 (vs. 92.8).
+    - Dynamic masking: SQuAD F1 78.7, MNLI-m 84.0, SST-2 92.9.
+  - Interpretation: The static reimplementation aligns closely with the original BERT results; dynamic masking is comparable or slightly better overall, with a small gain on SQuAD and SST-2 and a negligible or tiny drop on MNLI-m.
+
+- Practical conclusion:
+  - Given the comparable performance and additional efficiency benefits, the authors adopt dynamic masking for the remainder of their experiments.
+
+- Relation to baseline:
+  - The section continues to operate under the standard BERT-Base configuration (12 layers, hidden size 768, 12 attention heads) to isolate the effect of masking strategy on pretraining efficiency and efficacy.

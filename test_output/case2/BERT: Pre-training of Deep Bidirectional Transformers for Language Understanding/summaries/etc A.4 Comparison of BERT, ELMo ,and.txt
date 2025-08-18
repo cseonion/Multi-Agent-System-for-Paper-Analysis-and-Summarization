@@ -1,0 +1,75 @@
+Here is a sequential, section-by-section summary of the current content, preserving the key numerical details and outcomes.
+
+1) A.4 Comparison of BERT, ELMo, and OpenAI GPT
+- Masking strategy ablation for MLM:
+  - Purpose: evaluate how different masking choices during pre-training affect downstream fine-tuning, given that fine-tuning never sees the [MASK] token.
+  - Strategies defined: MASK (replace target with [MASK]), SAME (keep the token), RND (replace with a random token).
+  - BERT pre-training mix: 80% MASK, 10% SAME, 10% RND.
+  - Evaluation: Dev results on MNLI and NER; for NER, both fine-tuning and feature-based approaches were tested (feature-based likely to suffer more from pre-training/fine-tuning mismatch since representations cannot be adjusted as readily).
+  - Key findings:
+    - Fine-tuning is surprisingly robust to masking strategies.
+    - MASK-only is problematic for NER when using the feature-based approach.
+    - RND-only underperforms compared to the authors’ mixed strategy.
+- OpenAI GPT comparison (contrast with BERT/ELMo):
+  - ELMo is feature-based; GPT and BERT are fine-tuning based.
+  - Core differences highlighted:
+    - Data: GPT (BooksCorpus, 800M words); BERT (BooksCorpus 800M + Wikipedia 2,500M words).
+    - Special tokens: GPT uses SEP and CLS introduced only at fine-tuning; BERT learns SEP, CLS, and sentence A/B embeddings during pre-training.
+    - Training regime: GPT trained for 1M steps with a batch size corresponding to 32,000 words per batch; BERT trained for 1M steps with 128,000 words per batch.
+    - Fine-tuning learning rate: GPT uses a single fixed rate (5e-5) across tasks; BERT uses task-specific fine-tuning learning rates.
+  - Main takeaway: Ablation studies (Section 5.1) indicate most improvements come from the two pre-training tasks (MLM and NSP) and the bidirectionality they enable, rather than other architectural/training differences between BERT and GPT.
+- Appendix overview (structure and purpose):
+  - Appendix organization:
+    - Appendix A: Additional implementation details
+    - Appendix B: Additional experiment details
+    - Appendix C: Additional ablation studies
+  - Focus of additional ablations:
+    - A.1: Effect of Number of Training Steps
+    - A.1: Ablation for Different Masking Procedures
+  - Overall aim: provide concrete, supplementary details to support the main findings.
+
+2) A.1 Illustration of the Pre-training Tasks (and related content in the Appendix)
+- Purpose and content:
+  - Provides concrete examples of the pre-training tasks, focusing on the Masked Language Modeling (MLM) setup and its masking procedure.
+  - Example used: “my dog is hairy,” with masking applied to the 4th token (hairy). The illustration emphasizes that the Transformer encoder does not know which words will be predicted or which have been replaced by random tokens, encouraging robust, distributional contextual representations.
+  - Rationale for random replacements: occur for 1.5% of all tokens (i.e., 10% of the 15% masked tokens), intended not to harm language understanding.
+  - Claims and implications:
+    - MLM predicts on about 15% of tokens per batch, which suggests that pre-training may require many steps to converge.
+    - The procedure aids the model in maintaining contextual representations without explicit knowledge of which tokens will be predicted.
+  - Reiteration on masking mixture: BERT’s 80/10/10 masking strategy is contrasted with ablations to determine its impact.
+- Additional notes included in this subsection:
+  - A second presentation reiterates the same example and rationale for the MLM masking approach.
+  - It discusses that the illustrated pre-training helps justify why more pre-training steps may be needed due to the targeted prediction scope.
+
+3) Fine-tuning on GLUE tasks and practical details (within the Appendix content)
+- Task and fine-tuning setup:
+  - Fine-tuning on GLUE tasks uses most pre-training hyperparameters, with adjustments to batch size, learning rate, and number of training epochs per task.
+  - Dropout is fixed at 0.1.
+  - The range of hyperparameters that work well across tasks includes:
+    - Batch size: 16, 32
+    - Adam learning rate: 5e-5, 3e-5, 2e-5
+    - Number of epochs: 2, 3, 4
+  - Observation: Larger datasets (≥100k labeled examples) are less sensitive to hyperparameter choices than smaller datasets.
+- GLUE tasks and notes:
+  - GLUE tasks described (briefly): MNLI, QQP, QNLI, SST-2, CoLA, STS (Semantic Textual Similarity), MRPC, RTE, and WNLI.
+  - WNLI is excluded from GLUE submissions due to issues with WNLI performance baselines; the authors predict the majority class for GLUE predictions when WNLI is involved.
+  - Fine-tuning typically fast; task-specific output layers are added on top of BERT for each task.
+- Training scale, hardware, and duration (Appendix details):
+  - Data scale: ~3.3 billion words used for pre-training.
+  - Training duration: ~4 days per run.
+  - Hardware:
+    - BERT-Base: trained on 4 Cloud TPUs (16 TPU chips)
+    - BERT-Large: trained on 16 Cloud TPUs (64 TPU chips)
+  - Training objective and sequence details:
+    - About 1,000,000 pre-training steps (~40 epochs)
+    - Batch size of 256 sequences
+    - Sequence length: 512 tokens (with a balance strategy of 128-length steps for most of training and 512-length steps later)
+  - Overall practical implication:
+    - The combination of MLM and NSP enables strong, transferable representations across tasks; bidirectionality is a primary contributor to gains.
+    - Longer sequences increase computation, but the mixed sequence-length strategy balances efficiency with learning of positional information.
+
+Overall takeaway for this combined section block
+- Masking ablations show that fine-tuning is robust to masking strategy, with caveats for feature-based NER when using MASK-only.
+- The OpenAI GPT comparison reinforces that major performance gains arise from the pre-training objectives (MLM and NSP) and bidirectionality, rather than other architectural differences.
+- The Appendix and A.1 illustrate the practical methodology: MLM masking examples, rationale for the masking approach, and the structure of fine-tuning/GLUE experiments, including concrete hyperparameters, dataset coverage, hardware-scale details, and training duration.
+- Practically, MLM+NSP with bidirectionality yields strong transferable representations; longer sequences improve learning at the cost of computation, and hyperparameters tend to be robust across tasks, especially on larger data regimes.

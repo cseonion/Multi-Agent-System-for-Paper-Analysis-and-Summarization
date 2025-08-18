@@ -1,0 +1,2 @@
+- Main point: This section introduces the experimental setup used for the replication study of BERT.
+- Note: The excerpt only states the intention to describe the experimental setup; no further details are provided in this excerpt.

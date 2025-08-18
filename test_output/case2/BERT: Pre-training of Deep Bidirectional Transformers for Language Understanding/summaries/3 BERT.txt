@@ -1,0 +1,26 @@
+Here is a concise, section-by-section summary of Section 3 (BERT):
+
+- Overall idea and workflow
+  - BERT training consists of two steps: pre-training on unlabeled data using multiple pre-training tasks, and fine-tuning on labeled data for downstream tasks.
+  - After pre-training, every downstream task gets its own fine-tuned model, all initialized from the same pre-trained parameters.
+  - A running QA example (Figure 1) is used to illustrate the concepts.
+
+- Model architecture
+  - BERT uses a multi-layer bidirectional Transformer encoder, following the original Transformer design (Vaswani et al., 2017).
+  - To keep references concise, the paper notes the architecture is largely the same as the original Transformer and points to Vaswani et al. and the Annotated Transformer for background.
+  - Notation: L = number of Transformer layers, H = hidden size, A = number of self-attention heads.
+  - Two standard model sizes are reported:
+    - BERT BASE: L=12, H=768, A=12, ~110M parameters
+    - BERT LARGE: L=24, H=1024, A=16, ~340M parameters
+  - A key distinguishing feature: BERT uses bidirectional self-attention, whereas GPT uses a constrained (left-to-right) attention.
+
+- Input/Output representations
+  - The input representation is designed to handle both single sentences and sentence pairs (e.g., question-answer pairs) within one token sequence.
+  - A “sentence” is any contiguous text span; a “sequence” is the BERT input (one or two sentences packed together).
+  - WordPiece embeddings with a 30,000-token vocabulary are used.
+  - The [CLS] token at the start of every sequence serves as the aggregate sequence representation for classification tasks; the final hidden state of [CLS] is used for downstream predictions.
+  - For sentence pairs, the two sentences are packed into one sequence, separated by [SEP]. A learned segment (or sentence) embedding is added to each token to indicate whether it belongs to sentence A or B.
+  - Input embedding E is the sum of token embeddings, segment embeddings, and position embeddings. The section also references the notational symbols for the [CLS] vector C and the i-th token’s hidden state.
+
+- Running example and figures
+  - The Q&A example and related figures (Figure 1 and Figure 2) illustrate how these representations are composed and used.

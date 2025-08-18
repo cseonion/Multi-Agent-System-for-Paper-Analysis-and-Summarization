@@ -1,0 +1,7 @@
+- Reimplemented BERT in FAIRSEQ (Ott et al., 2019) for the replication study.
+- Largely followed original BERT optimization hyperparameters (per Section 2), with two tunable overrides per setting: peak learning rate and number of warmup steps.
+- Observed sensitivity to the Adam epsilon parameter; tuning it improved stability or performance in some settings.
+- Found beta2 = 0.98 beneficial for stability when training with large batch sizes.
+- Pretraining uses sequences of at most 512 tokens (T = 512).
+- Unlike Devlin et al. (2019), no random injection of short sequences and no reduced sequence-length phase in early updates; training uses only full-length sequences.
+- Training performed with mixed-precision arithmetic on DGX-1 systems: 8 × 32 GB Nvidia V100 GPUs connected by Infiniband.

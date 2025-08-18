@@ -1,0 +1,18 @@
+Summary of Section 1. Introduction
+
+- Context and problem: Pre-training improves a range of NLP tasks. There are two main downstream strategies: feature-based (e.g., ELMo) and fine-tuning (e.g., OpenAI GPT). Both typically use unidirectional language models during pre-training, which limits architecture choices and can hurt tasks requiring bidirectional context (e.g., token-level tasks like QA).
+
+- Limitation of prior approaches: Unidirectional pre-training (left-to-right) restricts model design and can be sub-optimal for tasks needing context from both directions.
+
+- BERT proposal: Introduce Bidirectional Encoder Representations from Transformers (BERT) to enable deep bidirectional pre-training. This is achieved with a masked language model (MLM) objective that allows each token to be predicted from its bidirectional context, enabling a deep bidirectional Transformer encoder.
+
+- Additional pre-training task: Next Sentence Prediction (NSP) to jointly pretrain representations for text pairs.
+
+- How MLM works: Randomly mask some tokens in the input and predict the original token IDs from the surrounding context (bidirectional).
+
+- Key contributions:
+  - Demonstrates the importance of bidirectional pre-training for language representations, contrasting with unidirectional models like GPT and with shallow left-right concatenation methods.
+  - Shows that pre-trained representations can reduce the need for heavily engineered task-specific architectures; BERT is a fine-tuning-based model that achieves state-of-the-art across tasks.
+  - Advances the state of the art on eleven NLP tasks.
+
+- Availability: Code and pre-trained models are released at the cited GitHub repository.

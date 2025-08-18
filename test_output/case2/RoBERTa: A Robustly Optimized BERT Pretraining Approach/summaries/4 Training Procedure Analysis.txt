@@ -1,0 +1,4 @@
+- Objective: The authors analyze which training procedure choices matter most for successful pretraining of BERT models, while keeping the model architecture fixed.
+- Baseline setup: They begin from the standard BERT-Base configuration, defined as 12 layers (L=12), hidden size 768 (H=768), 12 attention heads (A=12), totaling about 110 million parameters.
+- Scope: The section focuses on isolating effects of pretraining choices (without changing the network architecture), aiming to quantify their impact on pretraining efficacy. 
+- Note: A footnote reference (foot_3) is indicated, likely clarifying baseline details or experimental setup.

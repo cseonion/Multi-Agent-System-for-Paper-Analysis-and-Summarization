@@ -1,0 +1,4 @@
+- BERT processes input as a pair of token sequences, x1,…,xN and y1,…,yM, concatenated into a single input with special delimiting tokens.
+- Segments typically consist of more than one natural sentence.
+- The combined length M + N must be less than T, where T is the maximum sequence length parameter used during training.
+- The model is first pretrained on a large unlabeled text corpus and then finetuned on labeled data for the specific end task.

@@ -1,0 +1,9 @@
+Section 3.2 summary: Fine-tuning BERT
+
+- Fine-tuning is straightforward because the Transformer self-attention allows BERT to model many downstream tasks by swapping inputs and outputs.
+- For text pair tasks, BERT unifies encoding and cross-attention by concatenating the pair into a single sequence and letting self-attention capture bidirectional interactions, rather than using a two-stage independent encoding plus cross-attention.
+- Across tasks, simply plug in task-specific inputs and outputs and fine-tune all parameters end-to-end.
+- Input mappings: Sentence A and B from pre-training correspond to various pair types in downstream tasks (paraphrase, entailment, question answering, or a degenerate text-∅ pair for classification/sequence tagging).
+- Output mappings: token representations feed into token-level task outputs (e.g., sequence tagging, QA), while the [CLS] representation feeds into classification outputs (e.g., entailment, sentiment analysis).
+- Fine-tuning is relatively inexpensive compared to pre-training; results can be replicated starting from the exact same pre-trained model—at most 1 hour on a single Cloud TPU, or a few hours on a GPU.
+- Detailed task-specific instructions are provided in Section 4, with additional details in Appendix A.5.

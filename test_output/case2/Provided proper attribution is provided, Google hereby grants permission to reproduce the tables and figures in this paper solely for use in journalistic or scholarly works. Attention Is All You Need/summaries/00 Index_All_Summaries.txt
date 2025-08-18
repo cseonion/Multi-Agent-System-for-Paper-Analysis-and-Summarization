@@ -1,0 +1,258 @@
+논문 제목: Provided proper attribution is provided, Google hereby grants permission to reproduce the tables and figures in this paper solely for use in journalistic or scholarly works. Attention Is All You Need
+전체 섹션별 요약 인덱스
+============================================================
+
+섹션 1: Introduction
+----------------------------------------
+- The introduction places Recurrent Neural Networks (RNNs), particularly LSTM and gated recurrent networks, as the state-of-the-art for sequence modeling, including language modeling and machine translation, with ongoing improvements in encoder–decoder architectures.
+
+- A key limitation of recurrent models is their inherently sequential computation along the sequence positions, which restricts parallelization and makes training long sequences memory-intensive.
+
+- Attention mechanisms have become integral for modeling dependencies regardless of distance, though most effective uses combine attention with recurrent networks.
+
+- The authors propose the Transformer, a model that abandons recurrence entirely and relies solely on attention to capture global dependencies between input and output. This design enables much more parallelization and, after limited training (as little as 12 hours on eight P100 GPUs), can achieve state-of-the-art translation quality.
+
+섹션 2: Background
+----------------------------------------
+Summary of Section 2: Background
+
+- The section situates the Transformer among architectures aimed at reducing sequential computation, highlighting alternatives like Extended Neural GPU, ByteNet, and ConvS2S that rely on convolution to process input and output positions in parallel. In these models, the cost to relate signals from two positions grows with their distance: linearly for ConvS2S and logarithmically for ByteNet, making learning long-range dependencies harder.
+
+- The Transformer addresses this by using self-attention, which achieves a constant amount of work to relate any two positions. However, there is a trade-off: attention-weighted averaging can reduce effective resolution, a drawback mitigated by Multi-Head Attention (covered in section 3.2).
+
+- Self-attention (intra-attention) is defined as an attention mechanism that relates different positions within a single sequence to compute its representation. It has been successfully applied to tasks such as reading comprehension, abstractive summarization, textual entailment, and learning task-independent sentence representations.
+
+- End-to-end memory networks are noted as using a recurrent attention mechanism rather than sequence-aligned recurrence, performing well on simple-language question answering and language modeling.
+
+- The authors claim that the Transformer is the first transduction model to rely entirely on self-attention to compute representations of both input and output without using sequence-aligned RNNs or convolutions. The section previews that the subsequent sections will describe the Transformer, motivate self-attention, and discuss its advantages over prior models like those cited.
+
+섹션 3: Model Architecture
+----------------------------------------
+- The Transformer uses the standard encoder–decoder sequence-to-sequence architecture: an encoder maps the input sequence x1,...,xn to a sequence of continuous representations z1,...,zn, and a decoder generates the output sequence y1,...,ym one symbol at a time.
+- The decoding is autoregressive: at each step, the model uses the previously generated outputs as input when predicting the next symbol.
+- Unlike traditional RNNs or CNN-based transducers, the Transformer builds both encoder and decoder from stacked self-attention layers followed by position-wise (point-wise) fully connected feed-forward layers.
+- The overall architecture for both the encoder and decoder is depicted in Figure 1 (left and right halves, respectively).
+
+섹션 3.1: Encoder and Decoder Stacks
+----------------------------------------
+Summary of Section 3.1: Encoder and Decoder Stacks
+
+- Encoder: Composed of N = 6 identical layers. Each layer has two sub-layers: (1) a multi-head self-attention mechanism and (2) a positionwise fully connected feed-forward network. Each sub-layer is wrapped with a residual connection and layer normalization, yielding outputs of the form LayerNorm(x + Sublayer(x)). All sub-layers and the embedding layers produce outputs with dimension d_model = 512.
+
+- Decoder: Also composed of N = 6 identical layers. Each decoder layer includes the same two sub-layers as the encoder plus a third sub-layer that performs multi-head attention over the encoder's output (encoder-decoder attention). Like the encoder, each sub-layer uses residual connections followed by layer normalization. The decoder's self-attention sub-layer is masked to prevent attending to future positions, and the output embeddings are offset by one position, ensuring that predictions for position i can only depend on previously generated outputs (positions < i).
+
+섹션 3.2: Attention
+----------------------------------------
+- Section 3.2 defines attention as a function that maps a query and a set of key-value pairs (all vectors) to an output vector.
+- The output is produced as a weighted sum of the values, where the weights are determined by a compatibility function between the query and each key.
+- The section specifically mentions Scaled Dot-Product Attention and Multi-Head Attention as the mechanisms for computing these outputs.
+
+섹션 3.2.1: Scaled Dot-Product Attention
+----------------------------------------
+Summary of Section 3.2.1. Scaled Dot-Product Attention
+
+- Mechanism: Scaled Dot-Product Attention operates on queries Q (dimension d_k), keys K (dimension d_k), and values V (dimension d_v). For each query, it computes dot products with all keys, scales them by 1/√d_k, applies a softmax to obtain attention weights, and uses these weights to form a weighted sum of the values.
+
+- Formal computation (as matrices): 
+  - Scores = Q K^T / √d_k
+  - Attention weights A = softmax(Scores)
+  - Output O = A V
+  - In practice, Q, K, and V are packed into matrices, enabling efficient batched matrix multiplications.
+
+- Relation to additive attention: Additive attention uses a feed-forward network to compute the compatibility function, whereas dot-product attention uses simple dot products (with scaling) and is more efficient.
+
+- Efficiency and practicality: Dot-product attention is faster and more space-efficient due to highly optimized matrix multiplication, making it preferable in many settings.
+
+- Scaling rationale: For larger d_k, unscaled dot products can become large, pushing the softmax into regions with very small gradients. Scaling by 1/√d_k mitigates this, improving gradient flow during learning.
+
+- Practical trade-offs: 
+  - For small d_k, additive and dot-product attention perform similarly.
+  - For larger d_k without scaling, additive attention can outperform dot-product attention; with scaling, dot-product attention remains competitive and gradient-safe.
+
+- Note: The section highlights the key scaling factor 1/√d_k as essential to maintaining effective training dynamics in dot-product attention.
+
+섹션 3.2.2: Multi-Head Attention
+----------------------------------------
+- Multi-head attention extends single-head attention by projecting Q, K, and V multiple times with different learned linear projections into h subspaces (dimensions d_k, d_k, and d_v, respectively).
+- For each head, attention is computed independently on its projected Q, K, V, producing d_v-dimensional outputs.
+- The outputs from all heads are concatenated and then passed through a final linear projection to form the overall output.
+- The approach allows the model to attend to information from different representation subspaces and at different positions, avoiding the averaging effect of a single head.
+- In this work, h = 8 heads are used.
+- Because each head operates in a reduced dimension, the total computational cost remains similar to that of a single head operating in full dimensionality.
+
+섹션 3.2.3: Applications of Attention in our Model
+----------------------------------------
+Summary of Section 3.2.3: Applications of Attention in our Model
+
+- The Transformer applies multi-head attention in three contexts:
+  1) Encoder-decoder attention: queries come from the previous decoder layer, while keys/values come from the encoder output. This lets every decoder position attend to all input positions, mirroring traditional encoder-decoder attention in seq2seq models.
+  2) Encoder self-attention: queries, keys, and values all come from the encoder (specifically the encoder’s previous layer), permitting each encoder position to attend to all positions in the encoder.
+  3) Decoder self-attention: queries, keys, and values come from the decoder, allowing each decoder position to attend to earlier positions in the decoder up to the current one.
+
+- To preserve the autoregressive property in the decoder, a masking step is applied within scaled dot-product attention: illegal (future) connections are masked by setting their logits to -∞ before the softmax (as illustrated in Figure 2).
+
+섹션 3.3: Position-wise Feed-Forward Networks
+----------------------------------------
+Summary of Section 3.3: Position-wise Feed-Forward Networks
+
+- Each encoder/decoder layer includes a position-wise feed-forward network in addition to the attention sub-layers.
+- The feed-forward network is applied to each position independently and identically (same operation across all positions, but with layer-specific parameters).
+- Architecture: two linear transformations with a ReLU activation between them.
+- Interpretation: equivalent to two 1x1 convolutions (kernel size 1) along the sequence.
+- Dimensions: input/output dimension d_model = 512; inner-layer (hidden) dimension d_ff = 2048.
+- The linear transformations are shared across positions within a layer but differ from layer to layer.
+
+섹션 3.4: Embeddings and Softmax
+----------------------------------------
+Section 3.4 Summary: Embeddings and Softmax
+
+- Both input and output tokens are mapped to vectors of dimension d_model using learned embeddings.
+- The decoder’s output is transformed by a learned linear projection and then passed through a softmax to obtain predicted next-token probabilities.
+- The model employs weight tying: the same weight matrix is shared among the input embedding, the output embedding, and the pre-softmax linear transformation (as in prior work [30]).
+- In the embedding layers, the shared weights are scaled by sqrt(d_model).
+
+섹션 3.5: Positional Encoding
+----------------------------------------
+- Purpose: Since the model has no recurrence or convolution, it must receive explicit position information. Positional encodings are added to the input embeddings at the bottoms of both the encoder and decoder stacks.
+
+- Dimension alignment: The positional encodings have the same dimension as the embeddings (d_model) so they can be summed directly.
+
+- Encoding approach: They experiment with fixed sinusoidal positional encodings (sine and cosine functions of different frequencies) rather than relying on learned embeddings.
+
+- Functional form: Each dimension i of the positional encoding corresponds to a sinusoid with wavelengths forming a geometric progression from 2π to 10000·2π across positions pos.
+
+- Rationale: This design makes it easy for the model to learn to attend by relative positions, since PE_pos+k can be represented as a linear function of PE_pos for any fixed offset k.
+
+- Alternative tested: Learned positional embeddings were also trained and yielded nearly identical results.
+
+- Preference and rationale: The sinusoidal (fixed) version was chosen because it may allow extrapolation to sequence lengths longer than those seen during training.
+
+섹션 4: Why Self-Attention
+----------------------------------------
+Summary of Section 4: Why Self-Attention
+
+- Purpose and criteria: The section contrasts self-attention with recurrent and convolutional layers for mapping a variable-length input sequence to an output sequence. It focuses on three desiderata: (1) total computational complexity per layer, (2) amount of parallelization (minimum sequential operations), and (3) the path length between long-range dependencies in the network.
+
+- Self-attention vs recurrence: A self-attention layer connects all positions with a constant (O(1)) number of sequential operations, whereas a recurrent layer requires O(n) sequential steps. This makes self-attention more parallelizable and, in many settings, faster when the sequence length n is smaller than the representation dimensionality d.
+
+- Long sequences and local attention: For very long sequences, performance can be improved by restricting attention to a neighborhood of size r around each position, which increases the maximum path length to O(n/r). The authors note they plan to investigate this approach further in future work.
+
+- Self-attention vs convolution: A single convolutional layer with kernel width k < n cannot connect all input-output position pairs, requiring either O(n/k) stacked layers (for contiguous kernels) or O(log_k(n)) layers (with dilations) to do so, which increases the longest path length. Convolutional layers are generally more expensive than recurrent layers by a factor of k. Separable convolutions reduce complexity significantly to O(k). Even with k = n, the complexity of a separable convolution becomes comparable to the combination of a self-attention layer and a point-wise feed-forward layer—precisely the approach used in the authors’ model.
+
+- Interpretability: Self-attention offers potential interpretability advantages. The authors examine attention distributions and find that different heads learn to perform varied tasks, with some heads reflecting syntactic and semantic structure. These observations are discussed further in the appendix.
+
+- Takeaway: Self-attention presents favorable trade-offs in complexity, parallelism, and the ability to model long-range dependencies, while also enabling interpretable mechanisms via attention heads. The section also notes avenues for extending the approach to longer sequences (e.g., local attention) as future work.
+
+섹션 5: Training
+----------------------------------------
+- Section 5: Training
+  - Key point: This section describes the training regime for the models.
+  - Note: The provided text only contains this high-level statement and does not include specifics (e.g., optimizers, learning rates, batch sizes, loss functions, data, or regularization). If you share the full section text, I can summarize the details in depth.
+
+섹션 5.1: Training Data and Batching
+----------------------------------------
+- Data sources:
+  - English–German: ~4.5 million sentence pairs from the WMT 2014 dataset.
+  - English–French: ~36 million sentences from the WMT 2014 dataset.
+
+- Tokenization/vocabulary:
+  - English–German: byte-pair encoding with a shared source-target vocabulary of about 37,000 tokens.
+  - English–French: 32,000 word-piece vocabulary (not stated as shared).
+
+- Batching:
+  - Sentence pairs were batched by approximate sequence length.
+  - Each training batch contained roughly 25,000 source tokens and 25,000 target tokens.
+
+섹션 5.2: Hardware and Schedule
+----------------------------------------
+- Hardware setup: Trained on a single machine with 8 NVIDIA P100 GPUs.
+- Training speed: Base models run at ~0.4 seconds per training step; big models run at ~1.0 second per step.
+- Training duration: Base models trained for 100,000 steps (~12 hours); big models trained for 300,000 steps (~3.5 days).
+
+섹션 5.3: Optimizer
+----------------------------------------
+Summary of Section 5.3. Optimizer:
+- Optimizer used: Adam (reference [20])
+- Hyperparameters: β1 = 0.9, β2 = 0.98, ε = 1e-9
+- Learning rate schedule: The learning rate is varied during training by a schedule that linearly warms up for the first warmup_steps steps and then decays proportionally to the inverse square root of the step number
+- Warmup steps: 4000
+
+섹션 5.4: Regularization
+----------------------------------------
+Summary of Section 5.4 Regularization:
+- The authors apply three regularization techniques during training: residual dropout, dropout on the sums of embeddings and positional encodings (in both the encoder and decoder stacks), and label smoothing.
+- Residual dropout: dropout is applied to the output of each sub-layer before it is added to the sub-layer input and normalized.
+- Embeddings/positional encoding dropout: dropout is also applied to the sums of token embeddings and positional encodings.
+- Droplet rate: for the base model, the dropout rate is set to P_drop = 0.1.
+- Label smoothing: training uses label smoothing with epsilon_ls = 0.1; this slightly worsens perplexity but improves overall accuracy and BLEU scores.
+- These regularization techniques are applied within the Transformer architecture (both encoder and decoder).
+
+섹션 6.1: Machine Translation
+----------------------------------------
+- Overall result: On WMT 2014 translation tasks, the Transformer (big) achieves state-of-the-art BLEU scores and demonstrates strong training efficiency. The base model is already competitive at a substantially lower training cost.
+
+- English-to-German (EN-DE): The big Transformer model achieves BLEU 28.4, outperforming the best previously reported models (including ensembles) by more than 2.0 BLEU. This establishes a new state-of-the-art. Training took 3.5 days on 8 P100 GPUs. The model configuration is detailed in Table 3 (bottom line).
+
+- English-to-French (EN-FR): The big model achieves BLEU 41.0, beating all previously published single models and doing so at less than one-quarter of the training cost of the prior state-of-the-art. Note: the big EN-FR model used dropout rate P_drop = 0.1, as opposed to 0.3 elsewhere.
+
+- Ensemble/averaging strategy: For base models, the authors averaged the last 5 checkpoints (taken at 10-minute intervals). For big models, they averaged the last 20 checkpoints. Beam search used a beam size of 4 with length penalty α = 0.6. Hyperparameters were chosen based on development-set experiments. Maximum output length during inference was set to input length + 50, with early termination when possible.
+
+- Results and comparisons: Table 2 summarizes translation quality and training costs relative to other architectures in the literature. The authors also provide an estimate of training FLOPs by multiplying training time, number of GPUs, and the sustained single-precision capacity of the GPUs (footnote foot_1).
+
+- Note on methodology: The section emphasizes both improved translation quality and practical training cost efficiency, with explicit details on hyperparameters, averaging schemes, and decoding settings to support reproducibility.
+
+섹션 6.2: Model Variations
+----------------------------------------
+Section 6.2 Summary:
+
+- Purpose and setup: The authors examine how key components of the Transformer affect English-to-German translation by making targeted variations to the base model. They report results for Table 3, using beam search as in the previous section, but without checkpoint averaging, and with computation held constant where applicable (per Section 3.2.2).
+
+- A) Attention heads and key/value dimensions: Varying the number of attention heads and the attention key/value dimensions while keeping compute constant shows that:
+  - Single-head attention is about 0.9 BLEU worse than the best configuration.
+  - There is a non-monotonic effect with the number of heads; more heads can hurt quality if compute is fixed.
+
+- B) Attention key size (dk): Reducing dk degrades model quality, suggesting that the simple dot-product compatibility may be insufficient and that a more sophisticated compatibility function could help.
+
+- C) and D) Model size and dropout: Larger models perform better, and dropout substantially helps prevent overfitting.
+
+- E) Positional encoding: Replacing sinusoidal positional encodings with learned positional embeddings yields results nearly identical to the base model, indicating learned encodings can be a viable alternative.
+
+- Overall takeaway: The section highlights nuanced effects of architectural choices on performance, showing that neither the smallest nor the largest head configurations are universally best under a fixed compute budget, that the design of the compatibility function matters, that larger models and appropriate regularization (dropout) improve performance, and that learned positional embeddings can match sinusoidal encodings.
+
+섹션 6.3: English Constituency Parsing
+----------------------------------------
+Summary for Section 6.3: English Constituency Parsing
+
+- Objective and motivation: The authors test whether the Transformer generalizes to English constituency parsing, a task with strong structural constraints and lengthy outputs. They note that RNN sequence-to-sequence models struggle to achieve state-of-the-art results in small-data regimes.
+
+- Model and data: A 4-layer Transformer with model dimension d_model = 1024 is trained on English WSJ data (~40K training sentences) from the Penn Treebank. They also train a semi-supervised version using large corpora (high-confidence and Berkeley Parser data) totaling about 17 million sentences.
+
+- Vocabulary: 16K tokens for the WSJ-only setting; 32K tokens for the semi-supervised setting.
+
+- Hyperparameter selection: Only a small set of experiments were run to choose dropout (both attention and residual, per section 5.4), learning rates, and beam size, based on the Section 22 development set. All other parameters were kept the same as the English-to-German base translation model.
+
+- Inference details: Maximum output length set to input length plus 300; beam size 21; α = 0.3 for both WSJ-only and semi-supervised settings.
+
+- Results and main findings: The Transformer performs surprisingly well, surpassing all previously reported models except for the Recurrent Neural Network Grammar (RNNG). Notably, the Transformer beats the Berkeley Parser even when trained only on the WSJ 40K sentences, demonstrating strong generalization to a more structurally constrained, longer-output task despite limited task-specific tuning.
+
+섹션 7: Conclusion
+----------------------------------------
+- The Transformer is introduced as the first sequence transduction model built entirely on attention, replacing recurrent layers with multi-headed self-attention in encoder-decoder architectures.
+
+- For translation, training is significantly faster than recurrent or convolutional baselines.
+
+- Empirical results show state-of-the-art performance on both WMT 2014 English-German and English-French translation tasks, with the best English-German model outperforming all previously published ensembles.
+
+- The authors express optimism about attention-based models and outline future directions: extending the Transformer to tasks beyond text, exploring input/output modalities beyond text (e.g., images, audio, video), and investigating local, restricted attention to efficiently handle very large inputs/outputs. They also aim to make generation less sequential.
+
+- The authors release their training and evaluation code at the Tensor2Tensor repository.
+
+섹션 etc: Input-Input Layer5
+----------------------------------------
+Section summary: Input-Input Layer5
+
+This section presents a visualization of the input-to-input self-attention at layer 5. It highlights attention patterns for heads 5 and 6, with a focus on the word "its" in the example sentence "The Law will never be perfect, but its application should be just this is what we are missing, in my opinion." The authors note that the attentions around the word "its" are very sharp, suggesting that these heads specialize in focusing on this token within the input sequence. (Formatting noise in the text repeats the sentence and mentions “isolated attentions” for the word 'its', but the core point is the sharp attention on that token.)
+
+============================================================
+총 섹션 수: 22
+생성 시간: 2025-08-19 07:50:18

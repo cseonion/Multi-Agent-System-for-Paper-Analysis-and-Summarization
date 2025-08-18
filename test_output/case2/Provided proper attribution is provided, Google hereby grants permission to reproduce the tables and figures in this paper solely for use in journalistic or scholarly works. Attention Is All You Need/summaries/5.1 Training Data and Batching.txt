@@ -1,0 +1,11 @@
+- Data sources:
+  - English–German: ~4.5 million sentence pairs from the WMT 2014 dataset.
+  - English–French: ~36 million sentences from the WMT 2014 dataset.
+
+- Tokenization/vocabulary:
+  - English–German: byte-pair encoding with a shared source-target vocabulary of about 37,000 tokens.
+  - English–French: 32,000 word-piece vocabulary (not stated as shared).
+
+- Batching:
+  - Sentence pairs were batched by approximate sequence length.
+  - Each training batch contained roughly 25,000 source tokens and 25,000 target tokens.

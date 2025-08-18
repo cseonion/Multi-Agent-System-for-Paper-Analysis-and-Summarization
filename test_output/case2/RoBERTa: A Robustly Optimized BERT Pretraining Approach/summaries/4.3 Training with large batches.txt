@@ -1,0 +1,20 @@
+Section 4.3: Training with large batches
+
+- What the section examines: The potential benefits of using very large mini-batches for pretraining BERT, building on prior findings in NLP that large batches (with appropriately scaled learning rates) can speed optimization and improve end-task performance.
+
+- Experimental setup: The authors compare BERT-Base models trained on BOOKCORPUS and WIKIPEDIA with increasing batch sizes, keeping the number of passes (epochs) and overall computational cost aligned by adjusting the number of training steps and learning rate. They report perplexity on held-out data and development-set accuracies for MNLI-m and SST-2.
+
+- Key numbers (Table 3):
+  - Batch size 256: 1M steps, learning rate 1e-4, perplexity 3.99, MNLI-m 84.7, SST-2 92.7
+  - Batch size 2K: 125K steps, learning rate 7e-4, perplexity 3.68, MNLI-m 85.2, SST-2 92.9
+  - Batch size 8K: 31K steps, learning rate 1e-3, perplexity 3.77, MNLI-m 84.6, SST-2 92.8
+
+- Main findings:
+  - Training with larger batches improves the MLM perplexity and downstream task performance (end-task accuracy).
+  - Larger batches are easier to parallelize using distributed data-parallel training.
+  - The authors proceed with 8K-sequence batches in later experiments, noting that You et al. have pushed even larger batch sizes (up to 32K) in other work.
+  - The paper leaves exploring the ultimate limits of large-batch training to future work.
+
+- Practical note: The experiments demonstrate that increasing batch size, with appropriate learning-rate tuning, can maintain or improve performance while offering parallelization benefits.
+
+- Baseline context: Throughout this section, the model remains in the standard BERT-Base configuration (12 layers, hidden size 768, 12 attention heads) to isolate the effects of batch size and learning-rate scaling on pretraining efficiency and downstream performance.

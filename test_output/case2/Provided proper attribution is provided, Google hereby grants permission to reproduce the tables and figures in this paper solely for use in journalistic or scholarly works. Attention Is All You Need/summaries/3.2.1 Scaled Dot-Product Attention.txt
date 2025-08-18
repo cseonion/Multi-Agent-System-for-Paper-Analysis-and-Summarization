@@ -1,0 +1,21 @@
+Summary of Section 3.2.1. Scaled Dot-Product Attention
+
+- Mechanism: Scaled Dot-Product Attention operates on queries Q (dimension d_k), keys K (dimension d_k), and values V (dimension d_v). For each query, it computes dot products with all keys, scales them by 1/√d_k, applies a softmax to obtain attention weights, and uses these weights to form a weighted sum of the values.
+
+- Formal computation (as matrices): 
+  - Scores = Q K^T / √d_k
+  - Attention weights A = softmax(Scores)
+  - Output O = A V
+  - In practice, Q, K, and V are packed into matrices, enabling efficient batched matrix multiplications.
+
+- Relation to additive attention: Additive attention uses a feed-forward network to compute the compatibility function, whereas dot-product attention uses simple dot products (with scaling) and is more efficient.
+
+- Efficiency and practicality: Dot-product attention is faster and more space-efficient due to highly optimized matrix multiplication, making it preferable in many settings.
+
+- Scaling rationale: For larger d_k, unscaled dot products can become large, pushing the softmax into regions with very small gradients. Scaling by 1/√d_k mitigates this, improving gradient flow during learning.
+
+- Practical trade-offs: 
+  - For small d_k, additive and dot-product attention perform similarly.
+  - For larger d_k without scaling, additive attention can outperform dot-product attention; with scaling, dot-product attention remains competitive and gradient-safe.
+
+- Note: The section highlights the key scaling factor 1/√d_k as essential to maintaining effective training dynamics in dot-product attention.

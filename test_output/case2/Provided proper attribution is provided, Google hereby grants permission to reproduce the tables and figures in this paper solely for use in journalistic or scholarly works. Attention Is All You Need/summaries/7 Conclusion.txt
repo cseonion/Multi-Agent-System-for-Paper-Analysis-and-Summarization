@@ -1,0 +1,9 @@
+- The Transformer is introduced as the first sequence transduction model built entirely on attention, replacing recurrent layers with multi-headed self-attention in encoder-decoder architectures.
+
+- For translation, training is significantly faster than recurrent or convolutional baselines.
+
+- Empirical results show state-of-the-art performance on both WMT 2014 English-German and English-French translation tasks, with the best English-German model outperforming all previously published ensembles.
+
+- The authors express optimism about attention-based models and outline future directions: extending the Transformer to tasks beyond text, exploring input/output modalities beyond text (e.g., images, audio, video), and investigating local, restricted attention to efficiently handle very large inputs/outputs. They also aim to make generation less sequential.
+
+- The authors release their training and evaluation code at the Tensor2Tensor repository.

@@ -1,0 +1,8 @@
+Summary of Section 3.3: Position-wise Feed-Forward Networks
+
+- Each encoder/decoder layer includes a position-wise feed-forward network in addition to the attention sub-layers.
+- The feed-forward network is applied to each position independently and identically (same operation across all positions, but with layer-specific parameters).
+- Architecture: two linear transformations with a ReLU activation between them.
+- Interpretation: equivalent to two 1x1 convolutions (kernel size 1) along the sequence.
+- Dimensions: input/output dimension d_model = 512; inner-layer (hidden) dimension d_ff = 2048.
+- The linear transformations are shared across positions within a layer but differ from layer to layer.

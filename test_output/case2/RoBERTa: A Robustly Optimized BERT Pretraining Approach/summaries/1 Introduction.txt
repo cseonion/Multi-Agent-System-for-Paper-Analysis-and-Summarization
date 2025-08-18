@@ -1,0 +1,20 @@
+Section 1. Introduction – Summary of key points
+
+- Motivation and goal: Large self-training models (ELMo, GPT, BERT, XLM, XLNet) boost performance, but it’s hard to pinpoint which aspects matter due to computational cost and private training data. The paper reports a replication study of BERT pretraining to carefully assess the effects of hyperparameter tuning and training set size.
+- Core claim: BERT was significantly undertrained in its original release; with improved training strategies, a model named RoBERTa can match or exceed post-BERT methods.
+- Main design changes (RoBERTa repo-style recipe):
+  - Train longer with larger batches over more data.
+  - Remove the next sentence prediction (NSP) objective.
+  - Train on longer sequences.
+  - Dynamically change the masking pattern during pretraining.
+- Data contribution: Introduces CC-NEWS, a large new dataset comparable in size to other privately used corpora, to better control for training data size effects.
+- Key results (controlling for data size):
+  - RoBERTa improves upon published BERT results on GLUE and SQuAD.
+  - With more data and longer training, achieves a GLUE score of 88.5, matching the 88.4 reported by Yang et al. (2019).
+  - Sets new state-of-the-art on 4 of 9 GLUE tasks: MNLI, QNLI, RTE, and STS-B; also matches SQuAD and RACE benchmarks.
+- Conclusion: Masked language modeling (MLM) pretraining, when designed carefully, is competitive with other recent objectives such as perturbed autoregressive language modeling.
+- Contributions highlighted:
+  1) Identify important BERT design choices and training strategies, and propose effective alternatives for better downstream performance.
+  2) Use CC-NEWS to show that more pretraining data improves downstream results.
+  3) Demonstrate that MLM pretraining can be competitive with other recently published methods under the right design choices.
+- Release: The authors provide their model, pretraining, and fine-tuning code in PyTorch.

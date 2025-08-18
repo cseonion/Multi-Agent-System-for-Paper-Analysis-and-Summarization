@@ -1,0 +1,673 @@
+논문 제목: BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+전체 섹션별 요약 인덱스
+============================================================
+
+섹션 1: Introduction
+----------------------------------------
+Summary of Section 1. Introduction
+
+- Context and problem: Pre-training improves a range of NLP tasks. There are two main downstream strategies: feature-based (e.g., ELMo) and fine-tuning (e.g., OpenAI GPT). Both typically use unidirectional language models during pre-training, which limits architecture choices and can hurt tasks requiring bidirectional context (e.g., token-level tasks like QA).
+
+- Limitation of prior approaches: Unidirectional pre-training (left-to-right) restricts model design and can be sub-optimal for tasks needing context from both directions.
+
+- BERT proposal: Introduce Bidirectional Encoder Representations from Transformers (BERT) to enable deep bidirectional pre-training. This is achieved with a masked language model (MLM) objective that allows each token to be predicted from its bidirectional context, enabling a deep bidirectional Transformer encoder.
+
+- Additional pre-training task: Next Sentence Prediction (NSP) to jointly pretrain representations for text pairs.
+
+- How MLM works: Randomly mask some tokens in the input and predict the original token IDs from the surrounding context (bidirectional).
+
+- Key contributions:
+  - Demonstrates the importance of bidirectional pre-training for language representations, contrasting with unidirectional models like GPT and with shallow left-right concatenation methods.
+  - Shows that pre-trained representations can reduce the need for heavily engineered task-specific architectures; BERT is a fine-tuning-based model that achieves state-of-the-art across tasks.
+  - Advances the state of the art on eleven NLP tasks.
+
+- Availability: Code and pre-trained models are released at the cited GitHub repository.
+
+섹션 2: Related Work
+----------------------------------------
+- Purpose of the section: To situate the work within the history of pre-training for language representations and to briefly review the most widely-used pre-training approaches.
+
+- Content scope stated: Acknowledges a long-standing line of pre-training methods and promises a concise survey of the prominent approaches in the literature.
+
+섹션 2.1: Unsupervised Feature-based Approaches
+----------------------------------------
+Summary of Section 2.1: Unsupervised Feature-based Approaches
+
+- Context: Traces the development of pre-trained representations from traditional non-neural and neural word embeddings to the widespread use of pre-trained vectors in modern NLP, highlighting their performance gains over learning from scratch.
+
+- Pretraining objectives: Early work used left-to-right language modeling and discrimination of correct vs. incorrect words within contexts. These ideas were extended to larger textual units (sentences and paragraphs) with objectives such as next-sentence ranking, left-to-right generation conditioned on prior context, and denoising autoencoder–based objectives.
+
+- Sentence/paragraph representations: The literature moved beyond word-level embeddings to coarse-grained representations (sentence and paragraph embeddings) using corresponding pretraining tasks.
+
+- ELMo and contextualization: ELMo (and its predecessors) produces context-sensitive token representations by combining forward and backward language models; the token representation is the concatenation of the two directional components. When integrated into task-specific architectures, ELMo achieved state-of-the-art results on multiple benchmarks (e.g., question answering, sentiment analysis, and named entity recognition).
+
+- Related contextual approaches: Melamud et al. (2016) propose context representations by predicting a word from both left and right contexts using LSTMs, a method similar in spirit to ELMo but not deeply bidirectional. Fedus et al. (2018) show that cloze-style tasks can improve robustness in text generation models.
+
+- Takeaway: The section situates contextual, unsupervised pretraining as a key evolution in representation learning, highlighting ELMo’s contribution as a practical and effective way to inject contextual information into downstream NLP systems.
+
+섹션 2.2: Unsupervised Fine-tuning Approaches
+----------------------------------------
+Summary of Section 2.2: Unsupervised Fine-tuning Approaches
+
+- Progression: From pre-trained word embeddings to sentence/document encoders pre-trained on unlabeled text, which are then fine-tuned on downstream supervised tasks. This reduces the amount of learning required from scratch.
+
+- Key advantage: Large, pre-trained encoders provide strong representations that can be adapted with relatively few parameters during task-specific fine-tuning.
+
+- Notable models and results:
+  - OpenAI GPT (Radford et al., 2018) uses a left-to-right language model and achieved state-of-the-art results on multiple sentence-level tasks in GLUE.
+  - BERT and related contextual models illustrate the effectiveness of contextualized representations, with input formats incorporating [CLS], [SEP], and span-based QA (start/end positions) representations.
+
+- Pretraining objectives: Both autoregressive language modeling (left-to-right) and autoencoder-type objectives have been used to pre-train these models (as cited: Howard and Ruder, 2018; Radford et al., 2018; Dai and Le, 2015).
+
+- Takeaway: Unsupervised pretraining of sentence/document encoders enables powerful, transferable representations that, when fine-tuned, yield strong performance on a range of downstream NLP tasks.
+
+섹션 2.3: Transfer Learning from Supervised Data
+----------------------------------------
+Summary of Section 2.3: Transfer Learning from Supervised Data
+
+- Core idea: Transferring learned representations from large supervised datasets can yield effective performance on downstream tasks when fine-tuned.
+- NLP examples: Large supervised tasks such as natural language inference (Conneau et al., 2017) and machine translation (McCann et al., 2017) demonstrate this transferability.
+- Computer vision example: In CV, a practical approach is to fine-tune models that were pre-trained on ImageNet (Deng et al., 2009; Yosinski et al., 2014).
+- Practical takeaway: Fine-tuning pre-trained supervised models on target tasks is a robust and widely used recipe for leveraging large labeled datasets to improve downstream performance.
+
+섹션 3: BERT
+----------------------------------------
+Here is a concise, section-by-section summary of Section 3 (BERT):
+
+- Overall idea and workflow
+  - BERT training consists of two steps: pre-training on unlabeled data using multiple pre-training tasks, and fine-tuning on labeled data for downstream tasks.
+  - After pre-training, every downstream task gets its own fine-tuned model, all initialized from the same pre-trained parameters.
+  - A running QA example (Figure 1) is used to illustrate the concepts.
+
+- Model architecture
+  - BERT uses a multi-layer bidirectional Transformer encoder, following the original Transformer design (Vaswani et al., 2017).
+  - To keep references concise, the paper notes the architecture is largely the same as the original Transformer and points to Vaswani et al. and the Annotated Transformer for background.
+  - Notation: L = number of Transformer layers, H = hidden size, A = number of self-attention heads.
+  - Two standard model sizes are reported:
+    - BERT BASE: L=12, H=768, A=12, ~110M parameters
+    - BERT LARGE: L=24, H=1024, A=16, ~340M parameters
+  - A key distinguishing feature: BERT uses bidirectional self-attention, whereas GPT uses a constrained (left-to-right) attention.
+
+- Input/Output representations
+  - The input representation is designed to handle both single sentences and sentence pairs (e.g., question-answer pairs) within one token sequence.
+  - A “sentence” is any contiguous text span; a “sequence” is the BERT input (one or two sentences packed together).
+  - WordPiece embeddings with a 30,000-token vocabulary are used.
+  - The [CLS] token at the start of every sequence serves as the aggregate sequence representation for classification tasks; the final hidden state of [CLS] is used for downstream predictions.
+  - For sentence pairs, the two sentences are packed into one sequence, separated by [SEP]. A learned segment (or sentence) embedding is added to each token to indicate whether it belongs to sentence A or B.
+  - Input embedding E is the sum of token embeddings, segment embeddings, and position embeddings. The section also references the notational symbols for the [CLS] vector C and the i-th token’s hidden state.
+
+- Running example and figures
+  - The Q&A example and related figures (Figure 1 and Figure 2) illustrate how these representations are composed and used.
+
+섹션 3.1: Pre-training BERT
+----------------------------------------
+Summary of Section 3.1: Pre-training BERT
+
+- Core idea: Pre-train BERT with two unsupervised tasks before fine-tuning on downstream tasks.
+  - Task 1: Masked Language Modeling (MLM)
+    - Rationale: A truly bidirectional model should be more powerful than left-to-right models.
+    - Method: Randomly mask 15% of WordPiece tokens in each sequence and train to predict the original tokens.
+    - Details to avoid "seeing itself" during pre-training: the i-th masked token is predicted using the final hidden vectors; the masking process is varied to reduce pre-training/fine-tuning mismatch.
+    - Masking variants used during training: for a chosen token, replace with (1) [MASK] 80% of the time, (2) a random token 10% of the time, (3) unchanged 10% of the time.
+    - Loss: cross-entropy over the vocabulary for the original token.
+    - Note on mismatch with fine-tuning: [MASK] tokens do not appear during fine-tuning; to mitigate this, the model sometimes uses actual tokens instead of [MASK].
+  - Task 2: Next Sentence Prediction (NSP)
+    - Purpose: Teach the model to understand relationships between sentences, aiding tasks like QA and Natural Language Inference.
+    - Setup: For each training example with sentences A and B, 50% of the time B is the actual next sentence (IsNext) and 50% of the time B is a random sentence (NotNext).
+    - Benefit: Despite its simplicity, NSP improves performance on QA and NLI, as shown in the paper.
+  - Position embeddings and sentence handling
+    - NSP relates to learning representations across sentences; Unlike prior work that transfers only sentence embeddings, BERT transfers all parameters to initialize downstream models.
+    - Input can handle single sentences or sentence pairs by packing two sentences with a [SEP] separator.
+    - Token representations: WordPiece embeddings (vocabulary ~30,000), plus learned segment (sentence) embeddings.
+    - Input embedding E is the sum of token, segment, and position embeddings.
+    - The [CLS] token serves as the aggregate sequence representation for classification tasks; its final hidden state is used for downstream predictions.
+- Training data and corpus
+  - Pre-training corpus details: BooksCorpus (800 million words) and English Wikipedia (2.5 billion words).
+  - For Wikipedia, only text passages are used (lists, tables, headers removed), focusing on long contiguous sequences.
+  - Emphasis on using a document-level corpus (as opposed to a shuffled sentence-level corpus) to capture longer context.
+
+Overall, this section describes the MLM and NSP pre-training tasks, how they mitigate pre-training/fine-tuning mismatches, and the input/embedding setup plus the data sources used for pre-training.
+
+섹션 3.2: Fine-tuning BERT
+----------------------------------------
+Section 3.2 summary: Fine-tuning BERT
+
+- Fine-tuning is straightforward because the Transformer self-attention allows BERT to model many downstream tasks by swapping inputs and outputs.
+- For text pair tasks, BERT unifies encoding and cross-attention by concatenating the pair into a single sequence and letting self-attention capture bidirectional interactions, rather than using a two-stage independent encoding plus cross-attention.
+- Across tasks, simply plug in task-specific inputs and outputs and fine-tune all parameters end-to-end.
+- Input mappings: Sentence A and B from pre-training correspond to various pair types in downstream tasks (paraphrase, entailment, question answering, or a degenerate text-∅ pair for classification/sequence tagging).
+- Output mappings: token representations feed into token-level task outputs (e.g., sequence tagging, QA), while the [CLS] representation feeds into classification outputs (e.g., entailment, sentiment analysis).
+- Fine-tuning is relatively inexpensive compared to pre-training; results can be replicated starting from the exact same pre-trained model—at most 1 hour on a single Cloud TPU, or a few hours on a GPU.
+- Detailed task-specific instructions are provided in Section 4, with additional details in Appendix A.5.
+
+섹션 4: Experiments
+----------------------------------------
+Section 4 summarizes the empirical results of fine-tuning BERT on 11 NLP tasks, presenting the downstream performance after end-to-end fine-tuning.
+
+섹션 4.1: GLUE
+----------------------------------------
+Section 4.1 – GLUE: Key points
+
+- GLUE overview: The General Language Understanding Evaluation (GLUE) benchmark is a diverse suite of NLP tasks; detailed dataset descriptions are in Appendix B.1.
+- Fine-tuning setup: Input representations follow Section 3; the final hidden state C corresponding to the [CLS] token is used as the aggregate representation. During fine-tuning, the only trainable parameters are the classification layer weights W ∈ R^{K×H} (K = number of labels). Training uses a standard classification loss on C and W: log(softmax(C W^T)).
+- Training protocol: Batch size is 32; fine-tune for 3 epochs on all GLUE tasks. For each task, the best learning rate is selected from {5e-5, 4e-5, 3e-5, 2e-5} based on the Dev set. For BERT LARGE, finetuning can be unstable on small datasets, so multiple random restarts are performed with the same pre-trained checkpoint but different data shuffles and classifier initializations; the best model on the Dev set is chosen.
+- Results: Reported in Table 1. BERT BASE and BERT LARGE outperform all prior systems on all tasks by 4.5% and 7.0% in average accuracy, respectively. BERT and OpenAI GPT share similar architectures aside from attention masking; on MNLI, BERT achieves 4.6% absolute accuracy improvement. On the official GLUE leaderboard, BERT LARGE scores 80.5 versus 72.8 for OpenAI GPT.
+- Conclusions: BERT LARGE significantly outperforms BERT BASE across tasks, with larger gains on tasks with very little training data. The impact of model size is explored in more detail in Section 5.2.
+
+섹션 4.2: SQuAD v1.1
+----------------------------------------
+Section 4.2 – SQuAD v1.1
+
+- Task and data: SQuAD v1.1 is 100k crowdsourced question/answer pairs. Given a question and a Wikipedia passage, the model must predict the exact text span of the answer within the passage.
+
+- Input representation and model approach (during fine-tuning): The question and passage are packed into a single sequence with the question represented by the A embedding and the passage by the B embedding. The model uses a start vector S and an end vector E (learned during fine-tuning) to compute start and end probabilities over token positions via dot products with token representations T_i, followed by softmax.
+
+- Span scoring and training objective: The score of a candidate span (i, j) is S•T_i + E•T_j (with j ≥ i). The predicted answer is the span with the maximum score. Training maximizes the log-likelihood of the correct start and end positions.
+
+- Fine-tuning setup and hyperparameters: Fine-tune for 3 epochs with a learning rate of 5e-5 and a batch size of 32. The input/output and loss formulation align with standard SQuAD span prediction tasks.
+
+- Data augmentation and baselines: Table 2 compares against top leaderboard entries and published systems. To improve robustness, the authors use modest data augmentation by first fine-tuning on TriviaQA before fine-tuning on SQuAD.
+
+- Key results on SQuAD v1.1: The best system (BERT-based) outperforms the top leaderboard system by +1.5 F1 when using ensembling and by +1.3 F1 as a single system. In fact, the single BERT model surpasses the top ensemble in F1.
+
+- Transition to SQuAD v2.0: The section then describes SQuAD v2.0, which adds the possibility of no answer. The approach extends the BERT model to include a no-answer option using the [CLS] token as the no-answer span; the no-answer score is s_null = S•[CLS] + E•[CLS], and the best non-null span score ŝ_{i,j} = max_{i≤j} (S•T_i + E•T_j). A non-null prediction is made if ŝ_{i,j} > s_null + τ, with τ chosen on the dev set to maximize F1.
+
+- SQuAD v2.0 training and results: For the v2.0 extension, the model is fine-tuned for 2 epochs with a learning rate of 5e-5 and batch size 48. The results show a +5.1 F1 improvement over previous best systems (excluding those using BERT as a component in Table 3). TriviaQA data was not used for this v2.0 model.
+
+섹션 4.4: SWAG
+----------------------------------------
+Summary of Section 4.4: SWAG
+
+- Task and data: SWAG (Situations With Adversarial Generations) comprises 113k sentence-pair completion examples to evaluate grounded commonsense inference. The task is to pick the most plausible continuation among four options for a given sentence.
+
+- Input construction and model setup: For fine-tuning, four input sequences are created by concatenating the given sentence (sentence A) with each possible continuation (sentence B). The only task-specific parameter is a vector whose dot product with the [CLS] token representation C produces a score for each choice, and these scores are turned into probabilities via softmax.
+
+- Training details: The model is fine-tuned for 3 epochs with a learning rate of 2e-5 and a batch size of 16.
+
+- Results: BERT LARGE achieves notable gains, outperforming the authors' baseline ESIM+ELMo by +27.1% and OpenAI GPT by +8.3% (as shown in Table 4).
+
+섹션 5: Ablation Studies
+----------------------------------------
+Section 5 summary:
+
+- Purpose: The authors conduct ablation experiments to assess how different pre-training facets of BERT influence performance, using the BERT BASE architecture.
+
+- Experimental setups (Table 5):
+  - BERTBASE: Baseline with all pre-training tasks (NSP included).
+  - No NSP: Trained without the Next Sentence Prediction task.
+  - LTR & No NSP: Trained as a left-to-right language model without NSP (GPT-like).
+  - + BiLSTM: A randomly initialized BiLSTM is added on top of the LTR+No NSP model during fine-tuning.
+
+- Results (Dev Set) across tasks MNLI-m, QNLI, MRPC, SST-2, SQuAD (SQuAD listed as F1):
+  - BERTBASE: 84.4; 88.4; 86.7; 92.7; 88.5
+  - No NSP: 83.9; 84.9; 86.5; 92.6; 87.9
+  - LTR & No NSP: 82.1; 84.3; 77.5; 92.1; 77.8
+  - + BiLSTM: 82.1; 84.1; 75.7; 91.6; 84.9
+
+- Key takeaways:
+  - Removing NSP (No NSP) yields a modest drop across most tasks (e.g., MNLI-m and QNLI decrease; SQuAD drops from 88.5 to 87.9).
+  - Replacing NSP with a left-to-right LM (LTR & No NSP) causes a larger degradation, especially on MRPC (77.5) and SQuAD (77.8), with overall lower performance on several tasks.
+  - Adding a BiLSTM on top of LTR+No NSP improves SQuAD performance substantially (84.9) but does not recover performance on most other tasks (MRPC, MNLI, QNLI, SST-2 remain relatively limited).
+  - Overall, NSP contributes positively to performance; left-to-right pretraining without NSP is detrimental, and the BiLSTM gain is task-specific.
+
+- Note: Additional ablation details are provided in Appendix C.
+
+섹션 5.1: Effect of Pre-training Tasks
+----------------------------------------
+Summary of Section 5.1. Effect of Pre-training Tasks
+
+- Objective and setup
+  - Goal: quantify how pretraining objectives—especially NSP—and bidirectionality affect performance, while keeping the pretraining data, fine-tuning scheme, and hyperparameters identical to BERT BASE.
+  - Models compared:
+    - No NSP: bidirectional MLM pretraining without the next sentence prediction task.
+    - LTR & No NSP: left-to-right language modeling without NSP (GPT-like); fine-tuning also constrained to left-to-right to avoid pretrain/fine-tune mismatch.
+    - + BiLSTM: same as LTR & No NSP, but with a randomly initialized BiLSTM added on top during fine-tuning to try to bolster token-level predictions (not a true bidirectional pretraining).
+  - Rationale: NSP removal isolates the effect of the NSP objective; replacing MLM bidirectionality with an LTR model tests the value of bidirectional context; the BiLSTM tests whether a post-hoc augmentation can compensate.
+
+- Key findings
+  - NSP impact: Removing NSP hurts performance on QNLI, MNLI, and SQuAD 1.1, indicating NSP contributes positively to downstream results.
+  - Bidirectionality vs. LTR: The LTR & No NSP setup underperforms the MLM baseline across all tasks, with notably large declines on MRPC and SQuAD, highlighting the importance of deep bidirectional representations.
+  - BiLSTM augmentation: Adding a BiLSTM on top of LTR+No NSP improves SQuAD results substantially, but overall performance remains far below pretrained bidirectional models, and it can hurt performance on some GLUE tasks (MRPC, MNLI, QNLI, SST-2).
+  - Efficiency and design considerations: While it’s possible to concatenate separate LTR and RTL models (as in ELMo), this approach is twice as expensive as a single bidirectional model, is less intuitive for QA (RTL cannot condition on questions), and is strictly less powerful than a true deep bidirectional model.
+
+- Takeaway
+  - NSP contributes to performance; removing it harms several tasks.
+  - Replacing bidirectional MLM with left-to-right pretraining (without NSP) is detrimental across tasks.
+  - A BiLSTM on top of LTR can help in specific tasks (notably SQuAD) but does not achieve the gains of genuine bidirectional pretraining and can harm some GLUE tasks.
+  - Overall, deep bidirectional pretraining is superior to both MLM-without-NSP and LTR-only approaches.
+
+- Note: Additional ablation details are provided in Appendix C.
+
+섹션 5.2: Effect of Model Size
+----------------------------------------
+Summary of Section 5.2. Effect of Model Size
+
+- Objective: Assess how increasing model size affects fine-tuning task accuracy in downstream tasks.
+
+- Experimental setup: Trained a family of BERT models with varying sizes by changing the number of layers, hidden units, and attention heads. All other hyperparameters and training procedures were kept identical to those described earlier. Evaluation used Table 6 results.
+
+- Data and methodology: Results shown as average Dev Set accuracy across 5 random restarts of fine-tuning, on selected GLUE tasks.
+
+- Key findings:
+  - Larger models yield strict accuracy improvements across all four datasets (including MRPC, which has only about 3,600 labeled examples).
+  - The gains are substantial even relative to already large models in the literature; largest previously reported Transformer sizes were 100M parameters (Vaswani et al. 2017) and 235M in the literature; BERT BASE is 110M and BERT LARGE is 340M.
+  - Evidence of broader benefits: improvements align with the known benefits of larger models on large-scale tasks (as reflected in held-out LM perplexity in Table 6).
+
+- Interpretation and implication:
+  - This work provides the first convincingly large-scale demonstration that scaling to very large model sizes can yield substantial improvements on small-scale downstream tasks, provided the models are sufficiently pre-trained.
+  - Prior mixed results on pre-trained model size (Peters et al. 2018b; Melamud et al. 2016) likely reflect their feature-based approaches or limited downstream integration; by fine-tuning large pre-trained models with only a small number of task-specific parameters, the larger representations prove advantageous.
+
+- Practical takeaway:
+  - Increasing model size is beneficial for downstream accuracy in this evaluation, even when downstream data are scarce, as long as pretraining is substantial.
+
+- Notes:
+  - Additional ablation details are provided in Appendix C.
+
+섹션 5.3: Feature-based Approach with BERT
+----------------------------------------
+Summary of Section 5.3: Feature-based Approach with BERT
+
+- Objective and setup
+  - This section directly compares the fine-tuning approach (adding a task-specific classifier and updating all parameters) with a feature-based approach (using fixed representations from BERT).
+  - The comparison is applied to CoNLL-2003 NER. BERT uses a case-preserving WordPiece vocabulary and leverages the full document context. The task is formulated as tagging, and no CRF is used.
+  - For the feature-based setting, the representation from one or more BERT layers is extracted without updating BERT’s parameters, and this fixed representation is fed into a downstream model (a randomly initialized two-layer BiLSTM with 768 hidden units) followed by the classification layer. The representation of the first sub-token is used as input to the token-level classifier.
+
+- Experimental details (models and ablations)
+  - Table 6 (ablation over model size) shows a size-based study: larger models (more layers, larger hidden sizes, more attention heads) yield better language-model perplexity and better dev/test accuracy on tasks (MNLI, MRPC, SST-2). This provides context for why scaling BERT can help downstream tasks.
+  - For the NER evaluation (Table 7), results are reported as Dev F1 and Test F1, averaged over 5 random restarts with the same hyperparameters (which were chosen on the development set).
+
+- Key results
+  - Fine-tuning vs feature-based on CoNLL-2003 NER:
+    - Fine-tuned BERTLARGE achieves Dev F1 96.6 and Test F1 92.8.
+    - Fine-tuned BERTBASE achieves Dev F1 96.4 and Test F1 92.4.
+    - Feature-based results (using BERTBASE features with a downstream BiLSTM) vary by how the BERT representations are combined:
+      - Embeddings: Dev F1 91.0
+      - Second-to-Last Hidden: Dev F1 95.6
+      - Last Hidden: Dev F1 94.9
+      - Weighted Sum of Last Four Hidden: Dev F1 95.9
+      - Concat of Last Four Hidden: Dev F1 96.1
+      - Weighted Sum of All 12 Layers: Dev F1 95.5
+  - The best feature-based method is the Concat of the last four hidden layers (with BERTBASE features), achieving Dev F1 96.1. This is described by the authors as being very close to the performance of fine-tuning the entire model (the text notes it is “only 0.3 F1 behind” the fully fine-tuned model).
+
+- Interpretation and implications
+  - BERT is effective in both regimes: full fine-tuning and as a fixed feature extractor.
+  - The strongest feature-based result nearly matches the fine-tuned model, illustrating that high-quality representations from a pre-trained transformer can be very powerful even when the backbone is not updated.
+  - The results reinforce the broader conclusion that larger pre-trained models provide substantial downstream gains, even when task data are limited.
+
+- Practical takeaway
+  - If computational or task-architecture constraints prevent fine-tuning, a high-quality feature-based approach using top-layer representations (especially concatenating the top four hidden layers) can yield near state-of-the-art performance on NER.
+
+- Notes
+  - Hyperparameters were tuned on the development set; Dev/Test scores reported are averaged over 5 random restarts.
+  - The section also includes a case note on the token representation strategy (using the first sub-token) and that a CRF is not used in this setup.
+
+섹션 6: Conclusion
+----------------------------------------
+Summary of Section 6: Conclusion
+
+- High-level takeaway:
+  - The work reinforces that large-scale, unsupervised pre-training is central to strong language understanding, enabling both high-resource and low-resource tasks to benefit from deep bidirectional architectures (not just unidirectional ones).
+  - The major contribution is generalizing these pre-training findings to deep bidirectional models (like BERT), showing the same pre-trained representations can tackle a broad range of NLP tasks.
+
+- Key mechanisms and tasks discussed:
+  - Masked Language Modeling (MLM): Demonstrated that MLM converges somewhat more slowly than left-to-right models, but the empirical gains from MLM outweigh the extra training cost.
+  - Next Sentence Prediction (NSP): Introduced to capture inter-sentence relationships, illustrating the bidirectional pre-training objective beyond token-level prediction.
+
+- Pre-training procedure highlights (A.2):
+  - Input construction: Each training example consists of two spans A and B. B is the actual next sentence 50% of the time and a random sentence 50% of the time, with the combined length capped at 512 tokens.
+  - Masking: WordPiece tokenization followed by random masking of 15% of tokens; no special handling for partial word pieces.
+  - Training objective: Joint loss of mean MLM likelihood and mean NSP likelihood.
+
+- Training setup and hyperparameters:
+  - Sequence lengths and efficiency: Long sequences are costly due to quadratic attention. To speed up pre-training, the model is trained with sequence length 128 for 90% of steps and length 512 for the final 10% to learn positional embeddings.
+  - Optimization and regularization: Adam optimizer (lr = 1e-4; β1 = 0.9; β2 = 0.999) with L2 weight decay = 0.01; linear learning-rate warmup over the first 10,000 steps; then linear decay; dropout = 0.1 on all layers; gelu activation.
+  - Data and scale: Training over a 3.3B word corpus; 1,000,000 training steps (~40 epochs) with a batch size of 256 sequences (256 × 512 tokens per batch = 128,000 tokens per batch).
+
+- Hardware and training duration:
+  - BERT-Base: trained on 4 Cloud TPUs in a Pod configuration (16 TPU chips total).
+  - BERT-Large: trained on 16 Cloud TPUs (64 TPU chips total).
+  - Each pre-training run took about 4 days.
+
+- Practical implications:
+  - The combination of MLM and NSP pre-training on bidirectional architectures yields strong, transferable representations that work across tasks, and the approach scales with model size.
+  - Although longer sequences increase computational cost, the outlined strategy balances efficiency and learning of positional information, enabling effective pre-training on large corpora.
+
+- Notes on scope:
+  - This section emphasizes the conceptual and methodological achievements, the training regimen, and the practical considerations for large-scale pre-training, setting the stage for the broad applicability of BERT-like models.
+
+섹션 etc: A.3 Fine-tuning Procedure
+----------------------------------------
+Here is a concise, section-by-section summary of the provided content, preserving key numerical details.
+
+A.3 Fine-tuning Procedure (and related ablations)
+- Purpose and setup:
+  - The authors study how different masking strategies during MLM pre-training affect downstream fine-tuning, addressing the mismatch since the [MASK] token is not used at fine-tuning.
+  - They report development (Dev) results on MNLI and NER. For NER, both fine-tuning and feature-based approaches are considered because mismatch may be amplified when fixing representations (feature-based) without fine-tuning adjustments.
+  - Masking strategies defined: MASK (replace target token with [MASK]), SAME (keep the original token), RND (replace with a random token). For MLM pre-training, BERT uses 80% MASK, 10% SAME, 10% RND.
+  - Feature-based NER uses the last 4 BERT layers as features (found to be best in Section 5.3).
+- Key findings:
+  - Fine-tuning is surprisingly robust to different masking strategies.
+  - The MASK-only strategy is problematic for NER when using the feature-based approach.
+  - The RND-only strategy performs much worse than the authors’ mixed strategy.
+- Takeaway:
+  - The masking strategy during MLM has limited impact on fine-tuning performance for most setups, but can hurt certain feature-based approaches in NER.
+
+OpenAI GPT (comparison with GPT and related implications)
+- Scope:
+  - The authors compare representations from ELMo, OpenAI GPT, and BERT. GPT and BERT are finetuning-based, while ELMo is feature-based.
+- Key contrasts highlighted:
+  - GPT and BERT differ in data, tokens, and training signals (e.g., GPT uses BooksCorpus only; BERT uses BooksCorpus plus Wikipedia; GPT uses a SEP/CLS that are introduced at fine-tuning, while BERT learns them during pre-training).
+  - Training specifics differ: GPT uses a uniform fine-tuning learning rate; BERT uses task-specific learning rates and a tuned regimen; batch sizes and total steps also differ (GPT 1M steps with batch aimed at 32k words per batch; BERT 1M steps with 128k words per batch).
+- Main conclusion:
+  - Ablation experiments in Section 5.1 indicate that the majority of performance improvements come from the two pre-training tasks (MLM and NSP) and the bidirectionality they enable, rather than other architectural or training differences between BERT and GPT.
+
+Appendix and supplementary content (structure and illustrative material)
+- Organization:
+  - Appendix A: Additional implementation details.
+  - Appendix B: Additional experiment details.
+  - Appendix C: Additional ablation studies.
+- Additional ablations:
+  - A.1 (Illustration of the Pre-training Tasks) provides concrete examples of MLM and the masking procedure.
+- MLM masking details and rationale:
+  - Example sentence: “my dog is hairy”; random masking of the 4th token (hairy) illustrates masking; the encoder does not know in advance which words will be predicted or replaced, encouraging robust contextual representations.
+  - Random replacement occurs for 1.5% of all tokens (i.e., 10% of the 15% masked tokens), and this is argued not to harm language understanding.
+  - Compared to standard language modeling, MLM makes predictions on only about 15% of tokens per batch, implying more pre-training steps may be required.
+  - The section reiterates that BERT uses a mixed masking strategy (80/10/10) and motivates ablations on masking procedures.
+- Fine-tuning on GLUE and tasks (context for applying BERT):
+  - Figure 4 illustrates how BERT is fine-tuned on different tasks with an added output layer; task-specific fine-tuning is relatively lightweight.
+  - GLUE benchmark tasks described (brief summaries): MNLI, QQP, QNLI, SST-2, CoLA, Semantic Textual Similarity (STS), MRPC, RTE, and Winograd NLI (WNLI). WNLI is excluded from GLUE submissions due to poor baseline performance; the authors predict the majority class for GLUE unless otherwise stated.
+  - Fine-tuning hyperparameters (task-agnostic ranges, widely used across tasks): 
+    - Batch size: 16 or 32
+    - Learning rate (Adam): 5e-5, 3e-5, 2e-5
+    - Number of epochs: 2, 3, 4
+    - Dropout: 0.1 (consistently)
+  - General observation:
+    - Hyperparameters are largely robust across tasks; larger datasets (≥100k labeled examples) show less sensitivity to hyperparameters than smaller datasets.
+- Training scale, hardware, and duration:
+  - Data: 3.3B word corpus; training runs of about 1,000,000 steps (~40 epochs) with a batch size of 256 sequences (each sequence length 512 tokens; total ~128,000 tokens per batch).
+  - Hardware:
+    - BERT-Base: trained on 4 Cloud TPUs in a Pod (16 TPU chips)
+    - BERT-Large: trained on 16 Cloud TPUs (64 TPU chips)
+  - Duration: Each pre-training run takes about 4 days.
+- Practical implications:
+  - The combination of MLM and NSP enables strong, transferable representations for a wide range of tasks; bidirectionality is a key driver of gains.
+  - Longer sequences increase computation, but the adopted mix of sequence lengths (128 for most steps and 512 for the final phase) helps balance efficiency with positional learning.
+
+Overall takeaway for this section block
+- The ablation on masking strategies shows robustness in fine-tuning and highlights when certain strategies may hurt specialized (feature-based) setups.
+- The GPT comparison reinforces that the principal gains stem from pre-training tasks and bidirectionality rather than other architectural differences.
+- The Appendix clarifies methodological details, illustrated examples of MLM, and concrete fine-tuning procedures, including task descriptions (GLUE) and practical hyperparameter choices, along with hardware-scale considerations and training duration.
+
+섹션 etc: A.4 Comparison of BERT, ELMo ,and
+----------------------------------------
+Here is a sequential, section-by-section summary of the current content, preserving the key numerical details and outcomes.
+
+1) A.4 Comparison of BERT, ELMo, and OpenAI GPT
+- Masking strategy ablation for MLM:
+  - Purpose: evaluate how different masking choices during pre-training affect downstream fine-tuning, given that fine-tuning never sees the [MASK] token.
+  - Strategies defined: MASK (replace target with [MASK]), SAME (keep the token), RND (replace with a random token).
+  - BERT pre-training mix: 80% MASK, 10% SAME, 10% RND.
+  - Evaluation: Dev results on MNLI and NER; for NER, both fine-tuning and feature-based approaches were tested (feature-based likely to suffer more from pre-training/fine-tuning mismatch since representations cannot be adjusted as readily).
+  - Key findings:
+    - Fine-tuning is surprisingly robust to masking strategies.
+    - MASK-only is problematic for NER when using the feature-based approach.
+    - RND-only underperforms compared to the authors’ mixed strategy.
+- OpenAI GPT comparison (contrast with BERT/ELMo):
+  - ELMo is feature-based; GPT and BERT are fine-tuning based.
+  - Core differences highlighted:
+    - Data: GPT (BooksCorpus, 800M words); BERT (BooksCorpus 800M + Wikipedia 2,500M words).
+    - Special tokens: GPT uses SEP and CLS introduced only at fine-tuning; BERT learns SEP, CLS, and sentence A/B embeddings during pre-training.
+    - Training regime: GPT trained for 1M steps with a batch size corresponding to 32,000 words per batch; BERT trained for 1M steps with 128,000 words per batch.
+    - Fine-tuning learning rate: GPT uses a single fixed rate (5e-5) across tasks; BERT uses task-specific fine-tuning learning rates.
+  - Main takeaway: Ablation studies (Section 5.1) indicate most improvements come from the two pre-training tasks (MLM and NSP) and the bidirectionality they enable, rather than other architectural/training differences between BERT and GPT.
+- Appendix overview (structure and purpose):
+  - Appendix organization:
+    - Appendix A: Additional implementation details
+    - Appendix B: Additional experiment details
+    - Appendix C: Additional ablation studies
+  - Focus of additional ablations:
+    - A.1: Effect of Number of Training Steps
+    - A.1: Ablation for Different Masking Procedures
+  - Overall aim: provide concrete, supplementary details to support the main findings.
+
+2) A.1 Illustration of the Pre-training Tasks (and related content in the Appendix)
+- Purpose and content:
+  - Provides concrete examples of the pre-training tasks, focusing on the Masked Language Modeling (MLM) setup and its masking procedure.
+  - Example used: “my dog is hairy,” with masking applied to the 4th token (hairy). The illustration emphasizes that the Transformer encoder does not know which words will be predicted or which have been replaced by random tokens, encouraging robust, distributional contextual representations.
+  - Rationale for random replacements: occur for 1.5% of all tokens (i.e., 10% of the 15% masked tokens), intended not to harm language understanding.
+  - Claims and implications:
+    - MLM predicts on about 15% of tokens per batch, which suggests that pre-training may require many steps to converge.
+    - The procedure aids the model in maintaining contextual representations without explicit knowledge of which tokens will be predicted.
+  - Reiteration on masking mixture: BERT’s 80/10/10 masking strategy is contrasted with ablations to determine its impact.
+- Additional notes included in this subsection:
+  - A second presentation reiterates the same example and rationale for the MLM masking approach.
+  - It discusses that the illustrated pre-training helps justify why more pre-training steps may be needed due to the targeted prediction scope.
+
+3) Fine-tuning on GLUE tasks and practical details (within the Appendix content)
+- Task and fine-tuning setup:
+  - Fine-tuning on GLUE tasks uses most pre-training hyperparameters, with adjustments to batch size, learning rate, and number of training epochs per task.
+  - Dropout is fixed at 0.1.
+  - The range of hyperparameters that work well across tasks includes:
+    - Batch size: 16, 32
+    - Adam learning rate: 5e-5, 3e-5, 2e-5
+    - Number of epochs: 2, 3, 4
+  - Observation: Larger datasets (≥100k labeled examples) are less sensitive to hyperparameter choices than smaller datasets.
+- GLUE tasks and notes:
+  - GLUE tasks described (briefly): MNLI, QQP, QNLI, SST-2, CoLA, STS (Semantic Textual Similarity), MRPC, RTE, and WNLI.
+  - WNLI is excluded from GLUE submissions due to issues with WNLI performance baselines; the authors predict the majority class for GLUE predictions when WNLI is involved.
+  - Fine-tuning typically fast; task-specific output layers are added on top of BERT for each task.
+- Training scale, hardware, and duration (Appendix details):
+  - Data scale: ~3.3 billion words used for pre-training.
+  - Training duration: ~4 days per run.
+  - Hardware:
+    - BERT-Base: trained on 4 Cloud TPUs (16 TPU chips)
+    - BERT-Large: trained on 16 Cloud TPUs (64 TPU chips)
+  - Training objective and sequence details:
+    - About 1,000,000 pre-training steps (~40 epochs)
+    - Batch size of 256 sequences
+    - Sequence length: 512 tokens (with a balance strategy of 128-length steps for most of training and 512-length steps later)
+  - Overall practical implication:
+    - The combination of MLM and NSP enables strong, transferable representations across tasks; bidirectionality is a primary contributor to gains.
+    - Longer sequences increase computation, but the mixed sequence-length strategy balances efficiency with learning of positional information.
+
+Overall takeaway for this combined section block
+- Masking ablations show that fine-tuning is robust to masking strategy, with caveats for feature-based NER when using MASK-only.
+- The OpenAI GPT comparison reinforces that major performance gains arise from the pre-training objectives (MLM and NSP) and bidirectionality, rather than other architectural differences.
+- The Appendix and A.1 illustrate the practical methodology: MLM masking examples, rationale for the masking approach, and the structure of fine-tuning/GLUE experiments, including concrete hyperparameters, dataset coverage, hardware-scale details, and training duration.
+- Practically, MLM+NSP with bidirectionality yields strong transferable representations; longer sequences improve learning at the cost of computation, and hyperparameters tend to be robust across tasks, especially on larger data regimes.
+
+섹션 etc: A.5 Illustrations of Fine-tuning on Different Tasks
+----------------------------------------
+Here is a concise, section-by-section summary of the current content for A.5 Illustrations of Fine-tuning on Different Tasks and the related appendix material:
+
+- Masking strategy ablation (pre-training vs. fine-tuning)
+  - Purpose: assess how different MLM masking strategies during pre-training affect downstream fine-tuning, since fine-tuning never sees [MASK].
+  - Strategies tested: MASK (replace with [MASK]), SAME (keep token), RND (random token).
+  - BERT masking mix during pre-training: 80% MASK, 10% SAME, 10% RND.
+  - Evaluation: MNLI and NER (NER includes both fine-tuning and feature-based settings to gauge mismatch amplification).
+  - Key findings:
+    - Fine-tuning is surprisingly robust to masking variations.
+    - MASK-only is problematic for NER when using the feature-based approach.
+    - RND-only performs worse than the mixed strategy.
+  - Conclusion: a mixed masking strategy is preferable; robustness in fine-tuning is demonstrated, with some caveats for feature-based NER.
+
+- OpenAI GPT comparison and key distinctions
+  - Positioning: GPT (OpenAI) and BERT are both fine-tuning based; ELMo is feature-based.
+  - Core differences highlighted between GPT and BERT:
+    - Data: GPT trained on BooksCorpus (800M words); BERT trained on BooksCorpus (800M) plus Wikipedia (2.5B words).
+    - Special tokens: GPT uses SEP and CLS at fine-tuning time; BERT learns SEP, CLS, and sentence embeddings during pre-training.
+    - Training regime: GPT ~1M steps with a batch sized to 32,000 words; BERT ~1M steps with 128,000-word batches.
+    - Fine-tuning learning rate: GPT uses a single fixed rate (5e-5); BERT uses task-specific fine-tuning learning rates.
+  - Main takeaway: Most improvements stem from the two pre-training tasks (MLM and NSP) and bidirectionality, rather than architectural/training differences between GPT and BERT. Ablations in Section 5.1 support this.
+
+- Appendix structure and purpose
+  - Organization:
+    - Appendix A: Additional implementation details.
+    - Appendix B: Additional experiment details.
+    - Appendix C: Additional ablation studies.
+  - Focus of additional ablations:
+    - A.1: Effect of Number of Training Steps.
+    - A.1: Ablation for Different Masking Procedures.
+  - Overall aim: provide concrete methodological details to support the main results.
+
+- A.1 Illustration of the Pre-training Tasks (and related content)
+  - Content: concrete examples of MLM and masking procedures.
+  - Example used: “my dog is hairy,” masking the 4th token (hairy).
+  - Rationale: masks/random replacements force the Transformer to maintain distributional contextual representations without knowing which tokens will be predicted; random replacements occur on 1.5% of all tokens (10% of the 15% masked tokens) to avoid harming language understanding.
+  - Implications:
+    - MLM predicts ~15% of tokens per batch, implying more pre-training steps may be needed for convergence.
+    - The section reinforces why the 80/10/10 masking mix is examined via ablations.
+
+- Fine-tuning on GLUE tasks and practical details (Appendix content)
+  - Fine-tuning setup: largely retains pre-training hyperparameters with task-specific adjustments to batch size, learning rate, and epochs; dropout fixed at 0.1.
+  - Hyperparameter ranges that work well across tasks:
+    - Batch size: 16, 32
+    - Adam learning rate: 5e-5, 3e-5, 2e-5
+    - Number of epochs: 2, 3, 4
+  - Observations: larger datasets (≥100k labeled examples) are less sensitive to hyperparameters than small datasets.
+  - GLUE tasks covered: MNLI, QQP, QNLI, SST-2, CoLA, STS (Semantic Textual Similarity), MRPC, RTE; WNLI is excluded from GLUE submissions due to baseline concerns, with majority-class predictions used in those cases.
+  - Training scale and hardware:
+    - Pre-training data: ~3.3 billion words
+    - Duration: ~4 days per run
+    - Hardware: BERT-Base on 4 Cloud TPUs; BERT-Large on 16 Cloud TPUs
+    - Setup: ~1,000,000 pre-training steps (~40 epochs); batch size 256; sequence length 512 (with a strategy balancing shorter and longer sequence steps)
+  - Practical conclusion: MLM + NSP with bidirectionality yields strong, transferable representations across tasks; longer sequences boost learning at higher compute cost; hyperparameters are fairly robust, especially on larger datasets.
+
+- Overall takeaway for this section
+  - Masking ablations show fine-tuning robustness to masking choices, with noted caveats for feature-based NER when using MASK-only.
+  - The GPT vs. BERT discussion reinforces that the majority of gains come from the pre-training objectives and bidirectionality rather than other architectural differences.
+  - The Appendix content provides concrete methodological detail on MLM masking illustrations, GLUE fine-tuning setups, hyperparameters, dataset scope, and hardware scale, underscoring the practical feasibility and generalizability of the BERT approach.
+  - Practically, the combination of MLM + NSP with bidirectional context yields strong transferable representations; longer sequences improve learning at computational cost; hyperparameters are reasonably robust across tasks, particularly in data-rich regimes.
+
+섹션 etc: STS-B
+----------------------------------------
+Here is a focused summary of the current section (A.5 Illustrations of Fine-tuning on Different Tasks and the related appendix material):
+
+- Masking strategy ablation (pre-training vs. fine-tuning)
+  - Purpose: evaluate how different MLM masking strategies during pre-training affect downstream fine-tuning, since fine-tuning never sees the [MASK] token.
+  - Strategies tested: MASK (replace with [MASK]), SAME (keep token), RND (random token).
+  - BERT’s pre-training mix: 80% MASK, 10% SAME, 10% RND.
+  - Findings:
+    - Fine-tuning is surprisingly robust to masking variations.
+    - MASK-only is problematic for NER when using the feature-based approach.
+    - RND-only performs worse than the mixed strategy.
+  - Implication: a mixed masking strategy is preferable to reduce pre-training/fine-tuning mismatch, with caveats for feature-based NER.
+
+- OpenAI GPT vs BERT comparison
+  - Positioning: GPT (OpenAI) and BERT are fine-tuning based; ELMo is feature-based.
+  - Key differences (highlights):
+    - Data: GPT uses BooksCorpus (800M words); BERT uses BooksCorpus (800M) + Wikipedia (2.5B words).
+    - Special tokens: GPT uses SEP/CLS only at fine-tuning; BERT learns SEP/CLS and sentence embeddings during pre-training.
+    - Training regime: GPT ~1M steps with large batch (32,000 words); BERT ~1M steps with 128,000-word batches.
+    - Fine-tuning learning rate: GPT uses a fixed 5e-5; BERT uses task-specific fine-tuning learning rates.
+  - Main takeaway: most improvements come from the two pre-training tasks (MLM and NSP) and bidirectionality, not architectural/training differences between GPT and BERT. Section 5.1 ablations support this.
+
+- Appendix structure and purpose
+  - Organization: Appendix A (implementation details), Appendix B (experiment details), Appendix C (additional ablations).
+  - Focus of additional ablations: effect of training steps; ablation for different masking procedures.
+  - Goal: provide concrete methodological details to support the main results.
+
+- A.1 Illustration of the Pre-training Tasks
+  - Content: concrete examples of MLM and masking procedures.
+  - Example used: “my dog is hairy,” masking the 4th token (hairy).
+  - Rationale: masking/random replacement forces the Transformer to maintain distributional contextual representations without knowing which words will be predicted; random replacements occur for 1.5% of all tokens (i.e., 10% of the 15% masked tokens) to avoid harming language understanding.
+  - Implication: MLM predicts about 15% of tokens per batch, suggesting more pre-training steps may be needed for convergence.
+  - Note: reinforces why the 80/10/10 masking mix is examined via ablations.
+
+- Fine-tuning on GLUE tasks and practical details (Appendix content)
+  - Fine-tuning setup largely preserves pre-training hyperparameters, with task-specific adjustments to batch size, learning rate, and number of epochs; dropout fixed at 0.1.
+  - Hyperparameter ranges that work well across tasks:
+    - Batch size: 16, 32
+    - Adam learning rate: 5e-5, 3e-5, 2e-5
+    - Number of epochs: 2, 3, 4
+  - Observations: large datasets (≥100k labeled examples) are less sensitive to hyperparameters than small datasets.
+  - GLUE tasks covered: MNLI, QQP, QNLI, SST-2, CoLA, STS, MRPC, RTE; WNLI is excluded from GLUE submissions (majority-class baseline used for those cases).
+  - Training scale and hardware:
+    - Pre-training data: ~3.3 billion words
+    - Duration: about 4 days per run
+    - Hardware: BERT-Base on 4 Cloud TPUs; BERT-Large on 16 Cloud TPUs
+    - Setup: ~1,000,000 pre-training steps (~40 epochs); batch size 256; sequence length 512 (with a mix of shorter/longer sequence steps)
+  - Practical conclusion: MLM + NSP with bidirectionality yields strong, transferable representations; longer sequences help learning at higher compute cost; hyperparameters are reasonably robust, especially with larger datasets.
+
+- Overall takeaways for this section
+  - Masking ablations show fine-tuning is robust to masking choices, with caveats for feature-based NER using MASK-only.
+  - The GPT vs. BERT discussion emphasizes that gains come mainly from the pre-training objectives (MLM/NSP) and bidirectionality, not just architectural differences.
+  - The appendix provides concrete methodological detail on masking illustrations, GLUE fine-tuning setups, hyperparameters, dataset scope, and hardware scale, underscoring practical feasibility and generalizability of BERT.
+  - Practically, MLM + NSP with bidirectional context yields strong transferable representations; longer sequences improve learning at a computational cost; hyperparameters are robust across tasks, particularly in data-rich regimes.
+
+섹션 etc: A Additional Details for BERT
+----------------------------------------
+Summary of Section: A. Additional Details for BERT
+
+- Masking strategy ablation (Section 3.1)
+  - Purpose: Evaluate how different MLM masking strategies during pre-training affect downstream fine-tuning, since fine-tuning never sees the [MASK] token.
+  - Setup and data: Dev results reported for MNLI and NER; for NER, both fine-tuning and feature-based approaches are included. Results are shown in Table 8; masking strategies are MASK (replace with [MASK]), SAME (keep token), and RND (random token). BERT’s pre-training mix is 80% [MASK], 10% SAME, 10% RND.
+  - Findings:
+    - Fine-tuning is surprisingly robust to masking variations.
+    - MASK-only masking is problematic for NER when using the feature-based approach.
+    - RND-only masking performs worse than the mixed strategy.
+  - Implication: A mixed masking strategy is preferable to reduce pre-training/fine-tuning mismatch, with caveats for feature-based NER.
+
+- OpenAI GPT vs BERT comparison
+  - Positioning: GPT and BERT are both fine-tuning based; ELMo is feature-based.
+  - Key differences highlighted:
+    - Data: GPT uses BooksCorpus (800M words); BERT uses BooksCorpus (800M) + Wikipedia (2.5B words).
+    - Special tokens: GPT uses [SEP] and [CLS] only at fine-tuning; BERT learns [SEP], [CLS], and sentence embeddings during pre-training.
+    - Training regime: GPT ~1M steps with batch size corresponding to 32,000 words; BERT ~1M steps with 128,000-word batches.
+    - Fine-tuning learning rate: GPT uses a fixed 5e-5; BERT uses task-specific fine-tuning learning rates.
+  - Main takeaway: Most empirical gains come from the two pre-training tasks (MLM and NSP) and bidirectionality rather than architectural/training differences between GPT and BERT. Section 5.1 ablations support this.
+
+- Appendix structure and purpose
+  - Organization: Appendix A (additional implementation details), Appendix B (additional experimental details), Appendix C (additional ablations).
+  - Focus of additional ablations: effect of the number of training steps; ablation for different masking procedures.
+  - Purpose: provide concrete methodological details to support the main results.
+
+- A.1 Illustration of the Pre-training Tasks
+  - Content: concrete examples of MLM and masking procedures.
+  - Example: “my dog is hairy,” masking the 4th token (hairy).
+  - Rationale: masking/random replacement forces the Transformer to maintain distributional contextual representations without knowing which words will be predicted; random replacements occur for 1.5% of all tokens (10% of the 15% masked tokens) to avoid harming language understanding.
+  - Additional points: compared to standard LM training, the masked LM predicts about 15% of tokens per batch, suggesting more pre-training steps may be required for convergence. The section reinforces why the 80/10/10 masking mix is examined via ablations.
+
+- Fine-tuning on GLUE tasks and practical details (Appendix content)
+  - Fine-tuning setup: largely preserves pre-training hyperparameters, with task-specific adjustments to batch size, learning rate, and number of training epochs; dropout fixed at 0.1.
+  - Hyperparameter ranges that work well across tasks:
+    - Batch size: 16, 32
+    - Adam learning rate: 5e-5, 3e-5, 2e-5
+    - Number of epochs: 2, 3, 4
+  - Observations: large datasets (≥100k labeled examples) are less sensitive to hyperparameter choices than small datasets.
+  - GLUE tasks covered: MNLI, QQP, QNLI, SST-2, CoLA, STS, MRPC, RTE; WNLI is excluded from GLUE submissions (majority class baseline used for those cases).
+  - Training scale and hardware:
+    - Pre-training data: ~3.3 billion words
+    - Duration: about 4 days per run
+    - Hardware: BERT-Base on 4 Cloud TPUs; BERT-Large on 16 Cloud TPUs
+    - Setup: ~1,000,000 pre-training steps (~40 epochs); batch size 256; sequence length 512 (with a mix of shorter/longer sequence steps)
+  - Practical conclusion: MLM + NSP with bidirectionality yields strong, transferable representations; longer sequences help learning at higher compute cost; hyperparameters are reasonably robust, especially with larger datasets.
+
+- Overall takeaways for this section
+  - Masking ablations show fine-tuning is robust to masking choices, with caveats for feature-based NER using MASK-only.
+  - The GPT vs. BERT discussion emphasizes that gains come mainly from the pre-training objectives (MLM/NSP) and bidirectionality, not just architectural differences.
+  - The appendix provides concrete methodological detail on masking illustrations, GLUE fine-tuning setups, hyperparameters, dataset scope, and hardware scale, underscoring practical feasibility and generalizability of BERT.
+  - Practically, MLM + NSP with bidirectional context yields strong transferable representations; longer sequences improve learning at a computational cost; hyperparameters are robust across tasks, particularly in data-rich regimes.
+
+섹션 etc: C.2 Ablation for Different Masking Procedures
+----------------------------------------
+Summary of Section C.2 Ablation for Different Masking Procedures
+
+- Purpose and setup
+  - Goal: Assess how different masking strategies during BERT’s MLM pre-training affect downstream fine-tuning, since the [MASK] token never appears during fine-tuning.
+  - Strategies tested: MASK (replace target token with [MASK]), SAME (keep the original token), RND (replace with a random token).
+  - BERT’s default pre-training mix is 80% MASK, 10% SAME, 10% RND.
+  - Evaluation data: Dev results for MNLI and NER; for NER, both fine-tuning and feature-based approaches (the feature-based approach uses the last 4 BERT layers as features).
+
+- Key findings
+  - Fine-tuning is surprisingly robust to masking strategy changes.
+  - For NER, using MASK-only masking is problematic when using the feature-based approach.
+  - Using only RND masking performs worse than the mixed strategy, indicating the mixed approach is preferable.
+
+- Implications
+  - A mixed masking strategy (as in the default 80/10/10) helps reduce mismatch between pre-training and fine-tuning, especially for feature-based NER.
+  - The results support the practice of not relying on a single masking method and caution against MASK-only masking in certain downstream setups.
+
+============================================================
+총 섹션 수: 23
+생성 시간: 2025-08-19 07:52:06

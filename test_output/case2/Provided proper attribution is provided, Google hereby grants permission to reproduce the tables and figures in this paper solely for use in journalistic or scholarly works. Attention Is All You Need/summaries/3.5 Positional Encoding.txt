@@ -1,0 +1,13 @@
+- Purpose: Since the model has no recurrence or convolution, it must receive explicit position information. Positional encodings are added to the input embeddings at the bottoms of both the encoder and decoder stacks.
+
+- Dimension alignment: The positional encodings have the same dimension as the embeddings (d_model) so they can be summed directly.
+
+- Encoding approach: They experiment with fixed sinusoidal positional encodings (sine and cosine functions of different frequencies) rather than relying on learned embeddings.
+
+- Functional form: Each dimension i of the positional encoding corresponds to a sinusoid with wavelengths forming a geometric progression from 2π to 10000·2π across positions pos.
+
+- Rationale: This design makes it easy for the model to learn to attend by relative positions, since PE_pos+k can be represented as a linear function of PE_pos for any fixed offset k.
+
+- Alternative tested: Learned positional embeddings were also trained and yielded nearly identical results.
+
+- Preference and rationale: The sinusoidal (fixed) version was chosen because it may allow extrapolation to sequence lengths longer than those seen during training.

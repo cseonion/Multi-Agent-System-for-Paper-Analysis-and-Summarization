@@ -1,0 +1,13 @@
+Summary for Section 6.3: English Constituency Parsing
+
+- Objective and motivation: The authors test whether the Transformer generalizes to English constituency parsing, a task with strong structural constraints and lengthy outputs. They note that RNN sequence-to-sequence models struggle to achieve state-of-the-art results in small-data regimes.
+
+- Model and data: A 4-layer Transformer with model dimension d_model = 1024 is trained on English WSJ data (~40K training sentences) from the Penn Treebank. They also train a semi-supervised version using large corpora (high-confidence and Berkeley Parser data) totaling about 17 million sentences.
+
+- Vocabulary: 16K tokens for the WSJ-only setting; 32K tokens for the semi-supervised setting.
+
+- Hyperparameter selection: Only a small set of experiments were run to choose dropout (both attention and residual, per section 5.4), learning rates, and beam size, based on the Section 22 development set. All other parameters were kept the same as the English-to-German base translation model.
+
+- Inference details: Maximum output length set to input length plus 300; beam size 21; α = 0.3 for both WSJ-only and semi-supervised settings.
+
+- Results and main findings: The Transformer performs surprisingly well, surpassing all previously reported models except for the Recurrent Neural Network Grammar (RNNG). Notably, the Transformer beats the Berkeley Parser even when trained only on the WSJ 40K sentences, demonstrating strong generalization to a more structurally constrained, longer-output task despite limited task-specific tuning.

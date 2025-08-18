@@ -1,0 +1,5 @@
+Summary of Section 5.3. Optimizer:
+- Optimizer used: Adam (reference [20])
+- Hyperparameters: β1 = 0.9, β2 = 0.98, ε = 1e-9
+- Learning rate schedule: The learning rate is varied during training by a schedule that linearly warms up for the first warmup_steps steps and then decays proportionally to the inverse square root of the step number
+- Warmup steps: 4000

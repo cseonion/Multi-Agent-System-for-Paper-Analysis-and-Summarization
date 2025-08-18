@@ -1,0 +1,11 @@
+- Overall result: On WMT 2014 translation tasks, the Transformer (big) achieves state-of-the-art BLEU scores and demonstrates strong training efficiency. The base model is already competitive at a substantially lower training cost.
+
+- English-to-German (EN-DE): The big Transformer model achieves BLEU 28.4, outperforming the best previously reported models (including ensembles) by more than 2.0 BLEU. This establishes a new state-of-the-art. Training took 3.5 days on 8 P100 GPUs. The model configuration is detailed in Table 3 (bottom line).
+
+- English-to-French (EN-FR): The big model achieves BLEU 41.0, beating all previously published single models and doing so at less than one-quarter of the training cost of the prior state-of-the-art. Note: the big EN-FR model used dropout rate P_drop = 0.1, as opposed to 0.3 elsewhere.
+
+- Ensemble/averaging strategy: For base models, the authors averaged the last 5 checkpoints (taken at 10-minute intervals). For big models, they averaged the last 20 checkpoints. Beam search used a beam size of 4 with length penalty α = 0.6. Hyperparameters were chosen based on development-set experiments. Maximum output length during inference was set to input length + 50, with early termination when possible.
+
+- Results and comparisons: Table 2 summarizes translation quality and training costs relative to other architectures in the literature. The authors also provide an estimate of training FLOPs by multiplying training time, number of GPUs, and the sustained single-precision capacity of the GPUs (footnote foot_1).
+
+- Note on methodology: The section emphasizes both improved translation quality and practical training cost efficiency, with explicit details on hyperparameters, averaging schemes, and decoding settings to support reproducibility.
