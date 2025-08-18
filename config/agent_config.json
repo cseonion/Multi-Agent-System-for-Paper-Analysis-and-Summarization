@@ -1,0 +1,54 @@
+{
+  "llm_models": {
+    "summary_agent_section": {
+      "model": "gpt-5-nano"
+    },
+    "summary_agent_final": {
+      "model": "gpt-4.1",
+      "temperature": 0
+    },
+    "domain_agent": {
+      "model": "gpt-5-nano"
+    },
+    "analysis_plan_router": {
+      "model": "gpt-5-nano"
+    },
+    "comparison_agent": {
+      "model": "o4-mini",
+      "temperature": 0.1
+    },
+    "cross_domain_agent": {
+      "model": "o4-mini",
+      "temperature": 0.1
+    },
+    "lit_review_agent": {
+      "model": "o4-mini",
+      "temperature": 0.1
+    },
+    "writer_agent": {
+      "model": "gpt-5"
+    }
+  },
+  "pricing_per_million": {
+    "gpt-5": {
+      "input": 1.25,
+      "output": 10.00
+    },
+    "gpt-5-nano": {
+      "input": 0.05,
+      "output": 0.40
+    },
+    "gpt-4.1": {
+      "input": 2.00,
+      "output": 8.00
+    },
+    "gpt-4.1-mini": {
+      "input": 0.40,
+      "output": 1.60
+    },
+    "o4-mini": {
+      "input": 1.10,
+      "output": 4.40
+    }
+  }
+}
