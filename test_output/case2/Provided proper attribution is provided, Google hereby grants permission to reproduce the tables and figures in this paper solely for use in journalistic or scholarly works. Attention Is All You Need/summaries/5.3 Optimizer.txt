@@ -1,0 +1,1 @@
+We used the Adam optimizer with β1 = 0.9, β2 = 0.98, and ε = 1e-9. The learning rate was scheduled to rise linearly during the first 4000 steps (warmup_steps = 4000) and then decay proportionally to the inverse square root of the step number, i.e., a linear warmup followed by 1/√step decay.

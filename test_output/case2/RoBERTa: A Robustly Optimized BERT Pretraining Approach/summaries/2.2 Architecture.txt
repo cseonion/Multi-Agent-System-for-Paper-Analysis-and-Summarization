@@ -1,0 +1,1 @@
+BERT adopts the standard transformer architecture (Vaswani et al., 2017), which is not described in detail here. It uses a transformer with L layers, and each block contains A self-attention heads and a hidden dimension H.

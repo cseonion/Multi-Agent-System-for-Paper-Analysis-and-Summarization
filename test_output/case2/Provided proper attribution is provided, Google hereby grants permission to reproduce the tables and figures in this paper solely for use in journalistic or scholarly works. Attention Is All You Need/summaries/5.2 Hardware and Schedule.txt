@@ -1,0 +1,1 @@
+Training ran on a single machine with 8 NVIDIA P100 GPUs. Base models, using the paper’s hyperparameters, required about 0.4 seconds per training step, for 100,000 steps (approximately 12 hours). Big models, as indicated on the bottom line of Table 3, took about 1.0 second per step and were trained for 300,000 steps, roughly 3.5 days.

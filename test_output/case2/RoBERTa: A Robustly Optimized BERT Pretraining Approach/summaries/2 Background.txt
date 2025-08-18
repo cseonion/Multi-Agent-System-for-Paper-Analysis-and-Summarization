@@ -1,0 +1,1 @@
+This section briefly outlines the BERT pretraining approach introduced by Devlin et al. (2019) and describes several training choices that will be empirically examined in the following section.

@@ -1,0 +1,1 @@
+This Appendix for RoBERTa presents the full development-set results in Table 8, comparing two configurations: a LARGE model that follows BERT LARGE and a BASE model that follows BERT BASE.

@@ -1,0 +1,1 @@
+This section investigates which factors influence successful pretraining of BERT models while keeping the architecture fixed. Specifically, the authors begin by training BERT models with the BERT BASE configuration: 12 layers (L = 12), hidden size 768 (H = 768), 12 attention heads (A = 12), totaling 110 million parameters.

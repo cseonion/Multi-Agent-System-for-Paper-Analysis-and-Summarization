@@ -1,0 +1,1 @@
+This section explains the experimental setup used to carry out the authors’ replication study of BERT.
