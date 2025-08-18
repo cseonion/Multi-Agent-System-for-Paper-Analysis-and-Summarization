@@ -4,6 +4,10 @@ from datetime import datetime
 from src.graph import GraphWorkflow
 from src.tracking import init_tracking, finalize_tracking
 import re
+from src.eval import evaluate_with_judge  
+from src.eval import rouge_l, bertscore_f1_single 
+import json
+from typing import Any, List 
 
 
 def setup_logging(cache_dir: str = None, print_log: bool = True):
@@ -77,8 +81,7 @@ def _safe_name(base: str) -> str:
 def _save_markdown(cache_dir: str, name_base: str, content: str, suffix: str) -> str:
     try:
         os.makedirs(cache_dir, exist_ok=True)
-        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"{_safe_name(name_base)}_{suffix}_{ts}.md"
+        filename = "report.md"
         path = os.path.join(cache_dir, filename)
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
@@ -89,13 +92,27 @@ def _save_markdown(cache_dir: str, name_base: str, content: str, suffix: str) ->
         return ""
 
 
-def run(path, print_log: bool = True, output_language: str = "en"):
+def _save_json(cache_dir: str, name_base: str, data: dict, suffix: str) -> str:
+    """평가 결과 저장(로깅 최소화)."""
+    try:
+        os.makedirs(cache_dir, exist_ok=True)
+        filename = "eval.json"
+        path = os.path.join(cache_dir, filename)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        return path
+    except Exception:
+        return ""
+
+
+def run(path, print_log: bool = True, output_language: str = "en", eval: bool = False):
     """
     논문 처리 워크플로우를 실행하는 메인 함수
     
     Args:
         path: 처리할 PDF 경로 (리스트)
         print_log (bool): 콘솔에 로그를 출력할지 여부. True이면 콘솔과 파일 모두에 출력, False이면 파일에만 출력
+        eval (bool): True면 평가 지표를 생성하고 cache 디렉토리에 저장
     
     Returns:
         dict: 처리 결과
@@ -161,6 +178,109 @@ def run(path, print_log: bool = True, output_language: str = "en"):
             _save_markdown(cache_dir, name_base, result["final_report"], "final_report")
         else:
             logger.info("final_report 없음 - 저장 건너뜀")
+        
+        # ---------- 평가 (옵션) ----------
+        if eval:
+            eval_outputs: dict[str, dict[str, Any]] = {}
+
+            # 공통 evidence: 각 논문의 최종 요약
+            final_summaries: dict = result.get("final_summary", {}) or {}
+            final_summary_texts: List[str] = list(final_summaries.values()) if isinstance(final_summaries, dict) else []
+
+            # 1) domain_agent (judge)
+            if result.get("paper_domain"):
+                candidate = json.dumps(result["paper_domain"], ensure_ascii=False)
+                r = evaluate_with_judge("domain_agent", candidate=candidate, evidences=final_summary_texts)
+                eval_outputs["domain_agent"] = {"target": r.target, "scores": r.scores, "details": r.details}
+
+            # 2) analysis_plan_router (judge)
+            if result.get("analysis_plan"):
+                titles = list(final_summaries.keys())
+                evidence_text = f"num_papers={len(titles)}; titles={', '.join(titles[:5])}"
+                r = evaluate_with_judge("analysis_plan_router", candidate=result["analysis_plan"], evidences=[evidence_text])
+                eval_outputs["analysis_plan_router"] = {"target": r.target, "scores": r.scores, "details": r.details}
+
+            # 3) summary_agent(section): 섹션 원문과 1:1 비교, LLM 호출 없음
+            section_summaries: dict = result.get("section_summaries", {}) or {}
+            section_texts: dict = result.get("section_texts", {}) or {}
+            per_section_details: List[dict] = []
+            per_section_avg_scores: List[float] = []
+
+            def _sec_sort_key(k: str) -> int:
+                m = re.match(r"^\s*(\d+)\.", k)
+                return int(m.group(1)) if m else 10**9
+
+            for paper_title, summaries in section_summaries.items():
+                originals_map = section_texts.get(paper_title, {}) or {}
+                if not originals_map:
+                    continue
+                keys_sorted = sorted(list(originals_map.keys()), key=_sec_sort_key)
+                originals_seq = [originals_map[k] for k in keys_sorted]
+                # 길이 맞추기
+                n = min(len(summaries), len(originals_seq))
+                for i in range(n):
+                    pred = summaries[i]
+                    ref = originals_seq[i]
+                    rl = rouge_l(pred, ref)
+                    bf = bertscore_f1_single(pred, ref)
+                    per_section_details.append({
+                        "paper": paper_title,
+                        "section": keys_sorted[i] if i < len(keys_sorted) else f"{i+1}",
+                        "rouge_l": rl,
+                        "bertscore_f1": bf,
+                    })
+                    per_section_avg_scores.append((rl + bf) / 2.0)
+
+            eval_outputs["summary_agent(section)"] = {
+                "target": "summary_agent(section)",
+                "scores": {"avg_score": (sum(per_section_avg_scores) / len(per_section_avg_scores)) if per_section_avg_scores else 0.0},
+                "details": {"per_section": per_section_details},
+            }
+
+            # 4) summary_agent(final): 최종 요약 vs 섹션 요약 합본, 1:1 비교 (논문별 산출 후 평균)
+            per_paper_details: List[dict] = []
+            rl_vals: List[float] = []
+            bf_vals: List[float] = []
+            for paper_title, final_sum in final_summaries.items():
+                sec_sums = section_summaries.get(paper_title, [])
+                ref = "\n\n".join(sec_sums)
+                if not final_sum or not ref:
+                    continue
+                rl = rouge_l(final_sum, ref)
+                bf = bertscore_f1_single(final_sum, ref)
+                per_paper_details.append({"paper": paper_title, "rouge_l": rl, "bertscore_f1": bf})
+                rl_vals.append(rl)
+                bf_vals.append(bf)
+            avg_rl = (sum(rl_vals) / len(rl_vals)) if rl_vals else 0.0
+            avg_bf = (sum(bf_vals) / len(bf_vals)) if bf_vals else 0.0
+            eval_outputs["summary_agent(final)"] = {
+                "target": "summary_agent(final)",
+                "scores": {"rouge_l": avg_rl, "bertscore_f1": avg_bf},
+                "details": {"per_paper": per_paper_details},
+            }
+
+            # 5) 분석 리포트 (judge)
+            analysis_agent_map = {
+                "comparison": "comparison_agent",
+                "cross_domain": "cross_domain_agent",
+                "literature_review": "lit_review_agent",
+            }
+            analysis_plan = result.get("analysis_plan")
+            if result.get("analysis_report") and analysis_plan in analysis_agent_map:
+                agent_name = analysis_agent_map[analysis_plan]
+                r = evaluate_with_judge(agent_name, candidate=result["analysis_report"], evidences=final_summary_texts)
+                eval_outputs[agent_name] = {"target": r.target, "scores": r.scores, "details": r.details}
+
+            # 6) 최종 글(write_agent) (judge + 구조/가독성)
+            if result.get("final_report"):
+                evs = [result.get("analysis_report")] if result.get("analysis_report") else final_summary_texts
+                r = evaluate_with_judge("write_agent", candidate=result["final_report"], evidences=evs, metrics=["structure", "readability"])
+                eval_outputs["write_agent"] = {"target": r.target, "scores": r.scores, "details": r.details}
+
+            # 저장 (경로만 반환, 추가 로깅 없음)
+            _save_json(cache_dir, name_base, eval_outputs, "eval_results")
+            # 완료 로깅만
+            logger.info("✅ 평가 완료")
         
         logger.info("✅ Task Paper Processing Completed Successfully")
         return result, app, workflow
