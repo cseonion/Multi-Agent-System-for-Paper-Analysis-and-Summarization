@@ -173,6 +173,13 @@ docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.2
 - [RoBERTa: A Robustly Optimized BERT Pretraining Approach](https://arxiv.org/abs/1907.11692), 2019
   
 ## case3: 5 papers from related but distinct subfields
-- [Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings](https://www.mdpi.com/2624-5175/2/4/31?ref=nightwater.email)
-- 
+'음악'이라는 공통된 주제로 논문을 선정하였습니다.
+
+- [Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings](https://www.mdpi.com/2624-5175/2/4/31?ref=nightwater.email), 2020
+- [Music, memory and emotion](https://link.springer.com/article/10.1186/jbiol82), 2008
+- [In-Context Prompt Editing for Conditional Audio Generation](https://arxiv.org/abs/2311.00895), 2023
+- [IteraTTA: An interface for exploring both text prompts and audio priors in generating music with text-to-audio models](https://arxiv.org/abs/2307.13005), 2023
+- [MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation](https://ieeexplore.ieee.org/abstract/document/10890307?casa_token=mrdNmZeDQw8AAAAA:UGSNihuCNj9VcuPwp0YYuynz86jnQHpglNc2mAzZJciiy7DQyxkxMJFeiarecN-B0ZGoH7vyFw), 2025
+  
 ## caseE: Interdisciplinary paper combining ML with biology
+- [Can we predict T cell specificity with digital biology and machine learning?](https://www.nature.com/articles/s41577-023-00835-3), 2023
