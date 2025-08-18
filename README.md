@@ -1,11 +1,14 @@
 # Automated Research Paper Analysis and Summarization
 
+본 과제는 LangGraph를 기반으로 이뤄졌습니다.
+제안된 모든 테스트 케이스에 대한 결과가 포함되어 있습니다.
+
 ## Repo
 
 ```
-main.py     # 실행
-run.ipynb   # 실행(권장)
-📂[agents]
+main.py     				# run
+run.ipynb   				# run(recommend)
+📂[agents]					# LangGraph agents
 	analysis_comparison_agent.py
 	analysis_cross_domain_agent.py
 	analysis_lit_review_agent.py
@@ -13,28 +16,28 @@ run.ipynb   # 실행(권장)
 	domain_agent.py
 	summary_agent.py
 	write_agent.py
-	📂[tools] 		# tools for agents
-		arxiv.py        # arXiv searching tool
-		python_repl.py  # pythonREPL tool
-		vectorstore.py  # vectorstore retriever tool
-		web_search.py   # web search tool
-📂[cache]   # 실행 과정 및 결과 저장
+	📂[tools] 					# tools for agents
+		arxiv.py      				# arXiv searching tool
+		python_repl.py  			# pythonREPL tool
+		vectorstore.py  			# vectorstore retriever tool
+		web_search.py   			# web search tool
+📂[cache]   					# results after execution
 	(...)
 📂[config]
-	agent_config.json   # agents llm config
-	agent_llm.py 		# agents llm calling
-	logging_config.py   # logger config
+	agent_config.json   			# agents llm config
+	agent_llm.py 					# agents llm calling
+	logging_config.py   			# logger config
 📂[src]
-	graph.py      # graph(LangGraph)
-	state.py      # state(LangGraph)
-	load_doc.py   # document(pdf) loader
-	tracking.py   # 출력 비용 추적 (fail)
+	graph.py      					# graph(LangGraph)
+	state.py      					# state(LangGraph)
+	load_doc.py   					# document(pdf) loader
+	tracking.py   					# input/output token tracking
 📂[test]       	  
-	📂[case1]     # paper for "single-paper analysis"
-	📂[case2]     # papers for "multi-paper comparison"
-	📂[case3]     # papers for "literature review synthesis"
-	📂[caseE]     # paper for "cross-domain paper"
-📂[test_output] 	# example outputs
+	📂[case1]     					# paper for "single-paper analysis"
+	📂[case2]     					# papers for "multi-paper comparison"
+	📂[case3]     					# papers for "literature review synthesis"
+	📂[caseE]     					# paper for "cross-domain paper"
+📂[test_output] 				# example outputs
 	test_case1.md
 	test_case2.md
 	test_case3.md
@@ -60,59 +63,7 @@ run.ipynb   # 실행(권장)
 
 ## Agent descriptions
 
-### Summary Agent
-
-1. 섹션 단위 요약본 생성
-    
-    
-    | Input | - 한 섹션에 해당하는 텍스트 전체
-    - 이전 섹션 요약본 |
-    | --- | --- |
-    | Output | 섹션 요약본 |
-2. 전체 요약본 생성
-    
-    
-    | Input | 섹션 단위 요약본을 병합한 문서 |
-    | --- | --- |
-    | Output | 논문 전체 요약본 |
-
-### Domain Identity Agent
-
-- 논문 도메인 판별
-    
-    
-    | Input | 논문 전체 요약본 |
-    | --- | --- |
-    | Output | - 주요 분야
-    - 하위 분야 |
-
-### Analysis Plan Router
-
-- 분석 agent 라우팅
-    
-    
-    | Input | - 주요 분야
-    - 하위 분야 |
-    | --- | --- |
-    | Output | 분석법 |
-
-### Cross-domain Agent
-
-- Cross-domain 논문 분석
-    
-    
-
-### Comparison Agent
-
-- 다중 논문 비교
-
-### Literature Review Agent
-
-- 문헌 리뷰
-
-### Ideation Agent
-
-- 연구적 아이디어 제공
+자세한 내용은 agent_info.md를 참고하세요.
 
 ---
 
@@ -120,9 +71,8 @@ run.ipynb   # 실행(권장)
 
 ## 1. GROBID 설치
 
-- **Docker는 필수적으로 설치 되어 있어야 합니다.**
-    - 설치되어 있지 않다면, 다음을 참고하세요. [링크](https://docs.docker.com/get-started/docker-overview/)
-- GROBID는 scientific paper parsing에 특화된 ML 라이브러리로, 본 시스템에서는 입력된 pdf에서 텍스트를 추출하는 tool로 사용됩니다.
+**Docker는 필수적으로 설치 되어 있어야 합니다.** 설치되어 있지 않다면, 다음을 참고하세요. [링크](https://docs.docker.com/get-started/docker-overview/)
+GROBID는 scientific paper parsing에 특화된 ML 라이브러리로, 본 시스템에서는 입력된 pdf에서 텍스트를 추출하는 tool로 사용됩니다.
     - GROBID 설치에 대한 세부 정보는 다음을 참고하세요. [링크](https://grobid.readthedocs.io/en/latest/Grobid-docker/)
 - 아래 두 옵션 중 하나를 선택하여 터미널에서 설치 및 구동하여 docker container가 실행되어야 합니다.
 
