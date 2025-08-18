@@ -1,7 +1,7 @@
 from typing import TypedDict, Annotated
-from langchain_openai import ChatOpenAI
 from src.state import State
 from src.tracking import track_agent
+from config.agent_llm import get_llm
 import logging
 
 # 현재 모듈 로거 생성
@@ -13,10 +13,7 @@ logger = logging.getLogger(__name__)
 # """
 
 ## 도메인 판별 LLM
-DOMAIN_IDENTIFY_LLM = ChatOpenAI(
-    model = "gpt-4.1-mini",
-    temperature = 0
-)
+DOMAIN_IDENTIFY_LLM = get_llm("domain_agent")
 
 class Domain(TypedDict):
     main_field: Annotated[list[str], [], "The main field of the paper. Ex. Computer Science, Physics, Psychology"]

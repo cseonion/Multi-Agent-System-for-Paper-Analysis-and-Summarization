@@ -1,9 +1,9 @@
 from src.state import State
 from src.tracking import track_agent
-from langchain_openai import ChatOpenAI
 from typing_extensions import TypedDict, Annotated
 import logging
 from langchain_core.prompts import ChatPromptTemplate
+from config.agent_llm import get_llm
 
 # 현재 모듈 로거 생성
 logger = logging.getLogger(__name__)
@@ -13,10 +13,7 @@ You are an Analysis Plan Router Agent for academic papers.
 You need to generate answers to the given question based on the domains of a paper or papers.
 """
 
-ANALYSIS_PLAN_LLM = ChatOpenAI(
-    model="gpt-4.1-mini",
-    temperature=0.2,
-)
+ANALYSIS_PLAN_LLM = get_llm("analysis_plan_router")
 
 class CrossDomain(TypedDict):
     is_cross_domain_paper: Annotated[bool, False, "Is the paper cross-domain?"]

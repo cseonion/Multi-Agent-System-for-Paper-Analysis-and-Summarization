@@ -1,30 +1,43 @@
 import os
 import re
 import logging
-from typing import Dict, List, Any, Sequence, Annotated, cast
-import operator
+from typing import List, cast
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 from src.tracking import track_agent
+from config.agent_llm import get_llm
 
-from src.state import State, SummaryState
+from src.state import SummaryState
 
 # LLM 모델 정의
 ## 섹션 요약 LLM
-SECTION_SUMMARY_LLM = ChatOpenAI(
-    model="gpt-4.1-mini",
-    temperature=0.1,
-    max_tokens=2000
-)
-## 최종 요약 LLM
-FINAL_SUMMARY_LLM = ChatOpenAI(
-    model="gpt-4.1",
-    temperature=0.1,
-    max_tokens=10000
-)
+SECTION_SUMMARY_LLM = get_llm("summary_agent_section")
+instruct_section = """
+You are an expert research analyst summarizing academic papers section by section.
+The summary will go sequentially from the first section to the last, and the goal is to summarise the key points of each section. To get started, you can use the following link:
+You will be given two inputs:
+    1. the raw text of the paper section
+    2. a summary of the previous sections (but not when summarising the first section)
 
+The previous section summaries are provided simply as a reference for continuity in your summarisation work, and **do not directly reflect the content of your summary**
+In particular, be careful not to distort numerical information.
+"""
+## 최종 요약 LLM
+FINAL_SUMMARY_LLM = get_llm("summary_agent_final")
+instruct_final = """
+You are an expert research analyst creating a comprehensive final summary of an academic paper.
+Based on the section-by-section summaries written by other agents, you will write a final summary that includes.
+Write a well-structured and comprehensive final summary that includes (IMPORTANT):
+    1. **Research Objective and Background**
+    2. **Key Methodology**
+    3. **Result and Conclusion**
+    4. **Implications and Significance**
+    5. **Limitations, if any**
+
+Please provide a well-structured, comprehensive final summary that synthesizes all sections into a coherent overview of the entire paper.
+"""
 # 현재 모듈 로거 생성 (main.py에서 설정한 로깅 사용)
 logger = logging.getLogger(__name__)
 
@@ -88,13 +101,13 @@ class SummaryFileManager:
         try:
             # 요약 내용을 파일에 저장
             with open(file_path, 'w', encoding='utf-8') as f:
-                f.write(f"논문 제목: {paper_title}\n")
-                f.write(f"섹션: {section_number}. {section_name}\n")
-                f.write("=" * 50 + "\n\n")
+                # f.write(f"논문 제목: {paper_title}\n")
+                # f.write(f"섹션: {section_number}. {section_name}\n")
+                # f.write("=" * 50 + "\n\n")
                 f.write(summary_content)
-                f.write("\n\n")
-                f.write("=" * 50 + "\n")
-                f.write(f"생성 시간: {self._get_current_timestamp()}\n")
+                # f.write("\n\n")
+                # f.write("=" * 50 + "\n")
+                # f.write(f"생성 시간: {self._get_current_timestamp()}\n")
             
             # 개별 섹션 저장 메시지 제거 (섹션별 요약 완료시에만 표시)
             return file_path
@@ -175,21 +188,6 @@ class SummaryFileManager:
         from datetime import datetime
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-
-# class PaperSummaryState:
-#     """개별 논문 처리를 위한 상태 클래스"""
-#     def __init__(self, paper_title: str, vectorstore: Any = None, vectorstore_path: str = "", 
-#                  paper_sections: List[tuple] = None, sections: Dict[str, str] = None, 
-#                  section_summaries: List[str] = None, final_summary: str = ""):
-#         self.paper_title = paper_title
-#         self.vectorstore = vectorstore
-#         self.vectorstore_path = vectorstore_path
-#         self.paper_sections = paper_sections or []
-#         self.sections = sections or {}
-#         self.section_summaries = section_summaries or []
-#         self.final_summary = final_summary
-
-
 class SequentialSummaryAgent:
     """연속적 섹션 요약을 수행하는 Summary Agent"""
     
@@ -203,31 +201,16 @@ class SequentialSummaryAgent:
         """연속적 섹션 요약을 위한 프롬프트 생성"""
         
         base_prompt = f"""
-        You are an expert research analyst summarizing academic papers section by section.
-
-        Paper Title: {paper_title}
-        Current Section: {section_name}
-
-        Task: Summarize the current section while maintaining continuity with previous sections.
-
-        Guidelines:
-        1. Provide a comprehensive summary of the current section
-        2. Connect key points to the overall paper theme
-        3. Maintain consistency with previous section summaries
-        4. Focus on main contributions, methodology, findings, or arguments
-        5. Keep the summary concise but comprehensive
-
-        Current Section Content:
+        # Current Section Title: {section_name}
+        # Current Section Content:
         {current_section}
         """
 
         if previous_summary:
             continuity_prompt = f"""
             
-            Previous Section Summary for Context:
+            # Previous Section Summary for Context:
             {previous_summary}
-
-            Please ensure your summary builds upon and connects with the previous content while focusing primarily on the current section.
             """
             base_prompt += continuity_prompt
 
@@ -239,22 +222,9 @@ class SequentialSummaryAgent:
         combined_sections = "\n\n".join([f"섹션 {i+1}: {summary}" for i, summary in enumerate(section_summaries)])
         
         return f"""
-        You are an expert research analyst creating a comprehensive final summary of an academic paper.
-
-        Paper Title: {paper_title}
-
-        Based on the following section-by-section summaries, create a comprehensive final summary that includes:
-
-        1. **Research Objective and Background**
-        2. **Key Methodology**
-        3. **Key Findings**
-        4. **Implications and Significance**
-        5. **Limitations, if any**
-
-        Section Summaries:
+        # Paper Title: {paper_title}
+        # Combined Section Summaries:
         {combined_sections}
-
-        Please provide a well-structured, comprehensive final summary that synthesizes all sections into a coherent overview of the entire paper.
         """
 
 
@@ -363,7 +333,7 @@ class SummaryProcessor:
             
             try:
                 response = self.section_llm.invoke([
-                    SystemMessage(content="You are an expert research analyst."),
+                    SystemMessage(content=instruct_section),
                     HumanMessage(content=prompt)
                 ])
                 
@@ -436,7 +406,7 @@ class SummaryProcessor:
         
         try:
             response = self.final_llm.invoke([
-                SystemMessage(content="You are an expert research analyst specializing in comprehensive paper synthesis."),
+                SystemMessage(content=instruct_final),
                 HumanMessage(content=prompt)
             ])
             
@@ -465,97 +435,3 @@ class SummaryProcessor:
                 **state,
                 "final_summary": error_msg
             })
-    
-    # process_single_paper 함수는 더 이상 사용하지 않습니다.
-    # 대신 run_parallel_summary_processing에서 직접 SummaryState를 사용하여 처리합니다.
-    # 이는 State와 SummaryState 간의 일관성을 유지하기 위함입니다.
-
-
-# def run_parallel_summary_processing(state: State) -> State:
-#     """
-#     그래프 노드에서 사용할 최종 실행 함수
-    
-#     Args:
-#         state: State - 처리할 논문들의 정보가 담긴 부모 상태 (여러 논문)
-        
-#     Returns:
-#         State - 요약이 완료된 상태
-#     """
-#     # State에서 필요한 데이터 추출
-#     paper_titles = state["paper_title"]
-#     vectorstores = state["vectorstores"]
-#     vectorstores_path = state["vectorstores_path"]
-#     paper_sections = state.get("paper_sections", {})
-#     cache_dir = state.get("cache_dir", "")
-    
-#     if not paper_titles:
-#         logger.warning("❌ paper_title이 없습니다.")
-#         return state
-    
-#     logger.info(f"🚀 {len(paper_titles)}개 논문 병렬 요약 처리 시작...")
-#     logger.info(f"📄 처리 대상 논문: {paper_titles}")
-    
-#     # Summary Processor 초기화 (자체적으로 LLM 관리)
-#     processor = SummaryProcessor()
-    
-#     # 각 논문별 결과 저장
-#     section_summaries = {}
-#     final_summary = {}
-    
-#     # 각 논문별로 State -> SummaryState 변환 후 처리
-#     for paper_title in paper_titles:
-#         # State에서 SummaryState 형식으로 데이터 변환
-#         summary_state: SummaryState = {
-#             "paper_title": paper_title,  # 단일 문자열
-#             "paper_sections": paper_sections.get(paper_title, []),  # 리스트
-#             "vectorstore": vectorstores.get(paper_title),  # 단일 객체
-#             "vectorstore_path": vectorstores_path.get(paper_title, ""),  # 단일 문자열
-#             "cache_dir": cache_dir,
-#             "sections": {},  # 초기값 (extract_sections_optimized에서 채워짐)
-#             "section_summaries": [],  # 초기값
-#             "final_summary": ""  # 초기값
-#         }
-        
-#         logger.info(f"📄 '{paper_title}' 처리 중...")
-        
-#         # SummaryState를 사용한 단계별 처리
-#         try:
-#             # 1단계: 최적화된 섹션 추출 (이미 로드된 벡터스토어 사용)
-#             summary_state = processor.extract_sections_optimized(summary_state)
-            
-#             # 2단계: 섹션별 순차 요약
-#             summary_state = processor.summarize_sections_sequential(summary_state)
-            
-#             # 3단계: 최종 요약 생성
-#             summary_state = processor.create_final_summary(summary_state)
-            
-#             # 결과 저장
-#             section_summaries[paper_title] = summary_state["section_summaries"]
-#             final_summary[paper_title] = summary_state["final_summary"]
-            
-#             logger.info(f"✅ '{paper_title}' 처리 완료")
-            
-#         except Exception as e:
-#             error_msg = f"'{paper_title}' 처리 중 오류 발생: {str(e)}"
-#             logger.error(error_msg)
-            
-#             # 오류 결과 저장
-#             section_summaries[paper_title] = [error_msg]
-#             final_summary[paper_title] = error_msg
-    
-#     # 상태 업데이트
-#     updated_state = {
-#         **state,
-#         "section_summaries": section_summaries,
-#         "final_summary": final_summary
-#     }
-    
-#     logger.info(f"🎯 모든 논문 요약 처리 완료! 총 {len(paper_titles)}개 논문")
-    
-#     # 저장 경로 정보 출력
-#     if cache_dir:
-#         logger.info(f"💾 요약 파일 저장 위치: {cache_dir}")
-#         logger.info(f"   📁 각 논문별로 '[논문제목]/summaries/' 폴더에 저장됨")
-#         logger.info(f"   📄 파일 형식: '[섹션번호] [섹션명].txt'")
-    
-#     return updated_state

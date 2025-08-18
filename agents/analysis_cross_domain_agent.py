@@ -1,14 +1,11 @@
 from src.state import State
 from src.tracking import track_agent
-from langchain_openai import ChatOpenAI
-from typing_extensions import TypedDict, Annotated
 import logging
 from langgraph.prebuilt import create_react_agent
 from langchain_core.messages import HumanMessage
-from langchain_core.tools import tool
-import os
 from agents.tools.web_search import get_web_search_tool
 from agents.tools.vectorstore import get_vectorstore_search_tool
+from config.agent_llm import get_llm
 
 # 현재 모듈 로거 생성
 logger = logging.getLogger(__name__)
@@ -37,9 +34,7 @@ Your role is to create comprehensive analysis reports for readers who may lack k
 Write in a clear, educational tone that bridges knowledge gaps between disciplines.
 """
 
-CROSS_DOMAIN_LLM = ChatOpenAI(
-    model="gpt-5",
-)
+CROSS_DOMAIN_LLM = get_llm("cross_domain_agent")
 
 
 @track_agent("cross_domain_agent")

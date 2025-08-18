@@ -1,15 +1,12 @@
 from src.state import State
 from src.tracking import track_agent
-from langchain_openai import ChatOpenAI
-from typing_extensions import TypedDict, Annotated
 import logging
 from langgraph.prebuilt import create_react_agent
 from langchain_core.messages import HumanMessage
-from langchain_core.tools import tool
-import os
 from agents.tools.web_search import get_web_search_tool
 from agents.tools.vectorstore import get_vectorstore_search_tool
 from agents.tools.arxiv import get_arxiv_search_tool
+from config.agent_llm import get_llm
 
 # 현재 모듈 로거 생성
 logger = logging.getLogger(__name__)
@@ -35,9 +32,7 @@ Your role is to extract thematic insights, map the progression of research, and 
 Tone: Clear, educational, and synthesis-focused. Integrate external info concisely and avoid over-citation.
 """
 
-LIT_REVIEW_LLM = ChatOpenAI(
-    model="gpt-5",
-)
+LIT_REVIEW_LLM = get_llm("lit_review_agent")
 
 @track_agent("lit_review_agent")
 def lit_review_agent(state: State) -> State:
