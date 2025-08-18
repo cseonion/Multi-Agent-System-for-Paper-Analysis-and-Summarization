@@ -189,3 +189,7 @@ docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.2
 
 `test_output` 폴더 내 모든 테스트의 결과가 존재합니다.
 시스템이 최종적으로 출력한 모든 정보를 담고 있습니다.
+
+# Presentation
+
+https://www.notion.so/cseonion/PT-24f6ec68c109803a84a1c26d5fe3ba4f?source=copy_link
