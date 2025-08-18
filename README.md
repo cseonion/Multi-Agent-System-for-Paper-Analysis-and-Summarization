@@ -47,6 +47,7 @@
 							 └─→ [Cross-Domain Agent]
    → [Writing Agent]
 ```
+
 ![graph workflow](./image/graph.png)
 
 ## Agent descriptions
@@ -168,3 +169,19 @@ docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.2
 # Execution
 
 - `run.ipynb`를 확인하세요.
+
+# Results
+
+- 실행 및 분석이 완료되면 `cache` 폴더에 결과가 저장됩니다.
+	- 📁 {datetime}
+ 		- 📁 {paper_1}
+   			- 📁 {vector store}
+      			- faiss
+         		- pkl
+      		- 📁 {summary results}
+        		- (...)
+	    - 📁 {paper_2}
+     		- (...)
+   		- log
+     	- traking
+      	- final_report.md 	
