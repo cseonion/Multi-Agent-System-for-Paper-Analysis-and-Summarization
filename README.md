@@ -3,34 +3,42 @@
 ## Repo
 
 ```
-[Task2]
-   
-   main.py     # 실행
-   run.ipynb   # 실행(권장)
-   → [agents] → [tools] ─┬─→ arxiv.py        # arXiv 서치 툴
-			|			 ├─→ python_repl.py  # pythonREPL 툴
-        	|            ├─→ vectorstore.py  # vectorstore retriever 툴
-		    |            └─→ web_search.py   # 웹 서치 툴
-		    |                
-	        ├─→ analysis_comparison_agent.py
-		    ├─→ analysis_cross_domain_agent.py
-		    ├─→ analysis_lit_review_agent.py
-		    ├─→ analysis_plan_router.py
-		    ├─→ domain_agent.py
-		    ├─→ summary_agent.py
-		    └─→ write_agent.py
-   → [cache]   # 실행 결과 저장
-   → [config]
-			└─→ logging_config.py   # 로깅 config
-   → [src]
-			├─→ graph.py      # 그래프 정의
-  		  	├─→ load_doc.py   # document(pdf) loader
-	      	├─→ state.py      # 상태 정의
-	      	└─→ tracking.py   # 출력 비용 추적 (fail)
-   → [test]    # test case 논문들
-			├─→ (...)
-		  (...)'
-   → [test_output] # test case 출력물
+main.py     # 실행
+run.ipynb   # 실행(권장)
+📂[agents]
+	analysis_comparison_agent.py
+	analysis_cross_domain_agent.py
+	analysis_lit_review_agent.py
+	analysis_plan_router.py
+	domain_agent.py
+	summary_agent.py
+	write_agent.py
+	📂[tools] 			# tools for agents
+		arxiv.py        # arXiv searching tool
+		python_repl.py  # pythonREPL tool
+		vectorstore.py  # vectorstore retriever tool
+		web_search.py   # web search tool
+📂[cache]   # 실행 과정 및 결과 저장
+	(...)
+📂[config]
+	agent_config.json   # agents llm config
+	agent_llm.py 		# agents llm calling
+	logging_config.py   # logger config
+📂[src]
+	graph.py      # graph(LangGraph)
+	state.py      # state(LangGraph)
+	load_doc.py   # document(pdf) loader
+	tracking.py   # 출력 비용 추적 (fail)
+📂[test]       # papers for test
+	📂[case1]  # for "single-paper analysis"
+	📂[case2]  # for "multi-paper comparison"
+	📂[case3]  # for "literature review synthesis"
+	📂[caseE]  # for "cross-domain paper"
+📂[test_output] # example outputs
+	test_case1.md
+	test_case2.md
+	test_case3.md
+	test_caseE.md
 ```
 
 ## Topology
