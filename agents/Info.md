@@ -2,7 +2,7 @@
 - 역할
 	1. 섹션 단위의 요약본을 생성
  
-[subgraph for summary agent](../image/subgraph.png)
+![subgraph for summary agent](../image/subgraph.png)
 2. 전체 요약본 생성
 	- instruction
 		```
