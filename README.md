@@ -62,7 +62,18 @@ run.ipynb   				# run(recommend)
 
 자세한 내용은 `agents/Info.md`를 참고하세요.
 
-
+## Tools
+- Vectorstore Retriever
+	- 벡터스토어에 저장된 논문 원문에 접근하기 위함
+	- 분석 에이전트 모두에게 제공
+- Web Searching
+	- DuckDuckGo API
+	- 부족한 정보 보충을 위함
+	- 분석 에이전트 모두에게 제공
+- ArXiv Searching
+	- LangChain 기본 제공
+ 	- 분석 에이전트 중 Literature Review Agent에 제공
+ 	- 분석 방향 제시에 활용됨
 ---
 
 # Installation
@@ -122,11 +133,11 @@ docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.2
 
 ---
 
-# Execution
+## Execution
 
 - `run.ipynb`를 확인하세요.
 
-# Results
+## Results
 
 실행 및 분석이 완료되면 `cache` 폴더에 결과가 저장됩니다.
 ```
@@ -144,3 +155,20 @@ docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.2
 		execution_tracking.json # tracking results
 		report.md				# final output of system
 ```
+
+# Informations of Papers for test.
+
+각 테스트 케이스를 확인하기 위해 선정된 논문들은 다음과 같습니다.
+
+## case1: A recent machine learning research paper
+- [DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](https://arxiv.org/abs/2501.12948), 2025
+
+## case2: 3 papers on similar ML topics from different years
+- [Attention is All you Need](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html), 2017
+- [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://aclanthology.org/N19-1423/?utm_campaign=The+Batch&utm_source=hs_email&utm_medium=email&_hsenc=p2ANqtz-_m9bbH_7ECE1h3lZ3D61TYg52rKpifVNjL4fvJ85uqggrXsWDBTB7YooFLJeNXHWqhvOyC), 2019
+- [RoBERTa: A Robustly Optimized BERT Pretraining Approach](https://arxiv.org/abs/1907.11692), 2019
+  
+## case3: 5 papers from related but distinct subfields
+- [Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings](https://www.mdpi.com/2624-5175/2/4/31?ref=nightwater.email)
+- 
+## caseE: Interdisciplinary paper combining ML with biology
