@@ -183,7 +183,7 @@ docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.2
 - [MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation](https://ieeexplore.ieee.org/abstract/document/10890307?casa_token=mrdNmZeDQw8AAAAA:UGSNihuCNj9VcuPwp0YYuynz86jnQHpglNc2mAzZJciiy7DQyxkxMJFeiarecN-B0ZGoH7vyFw), 2025
   
 ### caseE: Interdisciplinary paper combining ML with biology
-- [Can we predict T cell specificity with digital biology and machine learning?](https://www.nature.com/articles/s41577-023-00835-3), 2023
+- [Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data]([https://www.nature.com/articles/s41577-023-00835-3](https://www.mdpi.com/2079-7737/13/7/512)), 2024
 
 ## Test results
 
