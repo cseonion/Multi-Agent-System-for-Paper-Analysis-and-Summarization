@@ -1,8 +1,3 @@
-"""
-로깅 설정 모듈
-환경변수와 설정 파일을 통해 로깅을 중앙 관리
-"""
-
 import logging
 import os
 from logging.handlers import RotatingFileHandler
