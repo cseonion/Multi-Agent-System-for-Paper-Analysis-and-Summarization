@@ -1,0 +1,264 @@
+2025-08-19 08:35:06 | main                 | INFO     | 🚀 Task Paper Processing Started. Cache directory: cache/20250819_083506/
+2025-08-19 08:35:06 | main                 | INFO     | 🚀 Task Paper Processing Started. Cache directory: cache/20250819_083506/
+2025-08-19 08:35:06 | main                 | INFO     | 📋 Process logs are being recorded
+2025-08-19 08:35:06 | main                 | INFO     | 📋 Process logs are being recorded
+2025-08-19 08:35:06 | main                 | INFO     | 📂 Input path: ['test/case3/']
+2025-08-19 08:35:06 | main                 | INFO     | 📂 Input path: ['test/case3/']
+2025-08-19 08:35:06 | main                 | INFO     | 📋 Log file: cache/20250819_083506/process.log
+2025-08-19 08:35:06 | main                 | INFO     | 📋 Log file: cache/20250819_083506/process.log
+2025-08-19 08:35:06 | src.tracking         | INFO     | 📊 실행 추적 시스템 초기화: cache/20250819_083506/
+2025-08-19 08:35:06 | src.tracking         | INFO     | 📊 실행 추적 시스템 초기화: cache/20250819_083506/
+2025-08-19 08:35:06 | src.graph            | INFO     | 🔧 Send API 기반 병렬 워크플로우 구성 시작...
+2025-08-19 08:35:06 | src.graph            | INFO     | 🔧 Send API 기반 병렬 워크플로우 구성 시작...
+2025-08-19 08:35:06 | src.graph            | INFO     | ✅ Send API 기반 병렬 워크플로우 구성 완료
+2025-08-19 08:35:06 | src.graph            | INFO     | ✅ Send API 기반 병렬 워크플로우 구성 완료
+2025-08-19 08:35:06 | main                 | INFO     | ⚙️  Starting workflow execution...
+2025-08-19 08:35:06 | main                 | INFO     | ⚙️  Starting workflow execution...
+2025-08-19 08:35:06 | src.tracking         | INFO     | 🏁 [extract] 실행 시작: 08:35:06
+2025-08-19 08:35:06 | src.tracking         | INFO     | 🏁 [extract] 실행 시작: 08:35:06
+2025-08-19 08:35:06 | src.load_doc         | INFO     | 🔄 Document extraction process started
+2025-08-19 08:35:06 | src.load_doc         | INFO     | 🔄 Document extraction process started
+2025-08-19 08:35:06 | src.load_doc         | INFO     | 📂 Processing paths: ['test/case3/']
+2025-08-19 08:35:06 | src.load_doc         | INFO     | 📂 Processing paths: ['test/case3/']
+2025-08-19 08:35:30 | src.load_doc         | INFO     | 📄 Loaded 162 documents
+2025-08-19 08:35:30 | src.load_doc         | INFO     | 📄 Loaded 162 documents
+2025-08-19 08:35:30 | src.load_doc         | INFO     | 📊 Found papers: ['IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS', 'IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION', 'Music, memory and emotion', 'Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings', 'MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation']
+2025-08-19 08:35:30 | src.load_doc         | INFO     | 📊 Found papers: ['IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS', 'IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION', 'Music, memory and emotion', 'Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings', 'MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation']
+2025-08-19 08:35:30 | src.load_doc         | INFO     | 🔧 Starting vectorstore creation
+2025-08-19 08:35:30 | src.load_doc         | INFO     | 🔧 Starting vectorstore creation
+2025-08-19 08:35:31 | sentence_transformers.SentenceTransformer | INFO     | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-19 08:35:31 | sentence_transformers.SentenceTransformer | INFO     | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-19 08:35:34 | src.load_doc         | INFO     | ✅ Embedder initialized with model: all-MiniLM-L6-v2
+2025-08-19 08:35:34 | src.load_doc         | INFO     | ✅ Embedder initialized with model: all-MiniLM-L6-v2
+2025-08-19 08:35:34 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS
+2025-08-19 08:35:34 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS
+2025-08-19 08:35:35 | faiss.loader         | INFO     | Loading faiss.
+2025-08-19 08:35:35 | faiss.loader         | INFO     | Loading faiss.
+2025-08-19 08:35:35 | faiss.loader         | INFO     | Successfully loaded faiss.
+2025-08-19 08:35:35 | faiss.loader         | INFO     | Successfully loaded faiss.
+2025-08-19 08:35:35 | faiss                | INFO     | Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-19 08:35:35 | faiss                | INFO     | Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 💾 Vectorstore for 'IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS' saved to cache/20250819_083506/IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS/vectorstore/
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 💾 Vectorstore for 'IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS' saved to cache/20250819_083506/IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS/vectorstore/
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 💾 Vectorstore for 'IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION' saved to cache/20250819_083506/IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION/vectorstore/
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 💾 Vectorstore for 'IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION' saved to cache/20250819_083506/IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION/vectorstore/
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: Music, memory and emotion
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: Music, memory and emotion
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 💾 Vectorstore for 'Music, memory and emotion' saved to cache/20250819_083506/Music, memory and emotion/vectorstore/
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 💾 Vectorstore for 'Music, memory and emotion' saved to cache/20250819_083506/Music, memory and emotion/vectorstore/
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 💾 Vectorstore for 'Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings' saved to cache/20250819_083506/Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings/vectorstore/
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 💾 Vectorstore for 'Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings' saved to cache/20250819_083506/Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings/vectorstore/
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation
+2025-08-19 08:35:35 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation
+2025-08-19 08:35:36 | src.load_doc         | INFO     | 💾 Vectorstore for 'MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation' saved to cache/20250819_083506/MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation/vectorstore/
+2025-08-19 08:35:36 | src.load_doc         | INFO     | 💾 Vectorstore for 'MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation' saved to cache/20250819_083506/MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation/vectorstore/
+2025-08-19 08:35:36 | src.load_doc         | INFO     | ✅ All vectorstores created successfully (5 papers)
+2025-08-19 08:35:36 | src.load_doc         | INFO     | ✅ All vectorstores created successfully (5 papers)
+2025-08-19 08:35:36 | src.load_doc         | INFO     | ✅ Document extraction completed successfully
+2025-08-19 08:35:36 | src.load_doc         | INFO     | ✅ Document extraction completed successfully
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract] 실행 완료: 29.65초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract] 실행 완료: 29.65초
+2025-08-19 08:35:36 | src.graph            | INFO     | 🚀 5개 논문에 대한 병렬 요약 작업 시작...
+2025-08-19 08:35:36 | src.graph            | INFO     | 🚀 5개 논문에 대한 병렬 요약 작업 시작...
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS' → Summary Subgraph로 전송 (섹션 15개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS' → Summary Subgraph로 전송 (섹션 15개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION' → Summary Subgraph로 전송 (섹션 11개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION' → Summary Subgraph로 전송 (섹션 11개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'Music, memory and emotion' → Summary Subgraph로 전송 (섹션 2개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'Music, memory and emotion' → Summary Subgraph로 전송 (섹션 2개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings' → Summary Subgraph로 전송 (섹션 18개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings' → Summary Subgraph로 전송 (섹션 18개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation' → Summary Subgraph로 전송 (섹션 14개)
+2025-08-19 08:35:36 | src.graph            | INFO     |   📤 'MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation' → Summary Subgraph로 전송 (섹션 14개)
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.28초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.28초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.52초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.52초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.74초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.74초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.78초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.78초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.85초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.85초
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:36 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:35:36
+2025-08-19 08:35:50 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 14.11초
+2025-08-19 08:35:50 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 14.11초
+2025-08-19 08:35:50 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 7584개 (입력: 3906, 출력: 3678)
+2025-08-19 08:35:50 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 7584개 (입력: 3906, 출력: 3678)
+2025-08-19 08:35:50 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:35:50
+2025-08-19 08:35:50 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:35:50
+2025-08-19 08:36:05 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 15.26초
+2025-08-19 08:36:05 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 15.26초
+2025-08-19 08:36:05 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 1769개 (입력: 886, 출력: 883)
+2025-08-19 08:36:05 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 1769개 (입력: 886, 출력: 883)
+2025-08-19 08:36:43 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 67.17초
+2025-08-19 08:36:43 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 67.17초
+2025-08-19 08:36:43 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 19254개 (입력: 6735, 출력: 12519)
+2025-08-19 08:36:43 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 19254개 (입력: 6735, 출력: 12519)
+2025-08-19 08:36:43 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:36:43
+2025-08-19 08:36:43 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:36:43
+2025-08-19 08:36:57 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 80.86초
+2025-08-19 08:36:57 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 80.86초
+2025-08-19 08:36:57 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 26213개 (입력: 9736, 출력: 16477)
+2025-08-19 08:36:57 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 26213개 (입력: 9736, 출력: 16477)
+2025-08-19 08:36:57 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:36:57
+2025-08-19 08:36:57 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:36:57
+2025-08-19 08:37:00 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 17.15초
+2025-08-19 08:37:00 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 17.15초
+2025-08-19 08:37:00 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 2962개 (입력: 2221, 출력: 741)
+2025-08-19 08:37:00 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 2962개 (입력: 2221, 출력: 741)
+2025-08-19 08:37:14 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 17.25초
+2025-08-19 08:37:14 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 17.25초
+2025-08-19 08:37:14 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 3951개 (입력: 2985, 출력: 966)
+2025-08-19 08:37:14 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 3951개 (입력: 2985, 출력: 966)
+2025-08-19 08:37:38 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 121.81초
+2025-08-19 08:37:38 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 121.81초
+2025-08-19 08:37:38 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 37503개 (입력: 15104, 출력: 22399)
+2025-08-19 08:37:38 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 37503개 (입력: 15104, 출력: 22399)
+2025-08-19 08:37:38 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:37:38
+2025-08-19 08:37:38 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:37:38
+2025-08-19 08:38:08 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 29.47초
+2025-08-19 08:38:08 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 29.47초
+2025-08-19 08:38:08 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 5469개 (입력: 4354, 출력: 1115)
+2025-08-19 08:38:08 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 5469개 (입력: 4354, 출력: 1115)
+2025-08-19 08:40:11 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 274.59초
+2025-08-19 08:40:11 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 274.59초
+2025-08-19 08:40:11 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 112431개 (입력: 54864, 출력: 57567)
+2025-08-19 08:40:11 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 112431개 (입력: 54864, 출력: 57567)
+2025-08-19 08:40:11 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:40:11
+2025-08-19 08:40:11 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:40:11
+2025-08-19 08:40:33 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 22.45초
+2025-08-19 08:40:33 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 22.45초
+2025-08-19 08:40:33 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 12406개 (입력: 11349, 출력: 1057)
+2025-08-19 08:40:33 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 12406개 (입력: 11349, 출력: 1057)
+2025-08-19 08:40:33 | src.tracking         | INFO     | 🏁 [domain_agent] 실행 시작: 08:40:33
+2025-08-19 08:40:33 | src.tracking         | INFO     | 🏁 [domain_agent] 실행 시작: 08:40:33
+2025-08-19 08:40:33 | agents.domain_agent  | INFO     | 🔍 도메인 분석 시작... 분석 대상: 5개 논문
+2025-08-19 08:40:33 | agents.domain_agent  | INFO     | 🔍 도메인 분석 시작... 분석 대상: 5개 논문
+2025-08-19 08:40:33 | agents.domain_agent  | INFO     | 📄 분석 논문: ['IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS', 'IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION', 'Music, memory and emotion', 'Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings', 'MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation']
+2025-08-19 08:40:33 | agents.domain_agent  | INFO     | 📄 분석 논문: ['IteraTTA: AN INTERFACE FOR EXPLORING BOTH TEXT PROMPTS AND AUDIO PRIORS IN GENERATING MUSIC WITH TEXT-TO-AUDIO MODELS', 'IN-CONTEXT PROMPT EDITING FOR CONDITIONAL AUDIO GENERATION', 'Music, memory and emotion', 'Alarm Tones, Voice Warnings, and Musical Treatments: A Systematic Review of Auditory Countermeasures for Sleep Inertia in Abrupt and Casual Awakenings', 'MusicEval: A Generative Music Dataset with Expert Ratings for Automatic Text-to-Music Evaluation']
+2025-08-19 08:40:33 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:33 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:39 | agents.domain_agent  | INFO     |    ✅ IteraTTA: AN INTERFACE FOR EXP... 분야: {'main_field': ['Computer Science', 'Music'], 'sub_field': ['Human-Computer Interaction', 'Music Information Retrieval', 'Audio Signal Processing', 'Generative AI', 'Natural Language Processing']}
+2025-08-19 08:40:39 | agents.domain_agent  | INFO     |    ✅ IteraTTA: AN INTERFACE FOR EXP... 분야: {'main_field': ['Computer Science', 'Music'], 'sub_field': ['Human-Computer Interaction', 'Music Information Retrieval', 'Audio Signal Processing', 'Generative AI', 'Natural Language Processing']}
+2025-08-19 08:40:39 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:39 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:45 | agents.domain_agent  | INFO     |    ✅ IN-CONTEXT PROMPT EDITING FOR ... 분야: {'main_field': ['Computer Science'], 'sub_field': ['Artificial Intelligence', 'Natural Language Processing', 'Audio Signal Processing', 'Speech Processing', 'Multimodal AI', 'Information Retrieval', 'Prompt Engineering']}
+2025-08-19 08:40:45 | agents.domain_agent  | INFO     |    ✅ IN-CONTEXT PROMPT EDITING FOR ... 분야: {'main_field': ['Computer Science'], 'sub_field': ['Artificial Intelligence', 'Natural Language Processing', 'Audio Signal Processing', 'Speech Processing', 'Multimodal AI', 'Information Retrieval', 'Prompt Engineering']}
+2025-08-19 08:40:45 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:45 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:50 | agents.domain_agent  | INFO     |    ✅ Music, memory and emotion 분야: {'main_field': ['Psychology'], 'sub_field': ['Music Cognition', 'Cognitive Neuroscience', 'Neuropsychology', 'Affective Neuroscience', 'Neuroimaging']}
+2025-08-19 08:40:50 | agents.domain_agent  | INFO     |    ✅ Music, memory and emotion 분야: {'main_field': ['Psychology'], 'sub_field': ['Music Cognition', 'Cognitive Neuroscience', 'Neuropsychology', 'Affective Neuroscience', 'Neuroimaging']}
+2025-08-19 08:40:50 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:50 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:56 | agents.domain_agent  | INFO     |    ✅ Alarm Tones, Voice Warnings, a... 분야: {'main_field': ['Sleep Science', 'Sleep Medicine'], 'sub_field': ['Auditory countermeasures', 'Alarm design', 'Sleep inertia', 'Cognition and performance', 'Human factors', 'Emergency response']}
+2025-08-19 08:40:56 | agents.domain_agent  | INFO     |    ✅ Alarm Tones, Voice Warnings, a... 분야: {'main_field': ['Sleep Science', 'Sleep Medicine'], 'sub_field': ['Auditory countermeasures', 'Alarm design', 'Sleep inertia', 'Cognition and performance', 'Human factors', 'Emergency response']}
+2025-08-19 08:40:56 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:40:56 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:41:02 | agents.domain_agent  | INFO     |    ✅ MusicEval: A Generative Music ... 분야: {'main_field': ['Music', 'Computer Science'], 'sub_field': ['Music Information Retrieval', 'Machine Learning', 'Generative AI', 'Audio Signal Processing']}
+2025-08-19 08:41:02 | agents.domain_agent  | INFO     |    ✅ MusicEval: A Generative Music ... 분야: {'main_field': ['Music', 'Computer Science'], 'sub_field': ['Music Information Retrieval', 'Machine Learning', 'Generative AI', 'Audio Signal Processing']}
+2025-08-19 08:41:02 | agents.domain_agent  | INFO     | ✅ 도메인 분석 완료!
+2025-08-19 08:41:02 | agents.domain_agent  | INFO     | ✅ 도메인 분석 완료!
+2025-08-19 08:41:02 | src.tracking         | INFO     | 🏁 [domain_agent] 실행 완료: 28.62초
+2025-08-19 08:41:02 | src.tracking         | INFO     | 🏁 [domain_agent] 실행 완료: 28.62초
+2025-08-19 08:41:02 | src.tracking         | INFO     | 🏁 [analysis_planner] 실행 시작: 08:41:02
+2025-08-19 08:41:02 | src.tracking         | INFO     | 🏁 [analysis_planner] 실행 시작: 08:41:02
+2025-08-19 08:41:02 | agents.analysis_plan_router | INFO     | 🎯 분석 계획 생성 중... 논문 수: 5
+2025-08-19 08:41:02 | agents.analysis_plan_router | INFO     | 🎯 분석 계획 생성 중... 논문 수: 5
+2025-08-19 08:41:02 | agents.analysis_plan_router | INFO     | 📚 다중 논문 분석: 5개 논문
+2025-08-19 08:41:02 | agents.analysis_plan_router | INFO     | 📚 다중 논문 분석: 5개 논문
+2025-08-19 08:41:08 | agents.analysis_plan_router | INFO     | ✅ 분석 계획 결정: 문헌 리뷰 (literature_review)
+2025-08-19 08:41:08 | agents.analysis_plan_router | INFO     | ✅ 분석 계획 결정: 문헌 리뷰 (literature_review)
+2025-08-19 08:41:08 | src.tracking         | INFO     | 🏁 [analysis_planner] 실행 완료: 6.24초
+2025-08-19 08:41:08 | src.tracking         | INFO     | 🏁 [analysis_planner] 실행 완료: 6.24초
+2025-08-19 08:41:08 | src.graph            | INFO     | 🧭 분석 플랜 확정: literature_review
+2025-08-19 08:41:08 | src.graph            | INFO     | 🧭 분석 플랜 확정: literature_review
+2025-08-19 08:41:08 | src.tracking         | INFO     | 🏁 [lit_review_agent] 실행 시작: 08:41:08
+2025-08-19 08:41:08 | src.tracking         | INFO     | 🏁 [lit_review_agent] 실행 시작: 08:41:08
+2025-08-19 08:41:08 | agents.analysis_lit_review_agent | INFO     | 📚 Literature Review 시작: 대상 논문 수 5
+2025-08-19 08:41:08 | agents.analysis_lit_review_agent | INFO     | 📚 Literature Review 시작: 대상 논문 수 5
+2025-08-19 08:41:08 | agents.tools.web_search | INFO     | Web Search Tool enabled: DuckDuckGoSearchResults
+2025-08-19 08:41:08 | agents.tools.web_search | INFO     | Web Search Tool enabled: DuckDuckGoSearchResults
+2025-08-19 08:41:08 | agents.analysis_lit_review_agent | INFO     | 🔧 Web Search Tool 활성화
+2025-08-19 08:41:08 | agents.analysis_lit_review_agent | INFO     | 🔧 Web Search Tool 활성화
+2025-08-19 08:41:08 | agents.tools.arxiv   | ERROR    | Failed to initialize ArXiv tool: Could not import arxiv python package. Please install it with `pip install arxiv`.
+2025-08-19 08:41:08 | agents.tools.arxiv   | ERROR    | Failed to initialize ArXiv tool: Could not import arxiv python package. Please install it with `pip install arxiv`.
+2025-08-19 08:41:08 | agents.analysis_lit_review_agent | WARNING  | ⚠️ arXiv Search Tool 비활성화 (환경 또는 의존성 문제)
+2025-08-19 08:41:08 | agents.analysis_lit_review_agent | WARNING  | ⚠️ arXiv Search Tool 비활성화 (환경 또는 의존성 문제)
+2025-08-19 08:41:08 | agents.analysis_lit_review_agent | INFO     | 🔍 ReAct 에이전트 실행 (tool 사용 가능, 문헌 리뷰)...
+2025-08-19 08:41:08 | agents.analysis_lit_review_agent | INFO     | 🔍 ReAct 에이전트 실행 (tool 사용 가능, 문헌 리뷰)...
+2025-08-19 08:41:29 | agents.analysis_lit_review_agent | INFO     | ✅ Literature Review 완료
+2025-08-19 08:41:29 | agents.analysis_lit_review_agent | INFO     | ✅ Literature Review 완료
+2025-08-19 08:41:29 | src.tracking         | INFO     | 🏁 [lit_review_agent] 실행 완료: 20.46초
+2025-08-19 08:41:29 | src.tracking         | INFO     | 🏁 [lit_review_agent] 실행 완료: 20.46초
+2025-08-19 08:41:29 | src.tracking         | INFO     | 🏁 [write_agent] 실행 시작: 08:41:29
+2025-08-19 08:41:29 | src.tracking         | INFO     | 🏁 [write_agent] 실행 시작: 08:41:29
+2025-08-19 08:41:29 | agents.tools.python_repl | INFO     | Python REPL Tool enabled
+2025-08-19 08:41:29 | agents.tools.python_repl | INFO     | Python REPL Tool enabled
+2025-08-19 08:41:29 | agents.write_agent   | INFO     | 🔧 Python REPL Tool 활성화 (CS 도메인)
+2025-08-19 08:41:29 | agents.write_agent   | INFO     | 🔧 Python REPL Tool 활성화 (CS 도메인)
+2025-08-19 08:41:29 | agents.write_agent   | INFO     | 📝 Write agent 실행 (블로그 스타일 생성, Markdown 출력)...
+2025-08-19 08:41:29 | agents.write_agent   | INFO     | 📝 Write agent 실행 (블로그 스타일 생성, Markdown 출력)...
+2025-08-19 08:42:25 | agents.write_agent   | INFO     | ✅ 블로그 포스트 생성 완료
+2025-08-19 08:42:25 | agents.write_agent   | INFO     | ✅ 블로그 포스트 생성 완료
+2025-08-19 08:42:25 | src.tracking         | INFO     | 🏁 [write_agent] 실행 완료: 56.56초
+2025-08-19 08:42:25 | src.tracking         | INFO     | 🏁 [write_agent] 실행 완료: 56.56초
+2025-08-19 08:42:25 | src.tracking         | INFO     | 🎯 전체 워크플로우 완료
+2025-08-19 08:42:25 | src.tracking         | INFO     | 🎯 전체 워크플로우 완료
+2025-08-19 08:42:25 | src.tracking         | INFO     | ⏱️  총 실행 시간: 439.46초
+2025-08-19 08:42:25 | src.tracking         | INFO     | ⏱️  총 실행 시간: 439.46초
+2025-08-19 08:42:25 | src.tracking         | INFO     | 💰 총 토큰 사용: 229542개
+2025-08-19 08:42:25 | src.tracking         | INFO     | 💰 총 토큰 사용: 229542개
+2025-08-19 08:42:25 | src.tracking         | INFO     | 💳 총 예상 비용: $0.0000
+2025-08-19 08:42:25 | src.tracking         | INFO     | 💳 총 예상 비용: $0.0000
+2025-08-19 08:42:25 | main                 | INFO     | 📊 실행 추적 완료 - 에이전트 20개, 총 시간 439.46초
+2025-08-19 08:42:25 | main                 | INFO     | 📊 실행 추적 완료 - 에이전트 20개, 총 시간 439.46초
+2025-08-19 08:42:25 | main                 | INFO     | 💾 저장됨: cache/20250819_083506/report.md
+2025-08-19 08:42:25 | main                 | INFO     | 💾 저장됨: cache/20250819_083506/report.md
+2025-08-19 08:42:25 | main                 | INFO     | 💾 저장됨: cache/20250819_083506/report.md
+2025-08-19 08:42:25 | main                 | INFO     | 💾 저장됨: cache/20250819_083506/report.md
+2025-08-19 08:42:25 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:42:25 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:42:28 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:42:28 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:42:30 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:30 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:34 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:34 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:39 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:39 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:43 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:43 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:46 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:46 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:42:50 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:42:50 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:42:52 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:42:52 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:42:55 | main                 | INFO     | ✅ 평가 완료
+2025-08-19 08:42:55 | main                 | INFO     | ✅ 평가 완료
+2025-08-19 08:42:55 | main                 | INFO     | ✅ Task Paper Processing Completed Successfully
+2025-08-19 08:42:55 | main                 | INFO     | ✅ Task Paper Processing Completed Successfully

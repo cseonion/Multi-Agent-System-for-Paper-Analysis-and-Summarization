@@ -1,0 +1,39 @@
+**Final Summary**
+
+**1. Research Objective and Background**
+
+This systematic review aims to synthesize empirical evidence on the effectiveness of auditory countermeasures—specifically alarm tones, voice warnings, and musical treatments—in mitigating sleep inertia (SI) following abrupt and casual awakenings. Sleep inertia refers to the transient period of impaired alertness and performance immediately after waking, which can have significant safety and functional implications, particularly in emergency situations or occupations requiring rapid response. Despite the ubiquity of auditory alarms in daily life and critical settings, the literature on how different auditory stimuli influence SI is fragmented, with limited consensus on optimal sound characteristics for reducing SI across age groups and contexts.
+
+**2. Key Methodology**
+
+The review adhered to PRISMA guidelines, employing a comprehensive search strategy across ProQuest, PubMed, and Scopus, supplemented by Google Scholar, to identify peer-reviewed, English-language studies published up to March 2020. Inclusion criteria required original research on SI following awakening to auditory stimuli, with no restrictions on participant demographics or stimulus type, but excluding qualitative studies and reviews. Data extraction captured study design, participant characteristics, stimulus details (including decibel levels and type), and SI assessment methods (objective and subjective). Due to heterogeneity and the limited number of studies, a structured narrative synthesis was used, grouping findings into three primary themes: noise, emergency alarms (including tone sequences, voice, and hybrids), and music.
+
+**3. Results and Conclusion**
+
+Twelve studies met the inclusion criteria, spanning laboratory and field settings, with sample sizes ranging from 14 to 188 and publication dates from 1992 to 2020. Emergency-awakening research predominantly involved children, while non-emergency studies focused on adults. Key findings include:
+
+- **Children (Emergency Awakenings):** Low-frequency T-3 alarms (500 Hz) and voice notifications (maternal or actor) were more effective than high-frequency alarms (2000–4000 Hz) in awakening children and supporting post-awakening performance (e.g., memory, reaction time). However, the evidence is insufficient to definitively distinguish between the efficacy of low-frequency alarms and voice signals for SI reduction.
+- **Adults (Emergency Awakenings):** Limited evidence suggests that high-frequency pulse alarms (~60 dB) can awaken adults and reduce SI across sleep stages, but the lack of comparator conditions precludes firm conclusions about optimal alarm characteristics.
+- **Noise:** Pink noise (5000 Hz, 75 dB) may improve performance after early-night awakenings but not later ones, with inconsistent effects possibly related to sleep stage at awakening.
+- **Music (Non-Emergency Awakenings):** In adults, preferred or melodic music as a waking cue reduced SI, improving reaction time and sustained attention, while neutral or purely rhythmic stimuli were less effective. Melodic content, rather than rhythm alone, appears to be the key factor in counteracting SI in ecological (real-world) settings.
+
+Overall, the review highlights the potential of tailored auditory stimuli—especially low-frequency alarms, voice signals, and melodic music—to mitigate SI, though the evidence base remains limited and context-dependent.
+
+**4. Implications and Significance**
+
+The findings have practical implications for the design of alarm systems in both domestic and high-risk occupational settings (e.g., first responders, transport, healthcare), where rapid and effective awakening is critical. For children, especially in emergency contexts, low-frequency alarms or voice notifications may enhance safety by improving awakening and reducing SI. For adults, particularly in non-emergency or habitual waking scenarios, melodic and preferred music may offer a simple, non-invasive strategy to counteract SI and improve morning functioning. The review also underscores the need for more ecologically valid research and standardized reporting of auditory stimulus characteristics to inform evidence-based alarm design and public health recommendations.
+
+**5. Limitations**
+
+The review identifies several key limitations in the current literature and its own synthesis:
+
+- **Heterogeneity:** Substantial variability exists across studies in terms of context (emergency vs. non-emergency), participant demographics, stimulus types, and SI assessment methods, limiting cross-study comparability and generalizability.
+- **Research Gaps:** There is a paucity of studies examining music in emergency contexts and alarm/voice treatments in non-emergency settings, as well as a lack of research on adults in emergency awakenings.
+- **Methodological Constraints:** Many studies lack control conditions, standardized stimuli, or detailed reporting of sound characteristics (e.g., rhythm, pitch, genre), impeding replication and meta-analysis.
+- **Ecological Validity:** Laboratory studies may not accurately reflect real-world waking conditions, while field studies often sacrifice precise sleep-stage monitoring for ecological relevance.
+- **Sample Size and Power:** Many studies are underpowered, particularly for detecting demographic differences or interaction effects among alarm parameters.
+- **Assessment Tools:** Inconsistent use of objective (e.g., PVT) and subjective (e.g., KSS, SIQ) SI measures complicates synthesis and interpretation.
+
+**Conclusion**
+
+This systematic review provides a foundational synthesis of the limited but growing body of research on auditory countermeasures for sleep inertia. While low-frequency alarms and voice signals show promise for children in emergencies, and melodic music benefits adults in non-emergency awakenings, significant gaps and methodological inconsistencies remain. Future research should prioritize ecologically valid, adequately powered studies with standardized and well-described auditory stimuli, robust SI assessment, and broader demographic coverage to inform the design of effective auditory interventions for mitigating sleep inertia across contexts.

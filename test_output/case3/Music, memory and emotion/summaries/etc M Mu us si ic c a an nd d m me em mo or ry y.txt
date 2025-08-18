@@ -1,0 +1,1 @@
+Please provide the raw text of the first section. If you have a summary of any previous sections, include that as well (though it’s not needed for the first section). I will produce a concise paragraph summarizing the section, preserving all key points and numerical details, in the required plain text format (no bullet points).

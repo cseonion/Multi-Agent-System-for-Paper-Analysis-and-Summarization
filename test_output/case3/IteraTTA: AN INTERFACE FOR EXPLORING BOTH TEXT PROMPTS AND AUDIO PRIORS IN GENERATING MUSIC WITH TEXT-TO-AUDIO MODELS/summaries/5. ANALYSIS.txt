@@ -1,0 +1,1 @@
+To assess IteraTTA’s effectiveness for diverse users, we deployed a publicly accessible Japanese web service. Within two days of release, 8,831 users generated 246,423 music audios. In this section, we report insights from usage logs and from responses to a voluntary feedback form linked on the Web service for users to share their opinions.

@@ -1,0 +1,21 @@
+**Final Summary**
+
+**1. Research Objective and Background**
+
+The paper addresses the challenge of distributional shift in conditional audio generation, specifically when text-to-audio models are prompted with user queries that differ significantly from the training prompt distribution. Such shifts can degrade audio quality, as models are less effective when conditioned on under-specified or out-of-domain prompts. The core objective is to improve the quality and relevance of generated audio by editing user prompts in-context, leveraging demonstrative exemplars drawn from the training data to better align user inputs with the model’s learned distribution.
+
+**2. Key Methodology**
+
+The proposed approach formalizes prompt editing as an in-context learning problem. For a given user prompt, the system retrieves a set of similar training prompts (exemplars) using scalable similarity search (K-means clustering with Faiss on SBERT embeddings) and constructs an edited prompt by appending a task instruction and these exemplars to the user query. The edited prompt is then fed to a large language model (LLaMa-70B) to generate a refined prompt, which is subsequently used to condition the audio generation model (AudioLDM). The method is encoder-agnostic, supporting various pretrained text encoders (e.g., RoBERTa, T5, CLAP). To ensure retrieval efficiency, the system employs de-duplication using MinHash and Jaccard similarity to remove near-duplicate exemplars. The effectiveness of prompt editing is quantitatively assessed by measuring the reduction in Kullback-Leibler (KL) divergence between the feature distributions of user and training prompts, and correlating this with improvements in Fréchet Audio Distance (FAD) and human evaluation metrics.
+
+**3. Result and Conclusion**
+
+Experiments conducted on real-world (Open-prompts) and expert-annotated (AudioCAPS) datasets demonstrate that retrieval-based in-context prompt editing consistently outperforms baseline user prompts and pure LLM-based editing. The inclusion of the most similar exemplars as demonstrations yields the highest gains in both automatic (CLAP, FAD) and human evaluation metrics, with the best results achieved when in-domain training prompts are used as exemplars. The study finds a strong linear correlation between KL reduction (prompt alignment) and FAD improvement (audio quality), confirming that better-aligned prompts lead to higher-quality audio outputs. The approach is simple, requires no retraining of the audio generation model, and can be seamlessly integrated into existing text-to-audio pipelines.
+
+**4. Implications and Significance**
+
+This work provides a practical and effective solution to the distributional shift problem in conditional audio generation. By leveraging in-context prompt editing with demonstrative exemplars, the method significantly enhances the quality and relevance of generated audio without the need for additional model training. The encoder-agnostic design and reliance on scalable retrieval make it broadly applicable across different models and datasets. The empirical link established between prompt-domain KL divergence and downstream audio quality offers a valuable diagnostic tool for future research and system development in text-to-audio generation.
+
+**5. Limitations**
+
+While the approach improves audio quality, it introduces computational overhead at inference time due to the need for large-scale similarity search and prompt retrieval, especially as the number of candidate exemplars increases. The efficiency of the retrieval process is influenced by the number of clusters, pool size, and embedding dimensionality, with only modest speed gains from increasing cluster count. Additionally, the method’s effectiveness depends on the availability of high-quality, in-domain training prompts; performance may degrade if the training data is not sufficiently representative of user queries. Despite these limitations, the method’s simplicity and effectiveness make it a valuable contribution to the field.

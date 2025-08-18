@@ -1,0 +1,1 @@
+IteraTTA is introduced as a dedicated interface for the text-to-audio music generation process, designed to meet the earlier design requirements. Implemented as a web-based system, it enables novice users to immediately benefit from the latest text-to-audio models in their creative workflows.
