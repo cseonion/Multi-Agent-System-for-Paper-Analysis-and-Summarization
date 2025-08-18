@@ -9,12 +9,11 @@ from agents.analysis_plan_router import analysis_planner
 from agents.analysis_cross_domain_agent import cross_domain_agent
 from agents.analysis_comparison_agent import comparison_agent
 from agents.analysis_lit_review_agent import lit_review_agent
-# from agents.analysis_ideation_agent import ideation_agent
 from agents.write_agent import write_agent
 from src.state import State, SummaryState
 
 from IPython.display import Image, display
-from langchain_core.runnables.graph import CurveStyle, MermaidDrawMethod, NodeStyles
+from langchain_core.runnables.graph import MermaidDrawMethod
 import logging
 import traceback
 
@@ -46,11 +45,13 @@ class GraphWorkflow:
             paper_title = state.get("paper_title", "")
             section_summaries = state.get("section_summaries", {})
             final_summary = state.get("final_summary", "")
+            sections = state.get("sections", {})
             
             # 부모 State의 병합 대상 key 이름은 'summaries'로 가정합니다.
             return {
                 "section_summaries": {paper_title: section_summaries},
-                "final_summary": {paper_title: final_summary}
+                "final_summary": {paper_title: final_summary},
+                "section_texts": {paper_title: sections},
                 }
         subgraph_flow.add_node("pack_parent_update", _pack_parent_update)
         
@@ -119,6 +120,8 @@ class GraphWorkflow:
                 out["section_summaries"] = result["section_summaries"]
             if "final_summary" in result:
                 out["final_summary"] = result["final_summary"]
+            if "section_texts" in result:
+                out["section_texts"] = result["section_texts"]
             return out
         
         # 병렬 처리 노드 함수 생성

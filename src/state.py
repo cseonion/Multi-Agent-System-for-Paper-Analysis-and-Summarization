@@ -17,6 +17,8 @@ class State(TypedDict):
     """
     section_summaries: Annotated[dict[str, list[str]], operator.or_]  # 병렬 업데이트 지원
     final_summary: Annotated[dict[str, str], operator.or_] # 병렬 업데이트 지원
+    # 섹션 원문 텍스트 저장 (paper_title -> {"N. Name": section_text})
+    section_texts: Annotated[dict[str, dict[str, str]], operator.or_]
     methodology: dict[str, str]  # Key methodology used in the paper
     experiment: dict[str, str]  # experimental details
     results_and_conclusions: dict[str, str] # Results and conclusions of the paper

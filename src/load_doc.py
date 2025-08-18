@@ -4,11 +4,9 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from langchain_core.documents import Document
 from copy import deepcopy
-from datetime import datetime
 from src.tracking import track_agent
 import os
 import logging
-from datetime import datetime
 
 EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
 
