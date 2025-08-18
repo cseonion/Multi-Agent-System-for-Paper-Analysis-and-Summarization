@@ -13,7 +13,7 @@ run.ipynb   # 실행(권장)
 	domain_agent.py
 	summary_agent.py
 	write_agent.py
-	📂[tools] 			# tools for agents
+	📂[tools] 		# tools for agents
 		arxiv.py        # arXiv searching tool
 		python_repl.py  # pythonREPL tool
 		vectorstore.py  # vectorstore retriever tool
@@ -29,12 +29,12 @@ run.ipynb   # 실행(권장)
 	state.py      # state(LangGraph)
 	load_doc.py   # document(pdf) loader
 	tracking.py   # 출력 비용 추적 (fail)
-📂[test]       # papers for test
-	📂[case1]  # for "single-paper analysis"
-	📂[case2]  # for "multi-paper comparison"
-	📂[case3]  # for "literature review synthesis"
-	📂[caseE]  # for "cross-domain paper"
-📂[test_output] # example outputs
+📂[test]       	  
+	📂[case1]     # paper for "single-paper analysis"
+	📂[case2]     # papers for "multi-paper comparison"
+	📂[case3]     # papers for "literature review synthesis"
+	📂[caseE]     # paper for "cross-domain paper"
+📂[test_output] 	# example outputs
 	test_case1.md
 	test_case2.md
 	test_case3.md
