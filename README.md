@@ -1,4 +1,4 @@
-# Automated-Research-Paper-Analysis-and-Summarization
+# Automated Research Paper Analysis and Summarization
 
 ## Repo
 
@@ -8,11 +8,11 @@
    main.py     # 실행
    run.ipynb   # 실행(권장)
    → [agents] → [tools] ─┬─→ arxiv.py        # arXiv 서치 툴
-				|							   ├─→ python_repl.py  # pythonREPL 툴
-        |                ├─→ vectorstore.py  # RAG 툴
-		    |                └─→ web_search.py   # 웹 서치 툴
+			|			 ├─→ python_repl.py  # pythonREPL 툴
+        	|            ├─→ vectorstore.py  # vectorstore retriever 툴
+		    |            └─→ web_search.py   # 웹 서치 툴
 		    |                
-	      ├─→ analysis_comparison_agent.py
+	        ├─→ analysis_comparison_agent.py
 		    ├─→ analysis_cross_domain_agent.py
 		    ├─→ analysis_lit_review_agent.py
 		    ├─→ analysis_plan_router.py
@@ -21,15 +21,15 @@
 		    └─→ write_agent.py
    → [cache]   # 실행 결과 저장
    → [config]
-			  └─→ logging_config.py   # 로깅 config
+			└─→ logging_config.py   # 로깅 config
    → [src]
-			  ├─→ graph.py      # 그래프 정의
-  		  ├─→ load_doc.py   # pdf loader
-	      ├─→ state.py      # 상태 정의
-	      └─→ tracking.py   # 출력 비용 추적 (fail)
+			├─→ graph.py      # 그래프 정의
+  		  	├─→ load_doc.py   # document(pdf) loader
+	      	├─→ state.py      # 상태 정의
+	      	└─→ tracking.py   # 출력 비용 추적 (fail)
    → [test]    # test case 논문들
-			  ├─→ (...)
-			  (...)
+			├─→ (...)
+		  (...)
 ```
 
 ## Topology
@@ -39,11 +39,11 @@
    → (Extract)
       └→ (Documant Parsing) → (Paragraph Chunking) → (Embedding)
    → [Summary Subgraph]
-		  └→ (Summary: section) → (Summary: paper)
+	  └→ (Summary: section) → (Summary: paper)
    → [Domain Identity Agent]
-   → [Review Task Router] ─┬─→ [Comparison Agent]
-                           ├─→ [LitReview Agent]
-                           └─→ [Cross-Domain Agent]
+   → [Analysis Plan Router] ─┬─→ [Comparison Agent]
+                          	 ├─→ [LitReview Agent]
+							 └─→ [Cross-Domain Agent]
    → [Writing Agent]
 ```
 
