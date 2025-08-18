@@ -142,7 +142,8 @@ docker run --rm --init --ulimit core=0 -p 8070:8070 lfoppiano/grobid:0.8.2
 		📁[paper_2]
 			(...)
 		📁(...)
+		eval.json				# evaluation results
 		process.log				# log
 		execution_tracking.json # tracking results
-		(final report).md		# final output of system
+		report.md				# final output of system
 ```
