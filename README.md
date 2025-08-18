@@ -29,7 +29,8 @@
 	      	└─→ tracking.py   # 출력 비용 추적 (fail)
    → [test]    # test case 논문들
 			├─→ (...)
-		  (...)
+		  (...)'
+   → [test_output] # test case 출력물
 ```
 
 ## Topology
@@ -115,7 +116,7 @@
     - GROBID 설치에 대한 세부 정보는 다음을 참고하세요. [링크](https://grobid.readthedocs.io/en/latest/Grobid-docker/)
 - 아래 두 옵션 중 하나를 선택하여 터미널에서 설치 및 구동하여 docker container가 실행되어야 합니다.
 
-### opt1. **Deep Learning and CRF image**
+### ❌ opt1. **Deep Learning and CRF image**
 
 - 딥러닝 모델을 기반으로 가장 강력한 추출 성능을 내는 버전입니다.
 - 설치에 10GB의 공간이 필요합니다.
@@ -130,7 +131,7 @@ docker pull grobid/grobid:0.8.2
 docker run --rm --gpus all --init --ulimit core=0 -p 8070:8070 grobid/grobid:0.8.2
 ```
 
-### opt2. **CRF-only image**
+### ✅ opt2. **CRF-only image**
 
 - CRF 모델을 기반으로 추출을 수행하는 lightweight 버전입니다.
 - 설치에 300MB의 공간이 필요합니다.
