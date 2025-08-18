@@ -1,4 +1,0 @@
-- The Transformer uses the standard encoder–decoder sequence-to-sequence architecture: an encoder maps the input sequence x1,...,xn to a sequence of continuous representations z1,...,zn, and a decoder generates the output sequence y1,...,ym one symbol at a time.
-- The decoding is autoregressive: at each step, the model uses the previously generated outputs as input when predicting the next symbol.
-- Unlike traditional RNNs or CNN-based transducers, the Transformer builds both encoder and decoder from stacked self-attention layers followed by position-wise (point-wise) fully connected feed-forward layers.
-- The overall architecture for both the encoder and decoder is depicted in Figure 1 (left and right halves, respectively).

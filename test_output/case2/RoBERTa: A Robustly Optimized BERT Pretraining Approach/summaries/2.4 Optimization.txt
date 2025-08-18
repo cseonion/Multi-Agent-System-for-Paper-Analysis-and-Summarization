@@ -1,6 +1,0 @@
-Section 2.4. Optimization — Key points
-
-- Optimizer: Adam with β1 = 0.9, β2 = 0.999, ε = 1e-6, and L2 weight decay of 0.01.
-- Learning rate schedule: warmup for the first 10,000 steps to a peak learning rate of 1e-4, followed by linear decay.
-- Regularization and activations: dropout of 0.1 on all layers and attention weights; GELU activation function.
-- Pretraining duration and batch: training runs for S = 1,000,000 updates; minibatches consist of B = 256 sequences with maximum length T = 512 tokens.

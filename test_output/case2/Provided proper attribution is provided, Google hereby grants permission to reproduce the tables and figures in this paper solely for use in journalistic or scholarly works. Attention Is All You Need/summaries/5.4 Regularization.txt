@@ -1,7 +1,0 @@
-Summary of Section 5.4 Regularization:
-- The authors apply three regularization techniques during training: residual dropout, dropout on the sums of embeddings and positional encodings (in both the encoder and decoder stacks), and label smoothing.
-- Residual dropout: dropout is applied to the output of each sub-layer before it is added to the sub-layer input and normalized.
-- Embeddings/positional encoding dropout: dropout is also applied to the sums of token embeddings and positional encodings.
-- Droplet rate: for the base model, the dropout rate is set to P_drop = 0.1.
-- Label smoothing: training uses label smoothing with epsilon_ls = 0.1; this slightly worsens perplexity but improves overall accuracy and BLEU scores.
-- These regularization techniques are applied within the Transformer architecture (both encoder and decoder).

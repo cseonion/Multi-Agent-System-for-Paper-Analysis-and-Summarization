@@ -1,4 +1,0 @@
-Section 2.5 Data — Key points:
-- Data sources: BooksCorpus (Zhu et al., 2015) and English Wikipedia.
-- Data size: 16 GB of uncompressed text in total.
-- Purpose: Used for pretraining BERT.

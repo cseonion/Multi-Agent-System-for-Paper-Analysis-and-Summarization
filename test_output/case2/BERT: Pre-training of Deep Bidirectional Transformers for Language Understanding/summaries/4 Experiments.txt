@@ -1,1 +1,0 @@
-Section 4 summarizes the empirical results of fine-tuning BERT on 11 NLP tasks, presenting the downstream performance after end-to-end fine-tuning.

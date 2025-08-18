@@ -1,3 +1,0 @@
-- Purpose: This section provides a concise overview of the BERT pretraining approach (as described by Devlin et al., 2019) and outlines the training choices that will be examined experimentally in the next section.
-- Content focus: Introduces the BERT pretraining framework to set the stage for the subsequent experimental analysis of various training decisions.
-- Upcoming work: Signals that the following section will experimentally evaluate specific training choices and hyperparameters within the BERT pretraining paradigm.

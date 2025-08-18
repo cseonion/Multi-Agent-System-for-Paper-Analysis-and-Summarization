@@ -1,9 +1,0 @@
-- Section: 5.3. RACE Results
-
-- Task setup: In RACE, each item provides a passage, a question, and four candidate answers. The model must pick the correct option.
-
-- RoBERTa adaptation for RACE: For each of the four candidate answers, concatenate the candidate with the corresponding question and passage to form four sequences. Encode each sequence and use the resulting [CLS] representations, passed through a fully-connected layer, to predict the correct answer.
-
-- Input length constraints: Truncate question–answer pairs longer than 128 tokens. If necessary, also truncate the passage so that the total length does not exceed 512 tokens.
-
-- Results: Table 7 reports the results, with RoBERTa achieving state-of-the-art performance on both the middle-school and high-school RACE test sets.

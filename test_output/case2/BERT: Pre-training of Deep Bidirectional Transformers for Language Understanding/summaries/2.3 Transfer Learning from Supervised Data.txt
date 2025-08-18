@@ -1,6 +1,0 @@
-Summary of Section 2.3: Transfer Learning from Supervised Data
-
-- Core idea: Transferring learned representations from large supervised datasets can yield effective performance on downstream tasks when fine-tuned.
-- NLP examples: Large supervised tasks such as natural language inference (Conneau et al., 2017) and machine translation (McCann et al., 2017) demonstrate this transferability.
-- Computer vision example: In CV, a practical approach is to fine-tune models that were pre-trained on ImageNet (Deng et al., 2009; Yosinski et al., 2014).
-- Practical takeaway: Fine-tuning pre-trained supervised models on target tasks is a robust and widely used recipe for leveraging large labeled datasets to improve downstream performance.

@@ -1,3 +1,0 @@
-- BERT uses the standard Transformer architecture (Vaswani et al., 2017), described here at a high level without detailed review.
-- The model consists of a stack of L Transformer layers.
-- Each Transformer block has A self-attention heads and a hidden dimension of size H.

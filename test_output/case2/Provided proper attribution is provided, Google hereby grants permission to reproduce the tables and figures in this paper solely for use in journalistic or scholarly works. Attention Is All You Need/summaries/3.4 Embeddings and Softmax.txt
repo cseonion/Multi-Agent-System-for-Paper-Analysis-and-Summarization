@@ -1,6 +1,0 @@
-Section 3.4 Summary: Embeddings and Softmax
-
-- Both input and output tokens are mapped to vectors of dimension d_model using learned embeddings.
-- The decoder’s output is transformed by a learned linear projection and then passed through a softmax to obtain predicted next-token probabilities.
-- The model employs weight tying: the same weight matrix is shared among the input embedding, the output embedding, and the pre-softmax linear transformation (as in prior work [30]).
-- In the embedding layers, the shared weights are scaled by sqrt(d_model).

@@ -1,7 +1,0 @@
-- The introduction places Recurrent Neural Networks (RNNs), particularly LSTM and gated recurrent networks, as the state-of-the-art for sequence modeling, including language modeling and machine translation, with ongoing improvements in encoder–decoder architectures.
-
-- A key limitation of recurrent models is their inherently sequential computation along the sequence positions, which restricts parallelization and makes training long sequences memory-intensive.
-
-- Attention mechanisms have become integral for modeling dependencies regardless of distance, though most effective uses combine attention with recurrent networks.
-
-- The authors propose the Transformer, a model that abandons recurrence entirely and relies solely on attention to capture global dependencies between input and output. This design enables much more parallelization and, after limited training (as little as 12 hours on eight P100 GPUs), can achieve state-of-the-art translation quality.

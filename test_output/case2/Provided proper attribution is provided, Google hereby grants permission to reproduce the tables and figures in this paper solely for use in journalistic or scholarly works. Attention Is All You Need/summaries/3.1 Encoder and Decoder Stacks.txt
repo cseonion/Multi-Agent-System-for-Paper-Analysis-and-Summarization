@@ -1,5 +1,0 @@
-Summary of Section 3.1: Encoder and Decoder Stacks
-
-- Encoder: Composed of N = 6 identical layers. Each layer has two sub-layers: (1) a multi-head self-attention mechanism and (2) a positionwise fully connected feed-forward network. Each sub-layer is wrapped with a residual connection and layer normalization, yielding outputs of the form LayerNorm(x + Sublayer(x)). All sub-layers and the embedding layers produce outputs with dimension d_model = 512.
-
-- Decoder: Also composed of N = 6 identical layers. Each decoder layer includes the same two sub-layers as the encoder plus a third sub-layer that performs multi-head attention over the encoder's output (encoder-decoder attention). Like the encoder, each sub-layer uses residual connections followed by layer normalization. The decoder's self-attention sub-layer is masked to prevent attending to future positions, and the output embeddings are offset by one position, ensuring that predictions for position i can only depend on previously generated outputs (positions < i).

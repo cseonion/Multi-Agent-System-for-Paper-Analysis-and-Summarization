@@ -1,1 +1,0 @@
-- This appendix entry notes that Table 8 provides the full development-set results for RoBERTa, presenting two configurations: a LARGE model aligned with BERT LARGE and a BASE model aligned with BERT BASE.

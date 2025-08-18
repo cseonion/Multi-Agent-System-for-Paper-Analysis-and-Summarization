@@ -1,7 +1,0 @@
-Section 4.1 – GLUE: Key points
-
-- GLUE overview: The General Language Understanding Evaluation (GLUE) benchmark is a diverse suite of NLP tasks; detailed dataset descriptions are in Appendix B.1.
-- Fine-tuning setup: Input representations follow Section 3; the final hidden state C corresponding to the [CLS] token is used as the aggregate representation. During fine-tuning, the only trainable parameters are the classification layer weights W ∈ R^{K×H} (K = number of labels). Training uses a standard classification loss on C and W: log(softmax(C W^T)).
-- Training protocol: Batch size is 32; fine-tune for 3 epochs on all GLUE tasks. For each task, the best learning rate is selected from {5e-5, 4e-5, 3e-5, 2e-5} based on the Dev set. For BERT LARGE, finetuning can be unstable on small datasets, so multiple random restarts are performed with the same pre-trained checkpoint but different data shuffles and classifier initializations; the best model on the Dev set is chosen.
-- Results: Reported in Table 1. BERT BASE and BERT LARGE outperform all prior systems on all tasks by 4.5% and 7.0% in average accuracy, respectively. BERT and OpenAI GPT share similar architectures aside from attention masking; on MNLI, BERT achieves 4.6% absolute accuracy improvement. On the official GLUE leaderboard, BERT LARGE scores 80.5 versus 72.8 for OpenAI GPT.
-- Conclusions: BERT LARGE significantly outperforms BERT BASE across tasks, with larger gains on tasks with very little training data. The impact of model size is explored in more detail in Section 5.2.

@@ -1,9 +1,0 @@
-Summary of Section 4.4: SWAG
-
-- Task and data: SWAG (Situations With Adversarial Generations) comprises 113k sentence-pair completion examples to evaluate grounded commonsense inference. The task is to pick the most plausible continuation among four options for a given sentence.
-
-- Input construction and model setup: For fine-tuning, four input sequences are created by concatenating the given sentence (sentence A) with each possible continuation (sentence B). The only task-specific parameter is a vector whose dot product with the [CLS] token representation C produces a score for each choice, and these scores are turned into probabilities via softmax.
-
-- Training details: The model is fine-tuned for 3 epochs with a learning rate of 2e-5 and a batch size of 16.
-
-- Results: BERT LARGE achieves notable gains, outperforming the authors' baseline ESIM+ELMo by +27.1% and OpenAI GPT by +8.3% (as shown in Table 4).

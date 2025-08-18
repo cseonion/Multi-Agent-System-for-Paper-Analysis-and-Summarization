@@ -1,3 +1,0 @@
-- Purpose of the section: To situate the work within the history of pre-training for language representations and to briefly review the most widely-used pre-training approaches.
-
-- Content scope stated: Acknowledges a long-standing line of pre-training methods and promises a concise survey of the prominent approaches in the literature.
