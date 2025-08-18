@@ -47,6 +47,7 @@
 							 └─→ [Cross-Domain Agent]
    → [Writing Agent]
 ```
+![graph workflow](./image/graph.png)
 
 ## Agent descriptions
 
