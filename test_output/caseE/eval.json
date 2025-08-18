@@ -1,0 +1,94 @@
+{
+  "domain_agent": {
+    "target": "domain_agent_judge",
+    "scores": {
+      "factual_consistency": 1.0,
+      "support_coverage": 1.0,
+      "hallucination_detected": 0.0
+    },
+    "details": {
+      "issues": [],
+      "rationale": "The candidate's domain assignment to Biology as the main field and sub-fields including Genomics, Single-cell RNA sequencing, Bioinformatics, Computational Biology, Diffusion-based Imputation, Manifold Learning, Data Denoising, and PCA-UMAP is fully supported by the evidence. The evidence clearly describes a study focused on single-cell RNA sequencing data denoising using diffusion on a PCA-UMAP manifold, which aligns precisely with the candidate's domain labels. There is no overgeneralization or hallucination detected.",
+      "_meta": {
+        "agent": "domain_agent",
+        "evidences_count": 1
+      }
+    }
+  },
+  "analysis_plan_router": {
+    "target": "analysis_plan_router_judge",
+    "scores": {
+      "factual_consistency": 1.0,
+      "support_coverage": 1.0,
+      "hallucination_detected": 0.0
+    },
+    "details": {
+      "issues": [],
+      "rationale": "The candidate plan 'cross_domain' is appropriate given that there is only one paper and the domain similarity is not specified, implying a cross-domain approach is reasonable. The evidence (E1) provides a single paper title without domain similarity information, supporting the choice.",
+      "_meta": {
+        "agent": "analysis_plan_router",
+        "evidences_count": 1
+      }
+    }
+  },
+  "summary_agent(section)": {
+    "target": "summary_agent(section)",
+    "scores": {
+      "avg_score": 0.0
+    },
+    "details": {
+      "per_section": []
+    }
+  },
+  "summary_agent(final)": {
+    "target": "summary_agent(final)",
+    "scores": {
+      "rouge_l": 0.07231772377000592,
+      "bertscore_f1": 0.06039811298251152
+    },
+    "details": {
+      "per_paper": [
+        {
+          "paper": "Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data",
+          "rouge_l": 0.07231772377000592,
+          "bertscore_f1": 0.06039811298251152
+        }
+      ]
+    }
+  },
+  "cross_domain_agent": {
+    "target": "cross_domain_agent_judge",
+    "scores": {
+      "factual_consistency": 1.0,
+      "support_coverage": 1.0,
+      "hallucination_detected": 0.0
+    },
+    "details": {
+      "issues": [],
+      "rationale": "The candidate text accurately reflects the key points from the evidence, including the use of PCA-UMAP manifold for diffusion-based imputation, improved recovery of rare and transitional cell states, benchmarking against MAGIC, and the broad applicability across domains. The cross-domain analogies and methodological transfers are reasonable extensions grounded in the core concepts described in the evidence. Limitations such as UMAP artifacts, parameter sensitivity, and computational complexity are also acknowledged consistently with the evidence. No unsupported claims or hallucinations are present.",
+      "_meta": {
+        "agent": "cross_domain_agent",
+        "evidences_count": 1
+      }
+    }
+  },
+  "write_agent": {
+    "target": "write_agent_judge",
+    "scores": {
+      "factual_consistency": 5.0,
+      "support_coverage": 5.0,
+      "hallucination_detected": 0.0,
+      "has_headings": 0.0,
+      "has_table": 0.0,
+      "readability": 33.00896122239345
+    },
+    "details": {
+      "issues": [],
+      "rationale": "The candidate text accurately reflects the detailed methodology, parameter heuristics, benchmarking protocols, scalability tips, common pitfalls, and cross-domain adaptation templates described in the evidence (E1). The descriptions of PCA-UMAP manifold construction, diffusion operator formulation, parameter ranges (e.g., knn, diffusion time t, UMAP dimensions), and benchmarking datasets align precisely with the evidence. The candidate's inclusion of cross-domain applications and future directions matches the comprehensive interdisciplinary implications and opportunities outlined in E1. No exaggerated claims or unsupported numerical values are present. The candidate's text is consistent with the evidence and does not introduce hallucinated or inaccurate information.",
+      "_meta": {
+        "agent": "write_agent",
+        "evidences_count": 1
+      }
+    }
+  }
+}

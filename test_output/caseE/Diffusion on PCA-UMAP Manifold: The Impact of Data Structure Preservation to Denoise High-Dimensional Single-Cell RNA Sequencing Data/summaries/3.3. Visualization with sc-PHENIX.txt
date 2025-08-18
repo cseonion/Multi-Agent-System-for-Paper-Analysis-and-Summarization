@@ -1,0 +1,1 @@
+Section 3.3 Visualisation with sc-PHENIX demonstrates that sc-PHENIX reduces over-smoothing relative to MAGIC by examining the cell neighborhoods defined by the exponentiated Markov matrix M^t and by visualizing imputed data in terms of gene–gene interactions. The section also notes that the implementation details of sc-PHENIX are organized into subsections.

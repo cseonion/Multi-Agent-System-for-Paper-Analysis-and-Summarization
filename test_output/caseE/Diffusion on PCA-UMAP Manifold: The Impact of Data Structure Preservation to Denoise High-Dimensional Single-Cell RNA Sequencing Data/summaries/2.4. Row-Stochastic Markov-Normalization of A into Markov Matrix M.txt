@@ -1,0 +1,1 @@
+To obtain the Markov transition matrix M, A_sim is row-normalized so that every row sums to one, yielding the probability distribution of transitions from a given cell to all others in the scRNA-seq data. This normalization is performed by dividing each entry in A_sim by the sum of the affinities in its row, i.e., the row sum, as defined in Equation (4).

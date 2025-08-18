@@ -1,0 +1,148 @@
+2025-08-19 08:43:47 | main                 | INFO     | 🚀 Task Paper Processing Started. Cache directory: cache/20250819_084347/
+2025-08-19 08:43:47 | main                 | INFO     | 🚀 Task Paper Processing Started. Cache directory: cache/20250819_084347/
+2025-08-19 08:43:47 | main                 | INFO     | 📋 Process logs are being recorded
+2025-08-19 08:43:47 | main                 | INFO     | 📋 Process logs are being recorded
+2025-08-19 08:43:47 | main                 | INFO     | 📂 Input path: ['test/caseE/']
+2025-08-19 08:43:47 | main                 | INFO     | 📂 Input path: ['test/caseE/']
+2025-08-19 08:43:47 | main                 | INFO     | 📋 Log file: cache/20250819_084347/process.log
+2025-08-19 08:43:47 | main                 | INFO     | 📋 Log file: cache/20250819_084347/process.log
+2025-08-19 08:43:47 | src.tracking         | INFO     | 📊 실행 추적 시스템 초기화: cache/20250819_084347/
+2025-08-19 08:43:47 | src.tracking         | INFO     | 📊 실행 추적 시스템 초기화: cache/20250819_084347/
+2025-08-19 08:43:47 | src.graph            | INFO     | 🔧 Send API 기반 병렬 워크플로우 구성 시작...
+2025-08-19 08:43:47 | src.graph            | INFO     | 🔧 Send API 기반 병렬 워크플로우 구성 시작...
+2025-08-19 08:43:47 | src.graph            | INFO     | ✅ Send API 기반 병렬 워크플로우 구성 완료
+2025-08-19 08:43:47 | src.graph            | INFO     | ✅ Send API 기반 병렬 워크플로우 구성 완료
+2025-08-19 08:43:47 | main                 | INFO     | ⚙️  Starting workflow execution...
+2025-08-19 08:43:47 | main                 | INFO     | ⚙️  Starting workflow execution...
+2025-08-19 08:43:47 | src.tracking         | INFO     | 🏁 [extract] 실행 시작: 08:43:47
+2025-08-19 08:43:47 | src.tracking         | INFO     | 🏁 [extract] 실행 시작: 08:43:47
+2025-08-19 08:43:47 | src.load_doc         | INFO     | 🔄 Document extraction process started
+2025-08-19 08:43:47 | src.load_doc         | INFO     | 🔄 Document extraction process started
+2025-08-19 08:43:47 | src.load_doc         | INFO     | 📂 Processing paths: ['test/caseE/']
+2025-08-19 08:43:47 | src.load_doc         | INFO     | 📂 Processing paths: ['test/caseE/']
+2025-08-19 08:44:07 | src.load_doc         | INFO     | 📄 Loaded 170 documents
+2025-08-19 08:44:07 | src.load_doc         | INFO     | 📄 Loaded 170 documents
+2025-08-19 08:44:07 | src.load_doc         | INFO     | 📊 Found papers: ['Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data']
+2025-08-19 08:44:07 | src.load_doc         | INFO     | 📊 Found papers: ['Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data']
+2025-08-19 08:44:07 | src.load_doc         | INFO     | 🔧 Starting vectorstore creation
+2025-08-19 08:44:07 | src.load_doc         | INFO     | 🔧 Starting vectorstore creation
+2025-08-19 08:44:08 | sentence_transformers.SentenceTransformer | INFO     | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-19 08:44:08 | sentence_transformers.SentenceTransformer | INFO     | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-19 08:44:11 | src.load_doc         | INFO     | ✅ Embedder initialized with model: all-MiniLM-L6-v2
+2025-08-19 08:44:11 | src.load_doc         | INFO     | ✅ Embedder initialized with model: all-MiniLM-L6-v2
+2025-08-19 08:44:12 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data
+2025-08-19 08:44:12 | src.load_doc         | INFO     | 🔄 Creating vectorstore for: Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data
+2025-08-19 08:44:12 | faiss.loader         | INFO     | Loading faiss.
+2025-08-19 08:44:12 | faiss.loader         | INFO     | Loading faiss.
+2025-08-19 08:44:12 | faiss.loader         | INFO     | Successfully loaded faiss.
+2025-08-19 08:44:12 | faiss.loader         | INFO     | Successfully loaded faiss.
+2025-08-19 08:44:12 | faiss                | INFO     | Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-19 08:44:12 | faiss                | INFO     | Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-19 08:44:12 | src.load_doc         | INFO     | 💾 Vectorstore for 'Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data' saved to cache/20250819_084347/Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data/vectorstore/
+2025-08-19 08:44:12 | src.load_doc         | INFO     | 💾 Vectorstore for 'Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data' saved to cache/20250819_084347/Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data/vectorstore/
+2025-08-19 08:44:12 | src.load_doc         | INFO     | ✅ All vectorstores created successfully (1 papers)
+2025-08-19 08:44:12 | src.load_doc         | INFO     | ✅ All vectorstores created successfully (1 papers)
+2025-08-19 08:44:12 | src.load_doc         | INFO     | ✅ Document extraction completed successfully
+2025-08-19 08:44:12 | src.load_doc         | INFO     | ✅ Document extraction completed successfully
+2025-08-19 08:44:12 | src.tracking         | INFO     | 🏁 [extract] 실행 완료: 24.90초
+2025-08-19 08:44:12 | src.tracking         | INFO     | 🏁 [extract] 실행 완료: 24.90초
+2025-08-19 08:44:12 | src.graph            | INFO     | 🚀 1개 논문에 대한 병렬 요약 작업 시작...
+2025-08-19 08:44:12 | src.graph            | INFO     | 🚀 1개 논문에 대한 병렬 요약 작업 시작...
+2025-08-19 08:44:12 | src.graph            | INFO     |   📤 'Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data' → Summary Subgraph로 전송 (섹션 30개)
+2025-08-19 08:44:12 | src.graph            | INFO     |   📤 'Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data' → Summary Subgraph로 전송 (섹션 30개)
+2025-08-19 08:44:12 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:44:12
+2025-08-19 08:44:12 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 시작: 08:44:12
+2025-08-19 08:44:13 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.41초
+2025-08-19 08:44:13 | src.tracking         | INFO     | 🏁 [extract_sections] 실행 완료: 0.41초
+2025-08-19 08:44:13 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:44:13
+2025-08-19 08:44:13 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 시작: 08:44:13
+2025-08-19 08:48:53 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 280.45초
+2025-08-19 08:48:53 | src.tracking         | INFO     | 🏁 [summarize_sections] 실행 완료: 280.45초
+2025-08-19 08:48:53 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 115560개 (입력: 55692, 출력: 59868)
+2025-08-19 08:48:53 | src.tracking         | INFO     | 💰 [summarize_sections] 토큰 사용: 115560개 (입력: 55692, 출력: 59868)
+2025-08-19 08:48:53 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:48:53
+2025-08-19 08:48:53 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 시작: 08:48:53
+2025-08-19 08:49:24 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 31.09초
+2025-08-19 08:49:24 | src.tracking         | INFO     | 🏁 [create_final_summary] 실행 완료: 31.09초
+2025-08-19 08:49:24 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 12635개 (입력: 11446, 출력: 1189)
+2025-08-19 08:49:24 | src.tracking         | INFO     | 💰 [create_final_summary] 토큰 사용: 12635개 (입력: 11446, 출력: 1189)
+2025-08-19 08:49:24 | src.tracking         | INFO     | 🏁 [domain_agent] 실행 시작: 08:49:24
+2025-08-19 08:49:24 | src.tracking         | INFO     | 🏁 [domain_agent] 실행 시작: 08:49:24
+2025-08-19 08:49:24 | agents.domain_agent  | INFO     | 🔍 도메인 분석 시작... 분석 대상: 1개 논문
+2025-08-19 08:49:24 | agents.domain_agent  | INFO     | 🔍 도메인 분석 시작... 분석 대상: 1개 논문
+2025-08-19 08:49:24 | agents.domain_agent  | INFO     | 📄 분석 논문: ['Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data']
+2025-08-19 08:49:24 | agents.domain_agent  | INFO     | 📄 분석 논문: ['Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data']
+2025-08-19 08:49:24 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:49:24 | agents.domain_agent  | INFO     | 📑 도메인 분석 중...
+2025-08-19 08:49:31 | agents.domain_agent  | INFO     |    ✅ Diffusion on PCA-UMAP Manifold... 분야: {'main_field': ['Biology'], 'sub_field': ['Genomics', 'Single-cell RNA sequencing', 'Bioinformatics', 'Computational Biology', 'Diffusion-based Imputation', 'Manifold Learning', 'Data Denoising', 'PCA-UMAP']}
+2025-08-19 08:49:31 | agents.domain_agent  | INFO     |    ✅ Diffusion on PCA-UMAP Manifold... 분야: {'main_field': ['Biology'], 'sub_field': ['Genomics', 'Single-cell RNA sequencing', 'Bioinformatics', 'Computational Biology', 'Diffusion-based Imputation', 'Manifold Learning', 'Data Denoising', 'PCA-UMAP']}
+2025-08-19 08:49:32 | agents.domain_agent  | INFO     | ✅ 도메인 분석 완료!
+2025-08-19 08:49:32 | agents.domain_agent  | INFO     | ✅ 도메인 분석 완료!
+2025-08-19 08:49:32 | src.tracking         | INFO     | 🏁 [domain_agent] 실행 완료: 7.20초
+2025-08-19 08:49:32 | src.tracking         | INFO     | 🏁 [domain_agent] 실행 완료: 7.20초
+2025-08-19 08:49:32 | src.tracking         | INFO     | 🏁 [analysis_planner] 실행 시작: 08:49:32
+2025-08-19 08:49:32 | src.tracking         | INFO     | 🏁 [analysis_planner] 실행 시작: 08:49:32
+2025-08-19 08:49:32 | agents.analysis_plan_router | INFO     | 🎯 분석 계획 생성 중... 논문 수: 1
+2025-08-19 08:49:32 | agents.analysis_plan_router | INFO     | 🎯 분석 계획 생성 중... 논문 수: 1
+2025-08-19 08:49:32 | agents.analysis_plan_router | INFO     | 📖 단일 논문 분석: 'Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data'
+2025-08-19 08:49:32 | agents.analysis_plan_router | INFO     | 📖 단일 논문 분석: 'Diffusion on PCA-UMAP Manifold: The Impact of Data Structure Preservation to Denoise High-Dimensional Single-Cell RNA Sequencing Data'
+2025-08-19 08:49:37 | agents.analysis_plan_router | INFO     | ✅ 분석 계획 결정: 교차 도메인 (cross_domain)
+2025-08-19 08:49:37 | agents.analysis_plan_router | INFO     | ✅ 분석 계획 결정: 교차 도메인 (cross_domain)
+2025-08-19 08:49:37 | src.tracking         | INFO     | 🏁 [analysis_planner] 실행 완료: 5.82초
+2025-08-19 08:49:37 | src.tracking         | INFO     | 🏁 [analysis_planner] 실행 완료: 5.82초
+2025-08-19 08:49:37 | src.graph            | INFO     | 🧭 분석 플랜 확정: cross_domain
+2025-08-19 08:49:37 | src.graph            | INFO     | 🧭 분석 플랜 확정: cross_domain
+2025-08-19 08:49:37 | src.tracking         | INFO     | 🏁 [cross_domain_agent] 실행 시작: 08:49:37
+2025-08-19 08:49:37 | src.tracking         | INFO     | 🏁 [cross_domain_agent] 실행 시작: 08:49:37
+2025-08-19 08:49:37 | agents.analysis_cross_domain_agent | INFO     | 🔄 교차 도메인 분석 시작: 'Diffusion on PCA-UMAP Manifold: The Impact of Data...' (ReAct with tools)
+2025-08-19 08:49:37 | agents.analysis_cross_domain_agent | INFO     | 🔄 교차 도메인 분석 시작: 'Diffusion on PCA-UMAP Manifold: The Impact of Data...' (ReAct with tools)
+2025-08-19 08:49:37 | agents.analysis_cross_domain_agent | INFO     | 📊 분석 대상 도메인 - 주요: ['Biology'], 세부: ['Genomics', 'Single-cell RNA sequencing', 'Bioinformatics', 'Computational Biology', 'Diffusion-based Imputation', 'Manifold Learning', 'Data Denoising', 'PCA-UMAP']
+2025-08-19 08:49:37 | agents.analysis_cross_domain_agent | INFO     | 📊 분석 대상 도메인 - 주요: ['Biology'], 세부: ['Genomics', 'Single-cell RNA sequencing', 'Bioinformatics', 'Computational Biology', 'Diffusion-based Imputation', 'Manifold Learning', 'Data Denoising', 'PCA-UMAP']
+2025-08-19 08:49:37 | agents.tools.web_search | INFO     | Web Search Tool enabled: DuckDuckGoSearchResults
+2025-08-19 08:49:37 | agents.tools.web_search | INFO     | Web Search Tool enabled: DuckDuckGoSearchResults
+2025-08-19 08:49:37 | agents.analysis_cross_domain_agent | INFO     | 🔍 ReAct 에이전트 실행 (tool 사용 가능)...
+2025-08-19 08:49:37 | agents.analysis_cross_domain_agent | INFO     | 🔍 ReAct 에이전트 실행 (tool 사용 가능)...
+2025-08-19 08:49:58 | agents.analysis_cross_domain_agent | INFO     | ✅ 교차 도메인 분석 완료
+2025-08-19 08:49:58 | agents.analysis_cross_domain_agent | INFO     | ✅ 교차 도메인 분석 완료
+2025-08-19 08:49:58 | src.tracking         | INFO     | 🏁 [cross_domain_agent] 실행 완료: 20.52초
+2025-08-19 08:49:58 | src.tracking         | INFO     | 🏁 [cross_domain_agent] 실행 완료: 20.52초
+2025-08-19 08:49:58 | src.tracking         | INFO     | 🏁 [write_agent] 실행 시작: 08:49:58
+2025-08-19 08:49:58 | src.tracking         | INFO     | 🏁 [write_agent] 실행 시작: 08:49:58
+2025-08-19 08:49:58 | agents.write_agent   | INFO     | 🚫 비-CS 도메인: 코드 스니펫/REPL 비활성화
+2025-08-19 08:49:58 | agents.write_agent   | INFO     | 🚫 비-CS 도메인: 코드 스니펫/REPL 비활성화
+2025-08-19 08:49:58 | agents.write_agent   | INFO     | 📝 Write agent 실행 (블로그 스타일 생성, Markdown 출력)...
+2025-08-19 08:49:58 | agents.write_agent   | INFO     | 📝 Write agent 실행 (블로그 스타일 생성, Markdown 출력)...
+2025-08-19 08:51:10 | agents.write_agent   | INFO     | ✅ 블로그 포스트 생성 완료
+2025-08-19 08:51:10 | agents.write_agent   | INFO     | ✅ 블로그 포스트 생성 완료
+2025-08-19 08:51:10 | src.tracking         | INFO     | 🏁 [write_agent] 실행 완료: 71.84초
+2025-08-19 08:51:10 | src.tracking         | INFO     | 🏁 [write_agent] 실행 완료: 71.84초
+2025-08-19 08:51:10 | src.tracking         | INFO     | 💰 [write_agent] 토큰 사용: 5721개 (입력: 2758, 출력: 2963)
+2025-08-19 08:51:10 | src.tracking         | INFO     | 💰 [write_agent] 토큰 사용: 5721개 (입력: 2758, 출력: 2963)
+2025-08-19 08:51:10 | src.tracking         | INFO     | 🎯 전체 워크플로우 완료
+2025-08-19 08:51:10 | src.tracking         | INFO     | 🎯 전체 워크플로우 완료
+2025-08-19 08:51:10 | src.tracking         | INFO     | ⏱️  총 실행 시간: 442.34초
+2025-08-19 08:51:10 | src.tracking         | INFO     | ⏱️  총 실행 시간: 442.34초
+2025-08-19 08:51:10 | src.tracking         | INFO     | 💰 총 토큰 사용: 133916개
+2025-08-19 08:51:10 | src.tracking         | INFO     | 💰 총 토큰 사용: 133916개
+2025-08-19 08:51:10 | src.tracking         | INFO     | 💳 총 예상 비용: $0.0000
+2025-08-19 08:51:10 | src.tracking         | INFO     | 💳 총 예상 비용: $0.0000
+2025-08-19 08:51:10 | main                 | INFO     | 📊 실행 추적 완료 - 에이전트 8개, 총 시간 442.34초
+2025-08-19 08:51:10 | main                 | INFO     | 📊 실행 추적 완료 - 에이전트 8개, 총 시간 442.34초
+2025-08-19 08:51:10 | main                 | INFO     | 💾 저장됨: cache/20250819_084347/report.md
+2025-08-19 08:51:10 | main                 | INFO     | 💾 저장됨: cache/20250819_084347/report.md
+2025-08-19 08:51:10 | main                 | INFO     | 💾 저장됨: cache/20250819_084347/report.md
+2025-08-19 08:51:10 | main                 | INFO     | 💾 저장됨: cache/20250819_084347/report.md
+2025-08-19 08:51:10 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:51:10 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:51:12 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:51:12 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:51:13 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:51:13 | absl                 | INFO     | Using default tokenizer.
+2025-08-19 08:51:19 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:51:19 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:51:21 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:51:21 | config.agent_llm     | INFO     | 🔧 eval_judge LLM 생성: {'model': 'gpt-4.1-mini', 'temperature': 0}
+2025-08-19 08:51:24 | main                 | INFO     | ✅ 평가 완료
+2025-08-19 08:51:24 | main                 | INFO     | ✅ 평가 완료
+2025-08-19 08:51:24 | main                 | INFO     | ✅ Task Paper Processing Completed Successfully
+2025-08-19 08:51:24 | main                 | INFO     | ✅ Task Paper Processing Completed Successfully
