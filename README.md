@@ -38,10 +38,7 @@ run.ipynb   				# run(recommend)
 	📂[case3]     				# papers for "literature review synthesis"
 	📂[caseE]     				# paper for "cross-domain paper"
 📂[test_output] 			# example outputs
-	test_case1.md
-	test_case2.md
-	test_case3.md
-	test_caseE.md
+	(...)
 ```
 
 ## Topology
